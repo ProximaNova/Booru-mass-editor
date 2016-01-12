@@ -1,12 +1,15 @@
 // ==UserScript==
-// @name		Booru quick editor
+// @name		Booru Mass Editor
 // @description	Quickly edit image tags on your booru
 // @version	1
 // @author		usernam
-// @include	http://rule34.xxx/index.php*
 // @include	http://*.booru.org/index.php*
 // @include 	http://gelbooru.com/index.php*
 // @include	http://safebooru.org/index.php*
+// @include	http://rule34.xxx/index.php*
+// @include	http://xbooru.com/index.php*
+// @include	http://pbooru.com/index.php*
+// @include	http://safeponi.com/index.php*
 // @grant 		none 
 // @noframes
 // ==/UserScript==
