@@ -11,7 +11,12 @@
 // @noframes
 // ==/UserScript==
 
-// Replacing/hiding:
+// Enter pressed anywhere = submit forum:
+var insertScript = document.createElement("script");
+insertScript.textContent = "document.body.addEventListener(onkeypress, function(e) { if (e.which == 13) { doument.getElementById('edit_form').submit(); } });";
+document.body.appendChild(insertScript);
+
+// Replacing and hiding:
 document.body.innerHTML =
 document.body.innerHTML
 .replace(/>Next Post</g, "><")
@@ -41,18 +46,11 @@ document.body.innerHTML
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type=\"text\"> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style=\"display: none;\" name=\"next_post\"")
 .replace(/Rating<br>/g, "<br>")
 .replace(/<strong>Statistics.*\n.*Id.*\n.*Posted.*\n.*By\:/g, "<b>By:</b>")
-.replace(/          Source:/g, "          <b>Source:</b>")
-.replace(/          Rating.*\n.*Score.*?<br>/g, "")
+.replace(/          Source:.*\n.*Rating.*\n.*Score.*?<br>/g, "")
 .replace(/          Size\: /g, "          <b>Size:</b> ")
 .replace(/">Report post.</g, "\"><");
 document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
-/*
-For when <input type=submit> is hidden (enter pressed anywhere = submit form):
-var script = document.createElement("script");
-script.textContent = "document.getElementsByTagName('html')[0].addEventListener(onkeypress, function(e) { if (e.which == 13) { doument.getElementById('edit_form').submit(); } });";
-document.body.appendChild(script);
-*/
 
 // Unhiding
 document.getElementById("edit_form").style.display = "block";
