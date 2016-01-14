@@ -12,7 +12,7 @@
 // ==/UserScript==
 
 /*
-Enter pressed anywhere = submit forum:
+// Enter pressed anywhere = submit forum:
 var insertScript = document.createElement("script");
 var textarea = getElementById("tags")
 insertScript.textContent = "\
@@ -71,12 +71,10 @@ document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
 
-
-
 /* Editing buttons:
 document.getElementById("my-tags").innerHTML =
-    "<button type='button' onclick='fnTagToSource()'><tt>filenamez tag &rarr; source</tt></button>" +
-    " or <button type='button' onclick='fnTagToTitle()'><tt>filenamez tag &rarr; title</tt></button>"
+    "<button type='button' onclick='fnTagToSource()'><tt>filename tag &rarr; source</tt></button>" +
+    " or <button type='button' onclick='fnTagToTitle()'><tt>filename tag &rarr; title</tt></button>"
 function fnTagToSource() {
     var textarea = document.getElementById("tags");
     var filename = textarea.value.match(/\w+\.(jp?g|png|gif)/g)
