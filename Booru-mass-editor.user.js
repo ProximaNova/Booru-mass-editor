@@ -11,7 +11,8 @@
 // @noframes
 // ==/UserScript==
 
-// Enter pressed anywhere = submit forum:
+/*
+Enter pressed anywhere = submit forum:
 var insertScript = document.createElement("script");
 var textarea = getElementById("tags")
 insertScript.textContent = "\
@@ -21,6 +22,7 @@ document.textarea.addEventListener(onkeypress, function(e) { \
     } \
 });";
 document.body.appendChild(insertScript);
+*/
 
 // Replacing and hiding:
 document.body.innerHTML =
