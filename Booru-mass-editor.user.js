@@ -49,10 +49,9 @@ document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
 /*
 For when <input type=submit> is hidden (enter pressed anywhere = submit form):
-.replace(/	<html/g, "<html onkeydown='submit()'")
-function submit {
-    document.getElementById('edit_form').submit();
-}
+var script = document.createElement("script");
+script.textContent = "document.getElementsByTagName('html')[0].addEventListener(onkeypress, function(e) { if (e.which == 13) { doument.getElementById('edit_form').submit(); } });";
+document.body.appendChild(script);
 */
 
 // Unhiding
