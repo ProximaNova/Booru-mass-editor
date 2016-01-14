@@ -13,7 +13,13 @@
 
 // Enter pressed anywhere = submit forum:
 var insertScript = document.createElement("script");
-insertScript.textContent = "document.body.addEventListener(onkeypress, function(e) { if (e.which == 13) { doument.getElementById('edit_form').submit(); } });";
+var textarea = getElementById("tags")
+insertScript.textContent = "\
+document.textarea.addEventListener(onkeypress, function(e) { \
+    if (e.which == 13) { \
+        doument.getElementById('edit_form').submit(); \
+    } \
+});";
 document.body.appendChild(insertScript);
 
 // Replacing and hiding:
@@ -52,7 +58,7 @@ document.body.innerHTML
 document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
 
-// Unhiding
+// Unhiding:
 document.getElementById("edit_form").style.display = "block";
 
 // Positioning:
