@@ -7,4 +7,6 @@ Functionality:
 * It doesn't work at all on Gelbooru Beta 0.2.0 or Gelbooru Beta 0.2.5.
 
 ## See also
-* Seedmanc's [Booru Augmentation Project](https://github.com/Seedmanc/Booru-Augmentation-Project)
+Seedmanc's userscripts:
+* [Booru mass uploader](https://github.com/Seedmanc/Booru-mass-uploader)
+* [Booru Augmentation Project](https://github.com/Seedmanc/Booru-Augmentation-Project)
