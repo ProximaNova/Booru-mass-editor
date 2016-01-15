@@ -1,4 +1,4 @@
-# Booru-mass-editor
+# Booru mass editor
 Use this script to quickly edit images at websites runing older versions of Gelbooru.
 
 Functionality:
