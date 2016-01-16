@@ -24,26 +24,29 @@ document.textarea.addEventListener(onkeypress, function(e) { \
 document.body.appendChild(insertScript);
 */
 
+var ID1 = window.location.href.replace(/^.*&id=/g, "");
+var ID = ID1.replace(/#$/g, "");
+
 // Replacing and hiding:
 document.body.innerHTML =
 document.body.innerHTML
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
-.replace(/>Report post\.</g, "><")
+.replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
-.replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:3px;'></div><input ")
+.replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/>Next Post</g, "><")
-.replace(/>Previous Post</g, "><")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/>Tag History</g, "><")
+.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID+ "', 'down')\">-</a>")
 .replace(/>Note history</g, "><")
 .replace(/>Add note</g, "><")
 .replace(/ \| /g, "")
 .replace(/>Next</g, "><")
 .replace(/>Previous</g, "><")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='margin-right: 70px; position:relative; top:-3px;'")
+.replace(/Previous Post<br>/g, "<br>")
+.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='margin-right: 70px; position:relative; top:-7px;'")
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g, "")
 .replace(/>Remove<\/a>/g, ">Remove</a> &bull; ")
-.replace(/>Keep</g, ">Favorite<br><")
+.replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
 .replace(/>Edit</g, "><")
 .replace(/<input name="submit" value="Save changes" type="submit">/g, "<input style='position:relative;top:-80px;' name='submit' value='Save changes' type='submit'>")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
@@ -56,7 +59,6 @@ document.body.innerHTML
 .replace(/Rating<br>/g, "<br>")
 .replace(/          Id.*\n/g, "")
 .replace(/          Rating.*\n/g, "")
-.replace(/          Score\: \d+/g, "")
 .replace(/My Tags<br>/g, "<br>")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
 .replace(/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g, "")
