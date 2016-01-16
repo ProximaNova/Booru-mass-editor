@@ -24,8 +24,7 @@ document.textarea.addEventListener(onkeypress, function(e) { \
 document.body.appendChild(insertScript);
 */
 
-var ID1 = window.location.href.replace(/^.*&id=/g, "");
-var ID = ID1.replace(/#$/g, "");
+var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 
 // Replacing and hiding:
 document.body.innerHTML =
