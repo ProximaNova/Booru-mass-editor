@@ -42,7 +42,7 @@ document.body.innerHTML
 .replace(/>Next</g, "><")
 .replace(/>Previous</g, "><")
 .replace(/Previous Post<br>/g, "<br>")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="width:800px; margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='margin-right: 70px; position:relative; top:-7px;'")
+.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='width:800px; margin-right: 70px; position:relative; top:-7px;'")
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g, "")
 .replace(/>Remove<\/a>/g, ">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
