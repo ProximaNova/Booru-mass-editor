@@ -1,5 +1,5 @@
 # Booru mass editor
-Use this script to quickly edit individual images at websites runing older versions of Gelbooru. This script imporves the interface at `index.php?page=post&s=view&id=#`.
+Use this script to quickly edit individual images at websites runing older versions of Gelbooru. It imporves the interface at `index.php?page=post&s=view&id=#`.
 
 Functionality:
 * It works the best on Gelbooru Beta 0.1.11: what most hostnames (*.example.com) on booru.org use.
