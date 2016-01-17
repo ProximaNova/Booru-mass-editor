@@ -25,6 +25,7 @@ document.body.appendChild(insertScript);
 */
 
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
+// var usernameStr = toString(document.getElementById("tag_list").innerHTML).substring(str.lastIndexOf("          By: ")+1,str.lastIndexOf(" <br />\n          Size: "));
 
 // Replacing and hiding:
 document.body.innerHTML =
@@ -61,6 +62,7 @@ document.body.innerHTML
 .replace(/My Tags<br>/g, "<br>")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
 .replace(/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g, "")
+// document.getElementById("my-tags").replace(/\+/g, " ");
 document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
 
