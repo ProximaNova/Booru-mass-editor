@@ -50,7 +50,7 @@ document.body.innerHTML
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='max-width:800px; margin-right: 70px; position:relative; top:-7px;'")
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g, "")
-.replace(/>Remove<\/a>/g, ">Remove</a> &bull; ")
+.replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
 .replace(/>Edit</g, "><")
 .replace(/<input name="submit" value="Save changes" type="submit">/g, "<input style='position:relative;top:-80px;' name='submit' value='Save changes' type='submit'>")
