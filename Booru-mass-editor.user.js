@@ -25,8 +25,8 @@ document.body.appendChild(insertScript);
 */
 
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
-var tagListStr = toString(document.getElementById("tag_list").innerHTML);
-var usernameStr = tagListStr.substring(tagListStr.lastIndexOf("          By: ")+1,tagListStr.lastIndexOf(" <br />\n          Size: "));
+var usernameRegex = /By.*usernam <br.*\n.*Size/g
+var usernameStr = document.getElementById("tag_list").innerHTML.match(usernameRegex).replace();
 var badMyTagsStr = toString(document.getElementById("my-tags").innerHTML)
 // var badMyTagsSpecificStr = badMyTagsStr.substring(badMyTagsStr.lastIndexOf("")+1,badMyTagsStr.lastIndexOf(""));
 var imageStr = document.getElementById("image").src;
