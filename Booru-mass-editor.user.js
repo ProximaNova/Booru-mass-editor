@@ -24,19 +24,21 @@ document.textarea.addEventListener(onkeypress, function(e) { \
 document.body.appendChild(insertScript);
 */
 
-function RegDel(a, b) {
-    document.body.innerHTML = document.body.innerHTML
-    .replace(a, "")
-    .replace(b, "")
-}
-myFunction(/herp/g, /derp/g);
-
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var usernameRegex = /By\: usernam <br.*\n.*Size/g
 var usernameStr = document.getElementById("tag_list").innerHTML.match(usernameRegex).replace(/By\: /g, "").replace(/ <br.*\n.*/g, "");
 var badMyTagsStr = toString(document.getElementById("my-tags").innerHTML)
 // var badMyTagsSpecificStr = badMyTagsStr.substring(badMyTagsStr.lastIndexOf("")+1,badMyTagsStr.lastIndexOf(""));
 var imageExt = document.getElementById("image").src.replace(/^.*\./g, "").toUpperCase();
+
+// Delete text function (could be better):
+function RegDel(a, b) {
+    document.body.innerHTML = document.body.innerHTML
+    .replace(a, "")
+    .replace(b, "")
+}
+// Deleting text:
+myFunction(/herp/g, /derp/g);
 
 // Replacing and hiding:
 document.body.innerHTML =
