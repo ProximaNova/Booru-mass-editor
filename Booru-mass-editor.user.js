@@ -25,12 +25,11 @@ document.body.appendChild(insertScript);
 */
 
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
-var usernameRegex = /By.*usernam <br.*\n.*Size/g
-var usernameStr = document.getElementById("tag_list").innerHTML.match(usernameRegex).replace();
+var usernameRegex = /By\: usernam <br.*\n.*Size/g
+var usernameStr = document.getElementById("tag_list").innerHTML.match(usernameRegex).replarepl/
 var badMyTagsStr = toString(document.getElementById("my-tags").innerHTML)
 // var badMyTagsSpecificStr = badMyTagsStr.substring(badMyTagsStr.lastIndexOf("")+1,badMyTagsStr.lastIndexOf(""));
-var imageStr = document.getElementById("image").src;
-var imageStrExt = imageStr.replace(/^.*\./g, "").toUpperCase();
+var imageExt = document.getElementById("image").src.replace(/^.*\./g, "").toUpperCase();
 
 // Replacing and hiding:
 document.body.innerHTML =
@@ -62,7 +61,7 @@ document.body.innerHTML
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
 .replace(/Rating<br>/g, "<br>")
-.replace(/          Id.*<br>/g, "File format: " + imageStrExt + "<br>")
+.replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/          Rating.*\n/g, "")
 .replace(/My Tags<br>/g, "<br>")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
