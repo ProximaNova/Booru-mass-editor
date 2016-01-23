@@ -43,18 +43,17 @@ function RegDel(a,b,c,d,e,f,g,h,i) {
     .replace(g, "")
     .replace(h, "")
     .replace(i, "")
-
 }
 // Deleting text:
 myFunction(
-/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g,
-/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g,
-/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g,
-/Source<br>/g,
-/Title<br>/g,
-/Parent<br>/g,
-/ \| /g,
-/<b>Score<\/b>.*Report post.<\/a>/g,
+/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g
+/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g
+/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g
+/Source<br>/g
+/Title<br>/g
+/Parent<br>/g
+/ \| /g
+/<b>Score<\/b>.*Report post.<\/a>/g
 /<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g
 );
 
@@ -84,7 +83,7 @@ document.body.innerHTML
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/          Rating.*\n/g, "") // Use to display something else
 .replace(/My Tags<br>/g, "<br>")
-document.getElementById("my-tags").innerHTML = document.getElementById("my-tags").innerHTML.replace(/\+/g, " ");
+// document.getElementById("my-tags").innerHTML = document.getElementById("my-tags").innerHTML.replace(/\+/g, " ");
 document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
 
