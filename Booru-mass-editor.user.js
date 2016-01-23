@@ -27,7 +27,7 @@ document.body.appendChild(insertScript);
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var usernameRegex = /By\: usernam <br.*\n.*Size/g
 var usernameStr = document.getElementById("tag_list").innerHTML.match(usernameRegex).replace(/By\: /g, "").replace(/ <br.*\n.*/g, "");
-var badMyTagsStr = toString(document.getElementById("my-tags").innerHTML)
+// var badMyTagsStr = toString(document.getElementById("my-tags").innerHTML)
 // var badMyTagsSpecificStr = badMyTagsStr.substring(badMyTagsStr.lastIndexOf("")+1,badMyTagsStr.lastIndexOf(""));
 var imageExt = document.getElementById("image").src.replace(/^.*\./g, "").toUpperCase();
 
@@ -44,16 +44,15 @@ function RegDel(a,b,c,d,e,f,g,h,i) {
     .replace(h, "")
     .replace(i, "")
 }
-// Deleting text:
-myFunction(
-/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g
-/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g
-/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g
-/Source<br>/g
-/Title<br>/g
-/Parent<br>/g
-/ \| /g
-/<b>Score<\/b>.*Report post.<\/a>/g
+RegDel(
+/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g,
+/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g,
+/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g,
+/Source<br>/g,
+/Title<br>/g,
+/Parent<br>/g,
+/ \| /g,
+/<b>Score<\/b>.*Report post.<\/a>/g,
 /<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g
 );
 
