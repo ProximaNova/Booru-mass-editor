@@ -24,6 +24,13 @@ document.textarea.addEventListener(onkeypress, function(e) { \
 document.body.appendChild(insertScript);
 */
 
+function RegDel(a, b) {
+    document.body.innerHTML = document.body.innerHTML
+    .replace(a, "")
+    .replace(b, "")
+}
+myFunction(/herp/g, /derp/g);
+
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var usernameRegex = /By\: usernam <br.*\n.*Size/g
 var usernameStr = document.getElementById("tag_list").innerHTML.match(usernameRegex).replace(/By\: /g, "").replace(/ <br.*\n.*/g, "");
