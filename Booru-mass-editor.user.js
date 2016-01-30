@@ -110,7 +110,7 @@ document.getElementById("tags").addEventListener("keydown", function(e) {
     }
 });
 
-// Editing buttons:
+// Move filename from tag to source:
 document.getElementById("my-tags").innerHTML =
     "<button type='button' onclick='fnTagToSource()'><tt>filename tag &rarr; source</tt></button>" +
     " or <button type='button' onclick='fnTagToTitle()'><tt>filename tag &rarr; title</tt></button>"
