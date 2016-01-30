@@ -17,6 +17,26 @@ var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, 
 var imageStr = document.getElementById("image").src;
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
+var myTags = document.getElementById("my-tags").innerHTML;
+// Fixing "My Tags":
+if (myTags.match(/+/g)) {
+    var tagsRegex = /&amp;tags=.*?"/g;
+    var tagsStr   = myTags.match(tagsRegex).replace(/&amp;tags=/g, "").replace(/"$/g, "");
+    var tagsArray = tagsStr.split("+");
+    for (i = 0; i < tagsArray.length; i++) {
+        myTags = "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
+                 tagsArray[i] +
+                 "text\" id=\"t_" + 
+                 tagsArray[i] +
+                 "\" onclick=\"javascript:toggleTags('" +
+                 tagsArray[i] +
+                 "','tags','t_" +
+                 tagsArray[i] +
+                 "');return false;\">" +
+                 tagsArray[i] +
+                 "</a> "
+    }
+}
 
 /*
 Removing:
@@ -63,7 +83,6 @@ Replacing:
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 
 // Hiding:
-document.getElementById("my-tags").innerHTML = document.getElementById("my-tags").innerHTML.replace(/\+/g, " ");
 document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
 
