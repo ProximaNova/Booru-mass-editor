@@ -19,24 +19,25 @@ var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 
 // Fixing "My Tags":
-var myTagsDiv = document.getElementById("my-tags").innerHTML
-var myTagsStr = myTagsDiv.substring(myTagsDiv.lastIndexOf("<a href=\"index.php?page=post&amp;s=list&amp;tags=") + 49, myTagsDiv.IndexOf("\" id=\"t_"));
-//if (myTagsStr.match(/\+/g)) {
-//    var tagsArray = myTagsStr.split("+");
-//    for (i = 0; i < tagsArray.length; i++) {
-//        myTagsDiv = "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-//                    tagsArray[i] +
-//                    "text\" id=\"t_" + 
-//                    tagsArray[i] +
-//                    "\" onclick=\"javascript:toggleTags('" +
-//                    tagsArray[i] +
-//                    "','tags','t_" +
-//                    tagsArray[i] +
-//                    "');return false;\">" +
-//                    tagsArray[i] +
-//                    "</a>"
-//    }
-//}
+var myTagsStr = document.getElementById("my-tags").textContent;
+if (myTagsStr.match(/\+/g)) {
+    var tagsArray = myTagsStr.split("+");
+    var myTagsDiv = "";
+    for (i = 0; i < tagsArray.length; i++) {
+        myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
+                    tagsArray[i] +
+                    "text\" id=\"t_" + 
+                    tagsArray[i] +
+                    "\" onclick=\"javascript:toggleTags('" +
+                    tagsArray[i] +
+                    "','tags','t_" +
+                    tagsArray[i] +
+                    "');return false;\">" +
+                    tagsArray[i] +
+                    "</a> "
+    }
+    document.getElementById("my-tags").innerHTML = myTagsDiv;
+}
 
 /*
 Removing:
