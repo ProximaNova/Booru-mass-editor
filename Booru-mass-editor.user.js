@@ -112,18 +112,16 @@ document.getElementById("tags").addEventListener("keydown", function(e) {
 // Move filename from tag to source:
 document.getElementById("my-tags").innerHTML =
     "<button type='button' onclick='fnTagToSource()'><tt>filename tag &rarr; source</tt></button>" +
-    " or <button type='button' onclick='fnTagToTitle()'><tt>filename tag &rarr; title</tt></button>"
+    " or <button type='button' onclick='fnTagToTitle()'><tt>filename tag &rarr; title</tt></button>";
+var textarea = document.getElementById("tags");
+var filename = textarea.value.match(/\w+\.(jp?g|png|gif)/g);
 function fnTagToSource() {
-    var textarea = document.getElementById("tags");
-    var filename = textarea.value.match(/\w+\.(jp?g|png|gif)/g)
-    textarea.value = textarea.value.replace(filename, "").replace("bad_tag", "")
-    document.getElementById("source").value = filename
+    textarea.value = textarea.value.replace(/ \w+\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ")
+    document.getElementById("source").value = filename;
 }
 function fnTagToTitle() {
-    var textarea = document.getElementById("tags");
-    var filename = textarea.value.match(/\w+\.(jp?g|png|gif)/g)
-    textarea.value = textarea.value.replace(filename, "").replace("bad_tag", "")
-    document.getElementById("title").value = filename
+    textarea.value = textarea.value.replace(/ \w+\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ")
+    document.getElementById("title").value = filename;
 }
 */
 
