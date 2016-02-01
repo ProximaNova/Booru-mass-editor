@@ -80,7 +80,7 @@ Replacing:
 .replace(/Rating<br>/g, "<br>")
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, "<br>\n          By: ")
-.replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "usernam'>" + usernameStr + "</a><br>")
+.replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + ">" + usernameStr + "</a><br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 
 // Hiding:
