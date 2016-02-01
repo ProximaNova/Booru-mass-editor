@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		Booru Mass Editor
 // @description	Quickly edit images on older versions of Gelbooru
-// @version	1
+// @version	3
 // @author		usernam
 // @include     http://*.booru.org/index.php?page=post&s=view&id=*
 // @include     http://safebooru.org/index.php?page=post&s=view&id=*
@@ -126,11 +126,12 @@ function fnTagToTitle() {
 }
 */
 
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
+// --------------------------------------------------------------------
+// --------------------------------------------------------------------
+// --------------------------------------------------------------------
 
-// From: http://www.arantius.com/misc/greasemonkey/linkify-plus.user.js :
+// From: http://www.arantius.com/misc/greasemonkey/linkify-plus.user.js
+// This should works on the whole booru but only works on the &id part:
 // ==UserScript==
 // @name        Linkify Plus
 // @version     3.2
