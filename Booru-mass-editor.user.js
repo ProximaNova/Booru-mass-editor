@@ -17,7 +17,7 @@ var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, 
 var imageStr = document.getElementById("image").src;
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
-var filename = document.getElementById("tags").value.match(/\w+\.(jp?g|png|gif)/g);
+var filename = document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g);
 
 // Fixing "My Tags":
 var myTagsStr = document.getElementById("my-tags").textContent;
@@ -84,7 +84,7 @@ Replacing:
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>");
 document.getElementById("source").value = filename;
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ \w+\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ") + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/ \w+((-\w+)+)?\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ") + " ";
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
