@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name		Booru Mass Editor
 // @description	Quickly edit images on older versions of Gelbooru
-// @version	2
+// @version	1
 // @author		usernam
 // @include     http://*.booru.org/index.php?page=post&s=view&id=*
 // @include     http://safebooru.org/index.php?page=post&s=view&id=*
-// @include     http://rule34.xxx/index.php?page=post&s=view&id=*
 // @include     http://xbooru.com/index.php?page=post&s=view&id=*
+// @include     http://rule34.xxx/index.php?page=post&s=view&id=*
 // @grant 		none 
 // @noframes
 // ==/UserScript==
@@ -126,6 +126,8 @@ function fnTagToTitle() {
 }
 */
 
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
 
 // From: http://www.arantius.com/misc/greasemonkey/linkify-plus.user.js :
