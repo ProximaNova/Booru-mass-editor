@@ -81,7 +81,8 @@ Replacing:
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, "<br>\n          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
-.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
+.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>");
+document.getElementById("tags").value = document.getElementById("tags").value + " ";
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
