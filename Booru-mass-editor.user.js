@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		Booru Mass Editor
 // @description	Quickly edit images on older versions of Gelbooru
-// @version	3
+// @version	4
 // @author		usernam
 // @include     http://*.booru.org/index.php?page=post&s=view&id=*
 // @include     http://safebooru.org/index.php?page=post&s=view&id=*
@@ -110,21 +110,6 @@ document.getElementById("tags").addEventListener("keydown", function(e) {
         document.forms[2].submit();
     }
 });
-
-// Move filename from tag to source:
-document.getElementById("my-tags").innerHTML =
-    "<button type='button' onclick='fnTagToSource()'><tt>filename tag &rarr; source</tt></button>" +
-    " or <button type='button' onclick='fnTagToTitle()'><tt>filename tag &rarr; title</tt></button>";
-var textarea = document.getElementById("tags");
-var filename = textarea.value.match(/\w+\.(jp?g|png|gif)/g);
-function fnTagToSource() {
-    textarea.value = textarea.value.replace(/ \w+\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ")
-    document.getElementById("source").value = filename;
-}
-function fnTagToTitle() {
-    textarea.value = textarea.value.replace(/ \w+\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ")
-    document.getElementById("title").value = filename;
-}
 */
 
 // --------------------------------------------------------------------
