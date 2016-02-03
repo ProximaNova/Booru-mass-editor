@@ -83,9 +83,9 @@ Replacing:
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>");
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)
+    document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?-?\.(jpe?g|png|gif)/g)
 }
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ \w+((-\w+)+)?\.(jp?g|png|gif) /g, " ").replace(/ bad_tag /g, " ") + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/ \w+((-\w+)+)?-?\.(jpe?g|png|gif) /g, " ").replace(/ bad_tag /g, " ") + " ";
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
