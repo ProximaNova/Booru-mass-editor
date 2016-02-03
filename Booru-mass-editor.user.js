@@ -18,6 +18,18 @@ var imageStr = document.getElementById("image").src;
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 
+// Loads jQuery (see http://stackoverflow.com/questions/2246901):
+function addJQuery(callback) {
+  var script = document.createElement("script");
+  script.setAttribute("src", "//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js");
+  script.addEventListener('load', function() {
+    var script = document.createElement("script");
+    script.textContent = "window.jQ=jQuery.noConflict(true);(" + callback.toString() + ")();";
+    document.body.appendChild(script);
+  }, false);
+  document.body.appendChild(script);
+}
+
 // Fixing "My Tags":
 var myTagsStr = document.getElementById("my-tags").textContent;
 if (myTagsStr.match(/\+/g)) {
