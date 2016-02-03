@@ -27,7 +27,7 @@ if (myTagsStr.match(/\+/g)) {
     for (i = 0; i < tagsArray.length; i++) {
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                     tagsArray[i] +
-                    "text\" id=\"t_" + 
+                    "\" id=\"t_" + 
                     tagsArray[i] +
                     "\" onclick=\"javascript:toggleTags('" +
                     tagsArray[i] +
