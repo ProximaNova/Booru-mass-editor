@@ -20,7 +20,8 @@ var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 
 // Fixing "My Tags":
-var myTagsStr = document.getElementById("my-tags").textContent;
+var myTagsStr1 = document.getElementById("my-tags").textContent;
+var myTagsStr  = myTagsStr1.substring(0, myTagsStr1.length - 1);
 if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
