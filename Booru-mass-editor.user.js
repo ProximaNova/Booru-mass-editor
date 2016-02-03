@@ -26,6 +26,7 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
+			  var boldmaybe;
 		    var checkmatch = new RegExp(tagsArray[i], "g");
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                     tagsArray[i] +
@@ -37,34 +38,12 @@ if (myTagsStr.match(/\+/g)) {
                     tagsArray[i] +
                     "');return false;\">"
 				            +
-					          /*
-										if (document.getElementById("tags").value.match(checkmatch)) {
-									      "<b>" + tagsArray[i] "</b>";
-										} else {
-										*/
-										    tagsArray[i]
-									  /*}*/
+					          boldmaybe = (document.getElementById("tags").value.match(checkmatch)) ? "<b>" + tagsArray[i] "</b>" : tagsArray[i];
 				            +
                     "</a> "
     }
     document.getElementById("my-tags").innerHTML = myTagsDiv;
 }
-
-
-/*
-if (document.getElementById("tags").value.match(checkmatch)) {
-    "<b>" + tagsArray[i] "</b>";
-} else {
-    tagsArray[i]
-}
-
-					          if (document.getElementById("tags").value.match(checkmatch)) {
-									      "<b>" + tagsArray[i] "</b>";
-										} else {
-										    tagsArray[i]
-									  }
-*/
-
 
 /*
 Removing:
