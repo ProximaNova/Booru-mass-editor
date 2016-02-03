@@ -26,8 +26,8 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldmaybe;
         var checkbold = new RegExp(tagsArray[i], "g");
+        var boldmaybe = (document.getElementById("tags").value.match(checkbold)) ? "<b>" + tagsArray[i] + "</b>" : tagsArray[i];
             myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                          tagsArray[i] +
                          "\" id=\"t_" +
@@ -38,7 +38,7 @@ if (myTagsStr.match(/\+/g)) {
                          tagsArray[i] +
                          "');return false;\">"
                          +
-                         boldmaybe = (document.getElementById("tags").value.match(checkbold)) ? "<b>" + tagsArray[i] + "</b>" : tagsArray[i]	
+                         boldmaybe
                          +
                          "</a> "
     }
