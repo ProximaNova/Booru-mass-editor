@@ -27,20 +27,20 @@ if (myTagsStr.match(/\+/g)) {
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
         var boldmaybe;
-	var checkmatch = new RegExp(tagsArray[i], "g");
-        myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                    tagsArray[i] +
-                    "\" id=\"t_" +
-                    tagsArray[i] +
-                    "\" onclick=\"javascript:toggleTags('" +
-                    tagsArray[i] +
-                    "','tags','t_" +
-                    tagsArray[i] +
-                    "');return false;\">"
-		    +
-		    boldmaybe = (document.getElementById("tags").value.match(checkmatch)) ? "<b>" + tagsArray[i] "</b>" : tagsArray[i];
-		    +
-                    "</a> "
+        var checkmatch = new RegExp(tagsArray[i], "g");
+            myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
+                         tagsArray[i] +
+                         "\" id=\"t_" +
+                         tagsArray[i] +
+                         "\" onclick=\"javascript:toggleTags('" +
+                         tagsArray[i] +
+                         "','tags','t_" +
+                         tagsArray[i] +
+                         "');return false;\">"
+                         +
+                         boldmaybe = (document.getElementById("tags").value.match(checkmatch)) ? "<b>" + tagsArray[i] "</b>" : tagsArray[i];
+                         +
+                         "</a> "
     }
     document.getElementById("my-tags").innerHTML = myTagsDiv;
 }
