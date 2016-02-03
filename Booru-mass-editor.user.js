@@ -36,7 +36,8 @@ if (myTagsStr.match(/\+/g)) {
                          "','tags','t_" +
                          tagsArray[i] +
                          "');return false;\"" +
-						             boldmaybe + ">"
+			 boldmaybe +
+			 ">"
                          +
                          tagsArray[i]
                          +
