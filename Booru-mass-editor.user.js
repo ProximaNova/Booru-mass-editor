@@ -16,6 +16,8 @@ var sidebar = document.getElementById("tag_list").innerHTML;
 var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
 var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
 var imageStr = document.getElementById("image").src;
+var imageTempStr = imageStr.substring(imageStr.lastIndexOf("//") + 9, imageStr.lastIndexOf("/"));
+var imageThumbStr = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageTempStr + "/thumbnail_");
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
@@ -114,7 +116,7 @@ Replacing:
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageStr + "'>iqdb</a><br>")
+.replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a><br>")
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
