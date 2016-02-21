@@ -47,7 +47,6 @@ if (myTagsStr.match(/\+/g)) {
                      +
                      "</a> "
     }
-    document.getElementById("my-tags").innerHTML = myTagsDiv;
 } else {
     var tagsArray = myTagsStr.split(" ");
     var myTagsDiv = "";
@@ -73,8 +72,8 @@ if (myTagsStr.match(/\+/g)) {
                      +
                      "</a> "
     }
-    document.getElementById("my-tags").innerHTML = myTagsDiv;
 }
+document.getElementById("my-tags").innerHTML = myTagsDiv;
 
 /*
 Removing:
@@ -88,7 +87,6 @@ document.body.innerHTML
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g, "")
 .replace(/ \| /g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
-.replace(/          Rating.*\n/g, "")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
 .replace(/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g, "")
 .replace(/>Note history</g, "><")
@@ -105,7 +103,7 @@ Replacing:
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID+ "', 'down')\">-</a>")
+.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='max-width:800px; margin-right: 70px; position:relative; top:-7px;'")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
@@ -114,7 +112,7 @@ Replacing:
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/Rating<br>/g, "<br>")
+.replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageStr + "'>iqdb</a><br>")
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, "<br>\n          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
