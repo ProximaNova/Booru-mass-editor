@@ -18,6 +18,7 @@ var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, 
 var imageStr = document.getElementById("image").src;
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
+var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
 
 // Fixing "My Tags":
 var myTagsStr1 = document.getElementById("my-tags").textContent;
@@ -114,7 +115,7 @@ Replacing:
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
 .replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageStr + "'>iqdb</a><br>")
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
-.replace(/ \d+:\d+:\d+ <br>\n          By: /g, "<br>\n          By: ")
+.replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>");
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
