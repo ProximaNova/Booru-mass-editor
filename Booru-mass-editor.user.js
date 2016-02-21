@@ -118,7 +118,9 @@ Replacing:
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
-.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>");
+.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
+.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
+;
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?-?\.(jpe?g|png|gif)/g)
 }
