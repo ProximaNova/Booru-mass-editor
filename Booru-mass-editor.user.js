@@ -20,7 +20,10 @@ var imageTempStr = imageStr.substring(imageStr.lastIndexOf("//") + 9, imageStr.l
 var imageThumbStr = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageTempStr + "/thumbnail_");
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
-var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
+var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
+var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
+
+document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
 // Fixing "My Tags":
 var myTagsStr1 = document.getElementById("my-tags").textContent;
