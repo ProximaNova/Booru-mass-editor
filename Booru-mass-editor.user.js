@@ -26,11 +26,11 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
-            "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};\" style=\"font-weight:bold;\""
-        :
-            "\""
-        ;
+		    var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
+						"if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};\" style=\"font-weight:bold;\""
+				:
+				    "\""
+				;
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      tagsArray[i] +
                      "\" id=\"t_" +
@@ -52,11 +52,11 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split(" ");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
-            "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};\" style=\"font-weight:bold;\""
-        :
-            "\""
-        ;
+		    var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
+						"if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
+				:
+				    "return false;\""
+				;
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      tagsArray[i] +
                      "\" id=\"t_" +
@@ -65,7 +65,7 @@ if (myTagsStr.match(/\+/g)) {
                      tagsArray[i] +
                      "','tags','t_" +
                      tagsArray[i] +
-                     "');return false;" +
+                     "');" +
                      boldToggle +
                      ">"
                      +
@@ -118,8 +118,7 @@ Replacing:
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, "<br>\n          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
-.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
-;
+.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>");
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?-?\.(jpe?g|png|gif)/g)
 }
