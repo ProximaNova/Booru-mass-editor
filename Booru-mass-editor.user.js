@@ -26,11 +26,11 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-		    var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
-						"if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};\" style=\"font-weight:bold;\""
-				:
-				    "\""
-				;
+        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
+            "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
+        :
+            "return false;\""
+        ;
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      tagsArray[i] +
                      "\" id=\"t_" +
@@ -39,7 +39,7 @@ if (myTagsStr.match(/\+/g)) {
                      tagsArray[i] +
                      "','tags','t_" +
                      tagsArray[i] +
-                     "');return false;" +
+                     "');" +
                      boldToggle +
                      ">"
                      +
@@ -52,11 +52,11 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split(" ");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-		    var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
-						"if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
-				:
-				    "return false;\""
-				;
+        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] + " ")) ?
+            "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
+        :
+            "return false;\""
+        ;
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      tagsArray[i] +
                      "\" id=\"t_" +
