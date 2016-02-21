@@ -97,6 +97,7 @@ document.body.innerHTML
 .replace(/>Next Post</g, "><")
 .replace(/>Edit</g, "><")
 .replace(/My Tags<br>/g, "<br>")
+.replace(/          Source:  <br>/g, "")
 /*
 Replacing:
 */
