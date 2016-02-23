@@ -122,7 +122,7 @@ Replacing:
 .replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
+.replace(/          By: .*? <br>/g, "          Uploader: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 ;
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
