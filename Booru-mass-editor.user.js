@@ -119,7 +119,7 @@ Replacing:
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (mainly for anime images)<br>")
+.replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          By: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
