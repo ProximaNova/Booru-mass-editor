@@ -137,7 +137,7 @@ Replacing:
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
 .replace(/Previous Post<br>/g, "<br>")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth = '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
+.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
 .replace(/<input name="submit" value="Save changes" type="submit">/g, "<input style='position:relative;top:-80px;' name='submit' value='Save changes' type='submit'>")
