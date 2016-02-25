@@ -22,6 +22,9 @@ var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
+var resolution = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
+var width =  resolution.replace(/x\d+/g, "");
+var height =  resolution.replace(/\d+x/g, "");
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
@@ -123,6 +126,7 @@ Replacing:
 .replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          Uploader: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
+.replace(/          Size.*<br>/g, "Size: " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 ;
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
@@ -131,6 +135,7 @@ if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g
 if (document.getElementById("title").value.match(/Booru mass uploader/g)) {
     document.getElementById("title").value = "";
 }
+
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?\w+((-\w+)+)?-?\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
 document.getElementById("tag_list").innerHTML = document.getElementById("tag_list").innerHTML.replace(/<ul>.*<strong>/g, tagList + "<strong>");
 
