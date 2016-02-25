@@ -129,6 +129,7 @@ Replacing:
 .replace(/          Size.*<br>/g, "Size: " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 ;
+
 if (width <= 500 && height <= 500 && imageExt !== "GIF") {
     if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
@@ -149,8 +150,11 @@ if (width >= 10000 && height >= 10000) {
         document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
     }
 }
-if (document.getElementById("title").value.match(/Booru mass uploader/g)) {
+if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
+}
+if (document.getElementById("source").value == "https://ibsearch.xxx") {
+    document.getElementById("source").value = "";
 }
 if (document.getElementById("tags").value.match(/\w+(([^ ]+\w+)+)?([^ ]+)?\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/\w+(([^ ]+\w+)+)?([^ ]+)?\.(jpe?g|png|gif)/g)
