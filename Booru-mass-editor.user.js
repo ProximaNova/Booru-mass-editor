@@ -159,7 +159,7 @@ if (document.getElementById("source").value == "https://ibsearch.xxx") {
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]\.(jpe?g|png|gif) ?/g, " ").replace(/! /g, " ") + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
 document.getElementById("tag_list").innerHTML = document.getElementById("tag_list").innerHTML.replace(/<ul>.*<strong>/g, tagList + "<strong>");
 
 // Hiding:
