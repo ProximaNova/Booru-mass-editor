@@ -130,22 +130,30 @@ Replacing:
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 ;
 if (width <= 500 && height <= 500) {
-    document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
+    if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
+    }
 }
 if (width >= 1600 && height >= 1200) {
-    document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
+    if (!(document.getElementById("tags").value.match(/ highres/g) || document.getElementById("tags").value.match(/highres /g))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
+    }
 }
 if (width >= 3200 && height >= 2400) {
-    document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
+    if (!(document.getElementById("tags").value.match(/ absurdres/g) || document.getElementById("tags").value.match(/absurdres /g))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
+    }
 }
 if (width >= 10000 && height >= 10000) {
-    document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
-}
-if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?-?\.(jpe?g|png|gif)/g)
+    if (!(document.getElementById("tags").value.match(/ incredibly_absurdres/g) || document.getElementById("tags").value.match(/incredibly_absurdres /g))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
+    }
 }
 if (document.getElementById("title").value.match(/Booru mass uploader/g)) {
     document.getElementById("title").value = "";
+}
+if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
+    document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?-?\.(jpe?g|png|gif)/g)
 }
 
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?\w+((-\w+)+)?-?\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
