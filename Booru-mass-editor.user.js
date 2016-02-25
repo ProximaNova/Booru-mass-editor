@@ -23,8 +23,8 @@ var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc"
 var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
 var resolution = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
-var width =  resolution.replace(/x\d+/g, "");
-var height =  resolution.replace(/\d+x/g, "");
+var width = Number(resolution.replace(/x\d+/g, ""));
+var height = Number(resolution.replace(/\d+x/g, ""));
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
