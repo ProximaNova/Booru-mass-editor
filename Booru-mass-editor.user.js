@@ -129,6 +129,18 @@ Replacing:
 .replace(/          Size.*<br>/g, "Size: " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
 ;
+if (width <= 500 && height <= 500) {
+    document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
+}
+if (width >= 1600 || height >= 1200) {
+    document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
+}
+if (width >= 3200 || height >= 2400) {
+    document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
+}
+if (width >= 10000 || height >= 10000) {
+    document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
+}
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/\w+((-\w+)+)?-?\.(jpe?g|png|gif)/g)
 }
