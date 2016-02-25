@@ -38,9 +38,10 @@ function refreshMyTags () {
         var tagsArray = myTagsStr.split("+");
         var myTagsDiv = "";
         for (i = 0; i < tagsArray.length; i++) {
-            var tagsMatch1 = new RegExp(" " + tagsArray[i], "gi");
-            var tagsMatch2 = new RegExp(tagsArray[i] + " ", "gi");
-            var boldToggle = (document.getElementById("tags").value.match(tagsMatch1 || tagsMatch2)) ?
+            var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
+            var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
+            var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
+            var boldToggle = (document.getElementById("tags").value.match(tagsMatch1) || document.getElementById("tags").value.match(tagsMatch2) || document.getElementById("tags").value.match(tagsMatch3)) ?
                 "if (this.style.fontWeight == 'bold') { \
                      this.style.fontWeight = 'normal' \
                  } else { \
@@ -70,9 +71,10 @@ function refreshMyTags () {
         var tagsArray = myTagsStr.split(" ");
         var myTagsDiv = "";
         for (i = 0; i < tagsArray.length; i++) {
-            var tagsMatch1 = new RegExp(" " + tagsArray[i], "gi");
-            var tagsMatch2 = new RegExp(tagsArray[i] + " ", "gi");
-            var boldToggle = (document.getElementById("tags").value.match(tagsMatch1 || tagsMatch2)) ?
+            var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
+            var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
+            var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
+            var boldToggle = (document.getElementById("tags").value.match(tagsMatch1) || document.getElementById("tags").value.match(tagsMatch2) || document.getElementById("tags").value.match(tagsMatch3)) ?
                 "if (this.style.fontWeight == 'bold') { \
                      this.style.fontWeight = 'normal' \
                  } else { \
