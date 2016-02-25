@@ -132,13 +132,13 @@ Replacing:
 if (width <= 500 && height <= 500) {
     document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
 }
-if (width >= 1600 || height >= 1200) {
+if (width >= 1600 && height >= 1200) {
     document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
 }
-if (width >= 3200 || height >= 2400) {
+if (width >= 3200 && height >= 2400) {
     document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
 }
-if (width >= 10000 || height >= 10000) {
+if (width >= 10000 && height >= 10000) {
     document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
 }
 if (document.getElementById("tags").value.match(/\w+((-\w+)+)?\.(jp?g|png|gif)/g)) {
