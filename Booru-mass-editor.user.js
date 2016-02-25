@@ -153,7 +153,7 @@ if (width >= 10000 && height >= 10000) {
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
-if (document.getElementById("source").value == "https://ibsearch.xxx") {
+if (document.getElementById("source").value == "https://ibsearch.xxx" || document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload") {
     document.getElementById("source").value = "";
 }
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
