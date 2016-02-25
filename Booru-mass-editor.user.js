@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		Booru Mass Editor
 // @description	Quickly edit images on older versions of Gelbooru
-// @version	4k
+// @version	5
 // @author		usernam
 // @include     http://*.booru.org/index.php?page=post&s=view&id=*
 // @include     http://safebooru.org/index.php?page=post&s=view&id=*
@@ -41,7 +41,12 @@ function refreshMyTags () {
             var tagsMatch1 = new RegExp(" " + tagsArray[i], "gi");
             var tagsMatch2 = new RegExp(tagsArray[i] + " ", "gi");
             var boldToggle = (document.getElementById("tags").value.match(tagsMatch1 || tagsMatch2)) ?
-                "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
+                "if (this.style.fontWeight == 'bold') { \
+                     this.style.fontWeight = 'normal' \
+                 } else { \
+                     this.style.fontWeight = 'bold'; \
+                 }; \
+                 return false;\" style='font-weight:bold;'"
             :
                 "return false;\""
             ;
@@ -68,7 +73,12 @@ function refreshMyTags () {
             var tagsMatch1 = new RegExp(" " + tagsArray[i], "gi");
             var tagsMatch2 = new RegExp(tagsArray[i] + " ", "gi");
             var boldToggle = (document.getElementById("tags").value.match(tagsMatch1 || tagsMatch2)) ?
-                "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
+                "if (this.style.fontWeight == 'bold') { \
+                     this.style.fontWeight = 'normal' \
+                 } else { \
+                     this.style.fontWeight = 'bold'; \
+                 }; \
+                 return false;\" style='font-weight:bold;'"
             :
                 "return false;\""
             ;
