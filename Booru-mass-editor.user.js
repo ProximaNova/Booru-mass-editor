@@ -13,7 +13,7 @@
 
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var sidebar = document.getElementById("tag_list").innerHTML;
-var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
+var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/_\(artist\)">/g, "_(artist)\" style='color:#A00;'>").replace(/_\(character\)">/g, "_(character)\" style='color:#0A0;'>").replace(/_\(copyright\)">/g, "_(copyright)\" style='color:#A0A;'>").replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
 var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
 var imageStr = document.getElementById("image").src;
 var imageTempStr = imageStr.substring(imageStr.lastIndexOf("//") + 9, imageStr.lastIndexOf("/"));
@@ -104,11 +104,11 @@ function refreshMyTags () {
     document.getElementById("my-tags").innerHTML = myTagsDiv;
 }
 
+document.body.innerHTML =
+document.body.innerHTML
 /*
 Removing:
 */
-document.body.innerHTML =
-document.body.innerHTML
 .replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
@@ -148,8 +148,10 @@ Replacing:
 .replace(/          By: .*? <br>/g, "          Uploader: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
 .replace(/          Size.*<br>/g, "Size: " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
 .replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
+//.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+// Add resolution tags:
 if (width <= 500 && height <= 500 && imageExt !== "GIF") {
     if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
@@ -175,6 +177,8 @@ if (width == height) {
         document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
     }
 }
+
+// Remove "mass uploader" text feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
@@ -187,10 +191,15 @@ if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass
 if (document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
+
+// Move filename tags:
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
+
+// Replace tag list: 
 document.getElementById("tag_list").innerHTML = document.getElementById("tag_list").innerHTML.replace(/<ul>.*<strong>/g, tagList + "<strong>");
 
 // Hiding:
