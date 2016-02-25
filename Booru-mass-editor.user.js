@@ -35,7 +35,7 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i]) || document.getElementById("tags").value.match(tagsArray[i] + " ")) ?
+        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] || tagsArray[i] + " ")) ?
             "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
         :
             "return false;\""
@@ -60,7 +60,7 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split(" ");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i]) || document.getElementById("tags").value.match(tagsArray[i] + " ")) ?
+        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] || tagsArray[i] + " ")) ?
             "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
         :
             "return false;\""
