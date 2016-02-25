@@ -168,6 +168,11 @@ if (width >= 10000 && height >= 10000) {
         document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
     }
 }
+if (width == height) {
+    if (!(document.getElementById("tags").value.match(/ 1:1_aspect_ratio/g) || document.getElementById("tags").value.match(/1:1_aspect_ratio /g))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
+    }
+}
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
