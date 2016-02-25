@@ -223,6 +223,12 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
     refreshMyTags();
 });
 
+var replaceTag0 = myTagsDiv.match(/replace:.*;/g).replace(/^replace:/g, "").replace(/;$/g, "");
+var replaceTag1 = replaceTag0.replace(/_with_.*/g, "");
+var replaceTag2 = replaceTag0.replace(/.*_with_/g, "");
+document.getElementsById("tags").value = document.getElementById("tags").value.replace(replaceTag1, replaceTag2);
+console.log(replaceTag1);
+
 /* Fail:
 // Submit form when enter is pressed in the textarea:
 document.getElementById("tags").addEventListener("keydown", function(e) {
