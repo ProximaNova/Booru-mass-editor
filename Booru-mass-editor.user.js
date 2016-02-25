@@ -73,6 +73,9 @@ if (myTagsStr.match(/\+/g)) {
     refreshMyTags(" ");
 }
 
+//var replaceTag1 = new RegExp (document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, ""), "g");
+//var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
+
 document.body.innerHTML =
 document.body.innerHTML
 /*
@@ -169,7 +172,7 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
+//document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ").replace(replaceTag1, replaceTag2);
 
 // Replace tag list: 
 document.getElementById("tag_list").innerHTML = document.getElementById("tag_list").innerHTML.replace(/<ul>.*<strong>/g, tagList + "<strong>");
@@ -192,14 +195,12 @@ document.getElementById("my-tags").style.top = "-72px";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
 document.getElementById("tags").addEventListener("keyup", function(e) {
-    refreshMyTags();
+    if (myTagsStr.match(/\+/g)) {
+        refreshMyTags("+");
+    } else {
+        refreshMyTags(" ");
+    }
 });
-
-var replaceTag0 = myTagsDiv.match(/replace:.*;/g).replace(/^replace:/g, "").replace(/;$/g, "");
-var replaceTag1 = replaceTag0.replace(/_with_.*/g, "");
-var replaceTag2 = replaceTag0.replace(/.*_with_/g, "");
-document.getElementsById("tags").value = document.getElementById("tags").value.replace(replaceTag1, replaceTag2);
-console.log(replaceTag1);
 
 /* Fail:
 // Submit form when enter is pressed in the textarea:
