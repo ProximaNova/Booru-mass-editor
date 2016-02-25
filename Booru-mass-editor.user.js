@@ -29,80 +29,48 @@ var height = Number(resolution.replace(/\d+x/g, ""));
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
-window.onload = refreshMyTags
-
 // Fixing "My Tags":
 var myTagsStr1 = document.getElementById("my-tags").textContent;
 var myTagsStr  = myTagsStr1.substring(0, myTagsStr1.length - 1);
-function refreshMyTags () {
-    if (myTagsStr.match(/\+/g)) {
-        var tagsArray = myTagsStr.split("+");
-        var myTagsDiv = "";
-        for (i = 0; i < tagsArray.length; i++) {
-            var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
-            var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
-            var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
-            var boldToggle = (document.getElementById("tags").value.match(tagsMatch1) || document.getElementById("tags").value.match(tagsMatch2) || document.getElementById("tags").value.match(tagsMatch3)) ?
-                "if (this.style.fontWeight == 'bold') { \
-                     this.style.fontWeight = 'normal' \
-                 } else { \
-                     this.style.fontWeight = 'bold'; \
-                 }; \
-                 return false;\" style='font-weight:bold;'"
-            :
-                "return false;\""
-            ;
-            myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                         tagsArray[i].toLowerCase() +
-                         "\" id=\"t_" +
-                         tagsArray[i].toLowerCase() +
-                         "\" onclick=\"javascript:toggleTags('" +
-                         tagsArray[i].toLowerCase() +
-                         "','tags','t_" +
-                         tagsArray[i].toLowerCase() +
-                         "');" +
-                         boldToggle +
-                         ">"
-                         +
-                         tagsArray[i]
-                         +
-                         "</a> "
-        }
-    } else {
-        var tagsArray = myTagsStr.split(" ");
-        var myTagsDiv = "";
-        for (i = 0; i < tagsArray.length; i++) {
-            var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
-            var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
-            var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
-            var boldToggle = (document.getElementById("tags").value.match(tagsMatch1) || document.getElementById("tags").value.match(tagsMatch2) || document.getElementById("tags").value.match(tagsMatch3)) ?
-                "if (this.style.fontWeight == 'bold') { \
-                     this.style.fontWeight = 'normal' \
-                 } else { \
-                     this.style.fontWeight = 'bold'; \
-                 }; \
-                 return false;\" style='font-weight:bold;'"
-            :
-                "return false;\""
-            ;
-            myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                         tagsArray[i].toLowerCase() +
-                         "\" id=\"t_" +
-                         tagsArray[i].toLowerCase() +
-                         "\" onclick=\"javascript:toggleTags('" +
-                         tagsArray[i].toLowerCase() +
-                         "','tags','t_" +
-                         tagsArray[i].toLowerCase() +
-                         "');" +
-                         boldToggle +
-                         ">"
-                         +
-                         tagsArray[i]
-                         +
-                         "</a> "
-        }
+function refreshMyTags(sep) {
+    var tagsArray = myTagsStr.split(sep);
+    var myTagsDiv = "";
+    for (i = 0; i < tagsArray.length; i++) {
+        var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
+        var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
+        var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
+        var boldToggle = (document.getElementById("tags").value.match(tagsMatch1) || document.getElementById("tags").value.match(tagsMatch2) || document.getElementById("tags").value.match(tagsMatch3)) ?
+            "if (this.style.fontWeight == 'bold') { \
+                 this.style.fontWeight = 'normal' \
+             } else { \
+                 this.style.fontWeight = 'bold'; \
+             }; \
+             return false;\" style='font-weight:bold;'"
+        :
+            "return false;\""
+        ;
+        myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
+                     tagsArray[i].toLowerCase() +
+                     "\" id=\"t_" +
+                     tagsArray[i].toLowerCase() +
+                     "\" onclick=\"javascript:toggleTags('" +
+                     tagsArray[i].toLowerCase() +
+                     "','tags','t_" +
+                     tagsArray[i].toLowerCase() +
+                     "');" +
+                     boldToggle +
+                     ">"
+                     +
+                     tagsArray[i]
+                     +
+                     "</a> "
     }
-    document.getElementById("my-tags").innerHTML = myTagsDiv;
+document.getElementById("my-tags").innerHTML = myTagsDiv;
+}
+if (myTagsStr.match(/\+/g)) {
+    refreshMyTags("+");
+} else {
+    refreshMyTags(" ");
 }
 
 document.body.innerHTML =
