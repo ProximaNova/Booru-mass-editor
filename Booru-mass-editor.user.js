@@ -35,19 +35,21 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split("+");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] || tagsArray[i] + " ")) ?
+        var tagsMatch1 = new RegExp(" " + tagsArray[i], "gi");
+        var tagsMatch2 = new RegExp(tagsArray[i] + " ", "gi");
+        var boldToggle = (document.getElementById("tags").value.match(tagsMatch1 || tagsMatch2)) ?
             "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
         :
             "return false;\""
         ;
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "\" id=\"t_" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "\" onclick=\"javascript:toggleTags('" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "','tags','t_" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "');" +
                      boldToggle +
                      ">"
@@ -60,19 +62,21 @@ if (myTagsStr.match(/\+/g)) {
     var tagsArray = myTagsStr.split(" ");
     var myTagsDiv = "";
     for (i = 0; i < tagsArray.length; i++) {
-        var boldToggle = (document.getElementById("tags").value.match(" " + tagsArray[i] || tagsArray[i] + " ")) ?
+        var tagsMatch1 = new RegExp(" " + tagsArray[i], "gi");
+        var tagsMatch2 = new RegExp(tagsArray[i] + " ", "gi");
+        var boldToggle = (document.getElementById("tags").value.match(tagsMatch1 || tagsMatch2)) ?
             "if (this.style.fontWeight == 'bold') {this.style.fontWeight = 'normal'} else {this.style.fontWeight = 'bold'};return false;\" style=\"font-weight:bold;\""
         :
             "return false;\""
         ;
         myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "\" id=\"t_" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "\" onclick=\"javascript:toggleTags('" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "','tags','t_" +
-                     tagsArray[i] +
+                     tagsArray[i].toLowerCase() +
                      "');" +
                      boldToggle +
                      ">"
