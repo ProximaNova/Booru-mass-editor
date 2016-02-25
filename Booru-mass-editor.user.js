@@ -20,6 +20,7 @@ var imageTempStr = imageStr.substring(imageStr.lastIndexOf("//") + 9, imageStr.l
 var imageThumbStr = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageTempStr + "/thumbnail_");
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
 var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
+var timeStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
 var resolution = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
@@ -125,6 +126,7 @@ Removing:
 .replace(/>Next Post</g, "><")
 .replace(/>Edit</g, "><")
 .replace(/My Tags<br>/g, "<br>")
+.replace(/          Posted: .* <br>/g, "")
 .replace(/          Source:  <br>/g, "")
 /*
 Replacing:
@@ -135,19 +137,21 @@ Replacing:
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
 .replace(/Previous Post<br>/g, "<br>")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick='Note.toggle();' style='max-width:800px; margin-right: 70px; position:relative; top:-7px;'")
+.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth = '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
 .replace(/<input name="submit" value="Save changes" type="submit">/g, "<input style='position:relative;top:-80px;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/Rating.*<br>/g, "Similar: <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
-.replace(/          Id.*<br>/g, "File format: " + imageExt + "<br>")
+.replace(/<strong>Statistics<\/strong><br>/g, "<b><u>Statistics</u></b><br>")
+.replace(/          Id.*<br>/g, "<b>File format:</b> " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          Uploader: <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>")
-.replace(/          Size.*<br>/g, "Size: " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
-.replace(/          Score: \d+ <br>/g, "          Score: " + scoreStr + "<br>")
+.replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>on " + timeStr + " (" + timeSpecificStr + ")" + "<br>")
+.replace(/          Size.*<br>/g, "<b>Size:</b> " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
+.replace(/          Source: /g, "          <b>Source:</b> ")
+.replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
+.replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + scoreStr + "<br>")
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
