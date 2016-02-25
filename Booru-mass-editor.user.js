@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name		Booru Mass Editor
 // @description	Quickly edit images on older versions of Gelbooru
-// @version	4
+// @version	4k
 // @author		usernam
 // @include     http://*.booru.org/index.php?page=post&s=view&id=*
 // @include     http://safebooru.org/index.php?page=post&s=view&id=*
@@ -161,7 +161,13 @@ if (width >= 10000 && height >= 10000) {
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
-if (document.getElementById("source").value == "https://ibsearch.xxx" || "http://ibsearch.i-forge.net/mass-upload") {
+if (document.getElementById("source").value == "https://ibsearch.xxx") {
+    document.getElementById("source").value = "";
+}
+if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload") {
+    document.getElementById("source").value = "";
+}
+if (document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
@@ -187,7 +193,7 @@ document.getElementById("my-tags").style.top = "-72px";
 // document.getElementsByName("submit")[1].style.position = "absolute";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
-document.getElementById("tags").addEventListener("keydown", function(e) {
+document.getElementById("tags").addEventListener("keyup", function(e) {
     refreshMyTags();
 });
 
