@@ -156,13 +156,10 @@ if (document.getElementById("title").value == "Booru mass uploader") {
 if (document.getElementById("source").value == "https://ibsearch.xxx") {
     document.getElementById("source").value = "";
 }
-if (document.getElementById("tags").value.match(/\w+(([^ ]+\w+)+)?([^ ]+)?\.(jpe?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/\w+(([^ ]+\w+)+)?([^ ]+)?\.(jpe?g|png|gif)/g)
+if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
+    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
-if (document.getElementById("title").value.match(/Probably from 4chan \/s\//g)) {
-    document.getElementById("title").value = "";
-}
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?\w+(([^ ]+\w+)+)?([^ ]+)?\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]\.(jpe?g|png|gif) ?/g, " ").replace(/! /g, " ") + " ";
 document.getElementById("tag_list").innerHTML = document.getElementById("tag_list").innerHTML.replace(/<ul>.*<strong>/g, tagList + "<strong>");
 
 // Hiding:
