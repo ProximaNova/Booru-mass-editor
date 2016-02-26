@@ -34,8 +34,7 @@ var getTags = document.getElementById("tags");
 var getMyTags = document.getElementById("my-tags");
 var getEditForm = document.getElementById("edit_form");
 
-document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + getTags.value
-                                                                         .replace(/ /g, ", ").replace(/_/g, " ");
+document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + getTags.value.replace(/ /g, ", ").replace(/_/g, " ");
 
 // Improving "#tag_list":
 var tagsOnSide = getTags.value.match(/ /g);
@@ -122,7 +121,6 @@ Removing:
 Replacing:
 */
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
-//.replace(/">\? <a href="index.php/g, "\"><a href=\"index.php")
 .replace(/          Id.*<br>/g, "<b>File format:</b> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
