@@ -39,7 +39,7 @@ for (i = 10; i < tagsOnSide.length + 11; i++) {
     } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
         document.getElementsByTagName("a")[i].style.color = "#A0A";
     }
-    document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/\? <a href=/g, "<a href=").replace(/<\/a> /g, "</a>&nbsp;");
+    document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> /g, "</a>&nbsp;");
 }
 
 // Improving "#my-tags":
@@ -149,6 +149,14 @@ if (document.getElementById("tags").value.match(replaceTagMatch1)) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch2, replaceTag2 + " ");
 } else if (document.getElementById("tags").value.match(replaceTagMatch3)) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch3, " " + replaceTag2);
+}
+
+if (document.getElementById("tags").value.match(/ tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
+} else if (document.getElementById("tags").value.match(/tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
+} else if (document.getElementById("tags").value.match(/ tagme/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
 }
 
 // Add resolution tags:
