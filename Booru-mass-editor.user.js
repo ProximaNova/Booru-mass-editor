@@ -138,6 +138,19 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+var replaceTag1 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
+var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
+var replaceTagMatch1 = new RegExp(" " + replaceTag1 + " ", "gi");
+var replaceTagMatch2 = new RegExp("^" + replaceTag1 + " ", "gi");
+var replaceTagMatch3 = new RegExp(" " + replaceTag1 + "$", "gi");
+if (document.getElementById("tags").value.match(replaceTagMatch1)) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch1, " " + replaceTag2 + " ");
+} else if (document.getElementById("tags").value.match(replaceTagMatch2)) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch2, replaceTag2 + " ");
+} else if (document.getElementById("tags").value.match(replaceTagMatch3)) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch3, " " + replaceTag2);
+}
+
 // Add resolution tags:
 if (width <= 500 && height <= 500 && imageExt !== "GIF") {
     if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
@@ -182,12 +195,6 @@ if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass
 }
 if (document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
-}
-
-var replaceTag1 = new RegExp (document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, ""), "g");
-var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
-if (!(document.getElementById("tags").value.match(" " + replaceTag2) || document.getElementById("tags").value.match(replaceTag2 + " "))) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTag1, replaceTag2);
 }
 
 // Move filename tags:
