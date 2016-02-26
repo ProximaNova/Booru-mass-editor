@@ -13,19 +13,19 @@
 
 var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
-var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
+var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
-var imageStr = document.getElementById("image").src;
-var imageTempStr = imageStr.substring(imageStr.lastIndexOf("//") + 9, imageStr.lastIndexOf("/"));
-var imageThumbStr = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageTempStr + "/thumbnail_");
-var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
-var resolution = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
-var width = Number(resolution.replace(/x\d+/g, ""));
-var height = Number(resolution.replace(/\d+x/g, ""));
-var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
-var checkAnon = (usernameStr !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
-var timeStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
-var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
+var imageSrc = document.getElementById("image").src;
+var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
+var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase();
+var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
+var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
+var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
+var userName = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
+var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
+var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
+var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
@@ -114,13 +114,13 @@ Replacing:
 */
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 //.replace(/">\? <a href="index.php/g, "\"><a href=\"index.php")
-.replace(/          Id.*<br>/g, "<b>File format:</b> " + imageExt + "<br>")
-.replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=" + checkAnon + usernameStr + "'>" + usernameStr + "</a><br>on " + timeStr + " (" + timeSpecificStr + ")" + "<br>")
-.replace(/          Size.*<br>/g, "<b>Size:</b> " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
+.replace(/          Id.*<br>/g, "<b>File format:</b> " + imageSrcExt + "<br>")
+.replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
+.replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+.replace(/          Size.*<br>/g, "<b>Size:</b> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <b>Source:</b> ")
-.replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
-.replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + scoreStr + "<br>")
+.replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageSrcThumb + "'>iqdb</a> (for anime images)<br>")
+.replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + score + "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 //.replace(/<div id="tag_list">\n.*<h5>Tags<\/h5>\n.*<ul>.*<strong>/g, "<div id='tag_list'><h5>Tags</h5>" + tagList + "<strong>")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
@@ -160,32 +160,32 @@ if (document.getElementById("tags").value.match(/ tagme /g) && document.getEleme
 }
 
 // Add resolution tags:
-if (width <= 500 && height <= 500 && imageExt !== "GIF") {
+if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
     if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
     }
 }
-if (width >= 1600 && height >= 1200) {
+if (imageSizeWidth >= 1600 && imageSizeHeight >= 1200) {
     if (!(document.getElementById("tags").value.match(/ highres/g) || document.getElementById("tags").value.match(/highres /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
     }
 }
-if (width >= 3200 && height >= 2400) {
+if (imageSizeWidth >= 3200 && imageSizeHeight >= 2400) {
     if (!(document.getElementById("tags").value.match(/ absurdres/g) || document.getElementById("tags").value.match(/absurdres /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
     }
 }
-if (width >= 10000 && height >= 10000) {
+if (imageSizeWidth >= 10000 && imageSizeHeight >= 10000) {
     if (!(document.getElementById("tags").value.match(/ incredibly_absurdres/g) || document.getElementById("tags").value.match(/incredibly_absurdres /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
     }
 }
-if (height > width * 3) {
+if (imageSizeHeight > imageSizeWidth * 3) {
     if (!(document.getElementById("tags").value.match(/ tall_image/g) || document.getElementById("tags").value.match(/tall_image /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " tall_image ";
     }
 }
-if (width == height) {
+if (imageSizeWidth == imageSizeHeight) {
     if (!(document.getElementById("tags").value.match(/ 1:1_aspect_ratio/g) || document.getElementById("tags").value.match(/1:1_aspect_ratio /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
     }
