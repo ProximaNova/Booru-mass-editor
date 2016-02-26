@@ -17,9 +17,11 @@ var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d
 var sidebar = document.getElementById("tag_list").innerHTML;
 var imageSrc = document.getElementById("image").src;
 var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
-var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
+var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org")
+                    .replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
 var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase();
-var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
+var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16,
+                                       sidebar.lastIndexOf(" <br>\n          Source: "));
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
 var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
 var userName = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
@@ -27,7 +29,8 @@ var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : 
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 
-document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
+document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value
+                                                                         .replace(/ /g, ", ").replace(/_/g, " ");
 
 // Improving "#tag_list":
 var tagsOnSide = document.getElementById("tags").value.match(/ /g);
@@ -39,7 +42,8 @@ for (i = 10; i < tagsOnSide.length + 11; i++) {
     } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
         document.getElementsByTagName("a")[i].style.color = "#A0A";
     }
-    document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> /g, "</a>&nbsp;");
+    document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innervalue
+                                                       .replace(/<\/a> /g, "</a>&nbsp;");
 }
 
 // Improving "#my-tags":
