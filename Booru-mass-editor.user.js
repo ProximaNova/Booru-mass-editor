@@ -28,7 +28,11 @@ var userName = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sid
 var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A";
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28);
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
-var getTags = document.getElementById("tags");    // "get" = "selector"
+var getTitle = document.getElementById("title");
+var getSource = document.getElementById("source");    // "get" = "selector"
+var getTags = document.getElementById("tags");
+var getMyTags = document.getElementById("my-tags");
+var getEditForm = document.getElementById("edit_form");
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + getTags.value
                                                                          .replace(/ /g, ", ").replace(/_/g, " ");
@@ -48,7 +52,7 @@ for (i = 10; i < tagsOnSide.length + 11; i++) {
 }
 
 // Improving "#my-tags":
-var myTagsStr1 = document.getElementById("my-tags").textContent;
+var myTagsStr1 = getMyTags.textContent;
 var myTagsStr  = myTagsStr1.substring(0, myTagsStr1.length - 1);
 function refreshMyTags(sep) {
     var tagsArray = myTagsStr.split(sep);
@@ -83,7 +87,7 @@ function refreshMyTags(sep) {
                      +
                      "</a> "
     }
-document.getElementById("my-tags").innerHTML = myTagsDiv;
+getMyTags.innerHTML = myTagsDiv;
 }
 if (myTagsStr.match(/\+/g)) {
     refreshMyTags("+");
@@ -143,8 +147,8 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-var replaceTag1 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
-var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
+var replaceTag1 = getMyTags.textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
+var replaceTag2 = getMyTags.textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
 var replaceTagMatch1 = new RegExp(" " + replaceTag1 + " ", "gi");
 var replaceTagMatch2 = new RegExp("^" + replaceTag1 + " ", "gi");
 var replaceTagMatch3 = new RegExp(" " + replaceTag1 + "$", "gi");
@@ -197,22 +201,22 @@ if (imageSizeWidth == imageSizeHeight) {
 }
 
 // Remove "mass uploader" text feilds:
-if (document.getElementById("title").value == "Booru mass uploader") {
-    document.getElementById("title").value = "";
+if (getTitle.value == "Booru mass uploader") {
+    getTitle.value = "";
 }
-if (document.getElementById("source").value == "https://ibsearch.xxx") {
-    document.getElementById("source").value = "";
+if (getSource.value == "https://ibsearch.xxx") {
+    getSource.value = "";
 }
-if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload") {
-    document.getElementById("source").value = "";
+if (getSource.value == "http://ibsearch.i-forge.net/mass-upload") {
+    getSource.value = "";
 }
-if (document.getElementById("source").value == "Booru mass uploader") {
-    document.getElementById("source").value = "";
+if (getSource.value == "Booru mass uploader") {
+    getSource.value = "";
 }
 
 // Move filename tags:
 if (getTags.value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
-    document.getElementById("source").value = getTags.value.match(/[^ ]+\.(jpe?g|png|gif)/g)
+    getSource.value = getTags.value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
 getTags.value = getTags.value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
 getTags.value = getTags.value.replace(/  /g, " ")
@@ -222,15 +226,15 @@ document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
 
 // Unhiding:
-document.getElementById("edit_form").style.display = "block";
+getEditForm.style.display = "block";
 
 // Positioning:
-document.getElementById("source").style.position = "relative";
-document.getElementById("source").style.top = "-40px";
+getSource.style.position = "relative";
+getSource.style.top = "-40px";
 getTags.style.position = "relative";
 getTags.style.top = "-55px";
-document.getElementById("my-tags").style.position = "relative";
-document.getElementById("my-tags").style.top = "-72px";
+getMyTags.style.position = "relative";
+getMyTags.style.top = "-72px";
 // document.getElementsByName("submit")[1].style.position = "absolute";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
@@ -246,8 +250,8 @@ getTags.addEventListener("keyup", function(e) {
 // Submit form when enter is pressed in the textarea:
 getTags.addEventListener("keydown", function(e) {
     if (e.keyCode == 13) {
-        document.getElementById("edit_form").style.backgroundColor = "green";
-        document.getElementById("edit_form").submit();
+        getEditForm.style.backgroundColor = "green";
+        getEditForm.submit();
         document.forms[2].submit();
     }
 });
