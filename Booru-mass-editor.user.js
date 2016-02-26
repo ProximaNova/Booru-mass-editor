@@ -25,15 +25,16 @@ var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") +
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
 var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
 var userName = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
-var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
-var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
-var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
+var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A";
+var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28);
+var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
+var getTags = document.getElementById("tags");    // "get" = "selector"
 
-document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value
+document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + getTags.value
                                                                          .replace(/ /g, ", ").replace(/_/g, " ");
 
 // Improving "#tag_list":
-var tagsOnSide = document.getElementById("tags").value.match(/ /g);
+var tagsOnSide = getTags.value.match(/ /g);
 for (i = 10; i < tagsOnSide.length + 11; i++) {
     if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
         document.getElementsByTagName("a")[i].style.color = "#A00";
@@ -56,7 +57,7 @@ function refreshMyTags(sep) {
         var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
         var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
         var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
-        var boldToggle = (document.getElementById("tags").value.match(tagsMatch1) || document.getElementById("tags").value.match(tagsMatch2) || document.getElementById("tags").value.match(tagsMatch3)) ?
+        var boldToggle = (getTags.value.match(tagsMatch1) || getTags.value.match(tagsMatch2) || getTags.value.match(tagsMatch3)) ?
             "if (this.style.fontWeight == 'bold') { \
                  this.style.fontWeight = 'normal' \
              } else { \
@@ -147,51 +148,51 @@ var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*repl
 var replaceTagMatch1 = new RegExp(" " + replaceTag1 + " ", "gi");
 var replaceTagMatch2 = new RegExp("^" + replaceTag1 + " ", "gi");
 var replaceTagMatch3 = new RegExp(" " + replaceTag1 + "$", "gi");
-if (document.getElementById("tags").value.match(replaceTagMatch1)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch1, " " + replaceTag2 + " ");
-} else if (document.getElementById("tags").value.match(replaceTagMatch2)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch2, replaceTag2 + " ");
-} else if (document.getElementById("tags").value.match(replaceTagMatch3)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatch3, " " + replaceTag2);
+if (getTags.value.match(replaceTagMatch1)) {
+    getTags.value = getTags.value.replace(replaceTagMatch1, " " + replaceTag2 + " ");
+} else if (getTags.value.match(replaceTagMatch2)) {
+    getTags.value = getTags.value.replace(replaceTagMatch2, replaceTag2 + " ");
+} else if (getTags.value.match(replaceTagMatch3)) {
+    getTags.value = getTags.value.replace(replaceTagMatch3, " " + replaceTag2);
 }
 
-if (document.getElementById("tags").value.match(/ tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
-} else if (document.getElementById("tags").value.match(/tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
-} else if (document.getElementById("tags").value.match(/ tagme/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
+if (getTags.value.match(/ tagme /g) && getTags.value.match(/ /g).length >= 10) {
+    getTags.value = getTags.value.replace(/ tagme /g, " ");
+} else if (getTags.value.match(/tagme /g) && getTags.value.match(/ /g).length >= 10) {
+    getTags.value = getTags.value.replace(/tagme /g, " ");
+} else if (getTags.value.match(/ tagme/g) && getTags.value.match(/ /g).length >= 10) {
+    getTags.value = getTags.value.replace(/ tagme/g, " ");
 }
 
 // Add resolution tags:
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
-    if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
+    if (!(getTags.value.match(/ lowres/g) || getTags.value.match(/lowres /g))) {
+        getTags.value = getTags.value + " lowres ";
     }
 }
 if (imageSizeWidth >= 1600 && imageSizeHeight >= 1200) {
-    if (!(document.getElementById("tags").value.match(/ highres/g) || document.getElementById("tags").value.match(/highres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
+    if (!(getTags.value.match(/ highres/g) || getTags.value.match(/highres /g))) {
+        getTags.value = getTags.value + " highres ";
     }
 }
 if (imageSizeWidth >= 3200 && imageSizeHeight >= 2400) {
-    if (!(document.getElementById("tags").value.match(/ absurdres/g) || document.getElementById("tags").value.match(/absurdres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
+    if (!(getTags.value.match(/ absurdres/g) || getTags.value.match(/absurdres /g))) {
+        getTags.value = getTags.value + " absurdres ";
     }
 }
 if (imageSizeWidth >= 10000 && imageSizeHeight >= 10000) {
-    if (!(document.getElementById("tags").value.match(/ incredibly_absurdres/g) || document.getElementById("tags").value.match(/incredibly_absurdres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
+    if (!(getTags.value.match(/ incredibly_absurdres/g) || getTags.value.match(/incredibly_absurdres /g))) {
+        getTags.value = getTags.value + " incredibly_absurdres ";
     }
 }
 if (imageSizeHeight > imageSizeWidth * 3) {
-    if (!(document.getElementById("tags").value.match(/ tall_image/g) || document.getElementById("tags").value.match(/tall_image /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " tall_image ";
+    if (!(getTags.value.match(/ tall_image/g) || getTags.value.match(/tall_image /g))) {
+        getTags.value = getTags.value + " tall_image ";
     }
 }
 if (imageSizeWidth == imageSizeHeight) {
-    if (!(document.getElementById("tags").value.match(/ 1:1_aspect_ratio/g) || document.getElementById("tags").value.match(/1:1_aspect_ratio /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
+    if (!(getTags.value.match(/ 1:1_aspect_ratio/g) || getTags.value.match(/1:1_aspect_ratio /g))) {
+        getTags.value = getTags.value + " 1:1_aspect_ratio ";
     }
 }
 
@@ -210,11 +211,11 @@ if (document.getElementById("source").value == "Booru mass uploader") {
 }
 
 // Move filename tags:
-if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
+if (getTags.value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
+    document.getElementById("source").value = getTags.value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
+getTags.value = getTags.value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
+getTags.value = getTags.value.replace(/  /g, " ")
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
@@ -226,14 +227,14 @@ document.getElementById("edit_form").style.display = "block";
 // Positioning:
 document.getElementById("source").style.position = "relative";
 document.getElementById("source").style.top = "-40px";
-document.getElementById("tags").style.position = "relative";
-document.getElementById("tags").style.top = "-55px";
+getTags.style.position = "relative";
+getTags.style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
 // document.getElementsByName("submit")[1].style.position = "absolute";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
-document.getElementById("tags").addEventListener("keyup", function(e) {
+getTags.addEventListener("keyup", function(e) {
     if (myTagsStr.match(/\+/g)) {
         refreshMyTags("+");
     } else {
@@ -243,7 +244,7 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 
 /* Fail:
 // Submit form when enter is pressed in the textarea:
-document.getElementById("tags").addEventListener("keydown", function(e) {
+getTags.addEventListener("keydown", function(e) {
     if (e.keyCode == 13) {
         document.getElementById("edit_form").style.backgroundColor = "green";
         document.getElementById("edit_form").submit();
