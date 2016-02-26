@@ -37,8 +37,7 @@ var getEditForm = document.getElementById("edit_form");
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + getTags.value.replace(/ /g, ", ").replace(/_/g, " ");
 
 // Improving "#tag_list":
-var tagsOnSide = getTags.value.match(/ /g);
-for (i = 10; i < tagsOnSide.length + 11; i++) {
+for (i = 10; i < getTags.value.match(/ /g).length + 11; i++) {
     if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
         document.getElementsByTagName("a")[i].style.color = "#A00";
     } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
@@ -51,15 +50,15 @@ for (i = 10; i < tagsOnSide.length + 11; i++) {
 }
 
 // Improving "#my-tags":
-var myTagsStr1 = getMyTags.textContent;
-var myTagsStr  = myTagsStr1.substring(0, myTagsStr1.length - 1);
+var getMyTagsText1 = getMyTags.textContent;
+var getMyTagsText  = getMyTagsText1.substring(0, getMyTagsText1.length - 1);
 function refreshMyTags(sep) {
-    var tagsArray = myTagsStr.split(sep);
-    var myTagsDiv = "";
-    for (i = 0; i < tagsArray.length; i++) {
-        var tagsMatch1 = new RegExp(" " + tagsArray[i] + " ", "gi");
-        var tagsMatch2 = new RegExp("^" + tagsArray[i] + " ", "gi");
-        var tagsMatch3 = new RegExp(" " + tagsArray[i] + "$", "gi");
+    var getMyTagsAsArray = getMyTagsText.split(sep);
+    var myTagsNew = "";
+    for (i = 0; i < getMyTagsAsArray.length; i++) {
+        var tagsMatch1 = new RegExp(" " + getMyTagsAsArray[i] + " ", "gi");
+        var tagsMatch2 = new RegExp("^" + getMyTagsAsArray[i] + " ", "gi");
+        var tagsMatch3 = new RegExp(" " + getMyTagsAsArray[i] + "$", "gi");
         var boldToggle = (getTags.value.match(tagsMatch1) || getTags.value.match(tagsMatch2) || getTags.value.match(tagsMatch3)) ?
             "if (this.style.fontWeight == 'bold') { \
                  this.style.fontWeight = 'normal' \
@@ -70,25 +69,25 @@ function refreshMyTags(sep) {
         :
             "return false;\""
         ;
-        myTagsDiv += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                     tagsArray[i].toLowerCase() +
+        myTagsNew += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
+                     getMyTagsAsArray[i].toLowerCase() +
                      "\" id=\"t_" +
-                     tagsArray[i].toLowerCase() +
+                     getMyTagsAsArray[i].toLowerCase() +
                      "\" onclick=\"javascript:toggleTags('" +
-                     tagsArray[i].toLowerCase() +
+                     getMyTagsAsArray[i].toLowerCase() +
                      "','tags','t_" +
-                     tagsArray[i].toLowerCase() +
+                     getMyTagsAsArray[i].toLowerCase() +
                      "');" +
                      boldToggle +
                      ">"
                      +
-                     tagsArray[i]
+                     getMyTagsAsArray[i]
                      +
                      "</a> "
     }
-getMyTags.innerHTML = myTagsDiv;
+getMyTags.innerHTML = myTagsNew;
 }
-if (myTagsStr.match(/\+/g)) {
+if (getMyTagsText.match(/\+/g)) {
     refreshMyTags("+");
 } else {
     refreshMyTags(" ");
@@ -237,7 +236,7 @@ getMyTags.style.top = "-72px";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
 getTags.addEventListener("keyup", function(e) {
-    if (myTagsStr.match(/\+/g)) {
+    if (getMyTagsText.match(/\+/g)) {
         refreshMyTags("+");
     } else {
         refreshMyTags(" ");
