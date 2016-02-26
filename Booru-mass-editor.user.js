@@ -26,11 +26,19 @@ var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, 
 var checkAnon = (usernameStr !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
 var timeStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
-var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/_\(artist\)">/g, "_(artist)\" style='color:#A00;'>").replace(/_\(character\)">/g, "_(character)\" style='color:#0A0;'>").replace(/_\(copyright\)">/g, "_(copyright)\" style='color:#A0A;'>").replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
+//var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/_\(artist\)">/g, "_(artist)\" style='color:#A00;'>").replace(/_\(character\)">/g, "_(character)\" style='color:#0A0;'>").replace(/_\(copyright\)">/g, "_(copyright)\" style='color:#A0A;'>").replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
-// Fixing "My Tags":
+// Improving "#tag_list":
+var tagsOnSide = document.getElementById("tags").value.match(/ /g);
+for (i = 10; i < tagsOnSide.length + 10; i++) {
+    if (document.getElementsByTagName("a")[i].href.match(/_(artist)/g)) {
+        document.getElementsByTagName("a")[i].style.color = "#A00";
+    }
+}
+
+// Improving "#my-tags":
 var myTagsStr1 = document.getElementById("my-tags").textContent;
 var myTagsStr  = myTagsStr1.substring(0, myTagsStr1.length - 1);
 function refreshMyTags(sep) {
@@ -74,8 +82,8 @@ if (myTagsStr.match(/\+/g)) {
     refreshMyTags(" ");
 }
 
-//var replaceTag1 = new RegExp (document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, ""), "g");
-//var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
+var replaceTag1 = new RegExp (document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, ""), "g");
+var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
 
 document.body.innerHTML =
 document.body.innerHTML
@@ -104,6 +112,7 @@ Removing:
 Replacing:
 */
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
+//.replace(/">\? <a href="index.php/g, "\"><a href=\"index.php")
 .replace(/          Id.*<br>/g, "<b>File format:</b> " + imageExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=" + checkAnon + usernameStr + "'>" + usernameStr + "</a><br>on " + timeStr + " (" + timeSpecificStr + ")" + "<br>")
@@ -149,6 +158,11 @@ if (width >= 10000 && height >= 10000) {
         document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
     }
 }
+if (height > width * 3) {
+    if (!(document.getElementById("tags").value.match(/ tall_image/g) || document.getElementById("tags").value.match(/tall_image /g))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " tall_image ";
+    }
+}
 if (width == height) {
     if (!(document.getElementById("tags").value.match(/ 1:1_aspect_ratio/g) || document.getElementById("tags").value.match(/1:1_aspect_ratio /g))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
@@ -174,7 +188,10 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
-//document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ").replace(replaceTag1, replaceTag2);
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
+if (!(document.getElementById("tags").value.match(" " + replaceTag2 + " "))) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTag1, replaceTag2);
+}
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
