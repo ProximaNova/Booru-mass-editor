@@ -11,21 +11,22 @@
 // @noframes
 // ==/UserScript==
 
+var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
+var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
-var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/_\(artist\)">/g, "_(artist)\" style='color:#A00;'>").replace(/_\(character\)">/g, "_(character)\" style='color:#0A0;'>").replace(/_\(copyright\)">/g, "_(copyright)\" style='color:#A0A;'>").replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
-var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
 var imageStr = document.getElementById("image").src;
 var imageTempStr = imageStr.substring(imageStr.lastIndexOf("//") + 9, imageStr.lastIndexOf("/"));
 var imageThumbStr = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageTempStr + "/thumbnail_");
 var imageExt = imageStr.replace(/^.*\./g, "").toUpperCase();
-var scoreStr = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
-var timeStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
-var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
-var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
 var resolution = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
 var width = Number(resolution.replace(/x\d+/g, ""));
 var height = Number(resolution.replace(/\d+x/g, ""));
+var usernameStr = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
+var checkAnon = (usernameStr !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
+var timeStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
+var timeSpecificStr = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
+var tagList = sidebar.substring(sidebar.lastIndexOf("<h5>Tags</h5>\n		<ul>") + 20, sidebar.lastIndexOf("<strong>Statistics</strong>")).replace(/_\(artist\)">/g, "_(artist)\" style='color:#A00;'>").replace(/_\(character\)">/g, "_(character)\" style='color:#0A0;'>").replace(/_\(copyright\)">/g, "_(copyright)\" style='color:#A0A;'>").replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
 
 document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 
@@ -103,26 +104,27 @@ Removing:
 Replacing:
 */
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
+.replace(/          Id.*<br>/g, "<b>File format:</b> " + imageExt + "<br>")
+.replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
+.replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=" + checkAnon + usernameStr + "'>" + usernameStr + "</a><br>on " + timeStr + " (" + timeSpecificStr + ")" + "<br>")
+.replace(/          Size.*<br>/g, "<b>Size:</b> " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
+.replace(/          Source: /g, "          <b>Source:</b> ")
+.replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
+.replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + scoreStr + "<br>")
+.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
+//.replace(/<div id="tag_list">\n.*<h5>Tags<\/h5>\n.*<ul>.*<strong>/g, "<div id='tag_list'><h5>Tags</h5>" + tagList + "<strong>")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
 .replace(/Previous Post<br>/g, "<br>")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
 .replace(/<input name="submit" value="Save changes" type="submit">/g, "<input style='position:relative;top:-80px;width:403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/<strong>Statistics<\/strong><br>/g, "<b><u>Statistics</u></b><br>")
-.replace(/          Id.*<br>/g, "<b>File format:</b> " + imageExt + "<br>")
-.replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecificStr + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=account_profile&amp;uname=" + usernameStr + "'>" + usernameStr + "</a><br>on " + timeStr + " (" + timeSpecificStr + ")" + "<br>")
-.replace(/          Size.*<br>/g, "<b>Size:</b> " + width + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + height + " pixels<br>")
-.replace(/          Source: /g, "          <b>Source:</b> ")
-.replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageThumbStr + "'>iqdb</a> (for anime images)<br>")
-.replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + scoreStr + "<br>")
+//.replace(/<strong>Statistics<\/strong><br>/g, "<b><u>Statistics</u></b><br>")
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
@@ -173,9 +175,6 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
 }
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
 //document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ").replace(replaceTag1, replaceTag2);
-
-// Replace tag list: 
-document.getElementById("tag_list").innerHTML = document.getElementById("tag_list").innerHTML.replace(/<ul>.*<strong>/g, tagList + "<strong>");
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
