@@ -56,10 +56,10 @@ function refreshMyTags(sep) {
     var getMyTagsAsArray = getMyTagsText.split(sep);
     var myTagsNew = "";
     for (i = 0; i < getMyTagsAsArray.length; i++) {
-        var tagsMatch1 = new RegExp(" " + getMyTagsAsArray[i] + " ", "gi");
-        var tagsMatch2 = new RegExp("^" + getMyTagsAsArray[i] + " ", "gi");
-        var tagsMatch3 = new RegExp(" " + getMyTagsAsArray[i] + "$", "gi");
-        var boldToggle = (getTags.value.match(tagsMatch1) || getTags.value.match(tagsMatch2) || getTags.value.match(tagsMatch3)) ?
+        var myTagsMatchCase1 = new RegExp(" " + getMyTagsAsArray[i] + " ", "gi");
+        var myTagsMatchCase2 = new RegExp("^" + getMyTagsAsArray[i] + " ", "gi");
+        var myTagsMatchCase3 = new RegExp(" " + getMyTagsAsArray[i] + "$", "gi");
+        var boldToggle = (getTags.value.match(myTagsMatchCase1) || getTags.value.match(myTagsMatchCase2) || getTags.value.match(myTagsMatchCase3myTagsMatchCase3)) ?
             "if (this.style.fontWeight == 'bold') { \
                  this.style.fontWeight = 'normal' \
              } else { \
@@ -146,15 +146,15 @@ Replacing:
 
 var replaceTag1 = getMyTags.textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
 var replaceTag2 = getMyTags.textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
-var replaceTagMatch1 = new RegExp(" " + replaceTag1 + " ", "gi");
-var replaceTagMatch2 = new RegExp("^" + replaceTag1 + " ", "gi");
-var replaceTagMatch3 = new RegExp(" " + replaceTag1 + "$", "gi");
-if (getTags.value.match(replaceTagMatch1)) {
-    getTags.value = getTags.value.replace(replaceTagMatch1, " " + replaceTag2 + " ");
-} else if (getTags.value.match(replaceTagMatch2)) {
-    getTags.value = getTags.value.replace(replaceTagMatch2, replaceTag2 + " ");
-} else if (getTags.value.match(replaceTagMatch3)) {
-    getTags.value = getTags.value.replace(replaceTagMatch3, " " + replaceTag2);
+var myTagsReplaceTagMatchCase1 = new RegExp(" " + replaceTag1 + " ", "gi");
+var myTagsReplaceTagMatchCase2 = new RegExp("^" + replaceTag1 + " ", "gi");
+var myTagsReplaceTagMatchCase3 = new RegExp(" " + replaceTag1 + "$", "gi");
+if (getTags.value.match(myTagsReplaceTagMatchCase1)) {
+    getTags.value = getTags.value.replace(myTagsReplaceTagMatchCase1, " " + replaceTag2 + " ");
+} else if (getTags.value.match(myTagsReplaceTagMatchCase2)) {
+    getTags.value = getTags.value.replace(myTagsReplaceTagMatchCase2, replaceTag2 + " ");
+} else if (getTags.value.match(myTagsReplaceTagMatchCase3)) {
+    getTags.value = getTags.value.replace(myTagsReplaceTagMatchCase3, " " + replaceTag2);
 }
 
 if (getTags.value.match(/ tagme /g) && getTags.value.match(/ /g).length >= 10) {
