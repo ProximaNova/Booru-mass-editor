@@ -31,7 +31,7 @@ document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + documen
 
 // Improving "#tag_list":
 var tagsOnSide = document.getElementById("tags").value.match(/ /g);
-for (i = 10; i < tagsOnSide.length + 10; i++) {
+for (i = 10; i < tagsOnSide.length + 11; i++) {
     if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
         document.getElementsByTagName("a")[i].style.color = "#A00";
     } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
@@ -39,8 +39,8 @@ for (i = 10; i < tagsOnSide.length + 10; i++) {
     } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
         document.getElementsByTagName("a")[i].style.color = "#A0A";
     }
+    document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/\? <a href=/g, "<a href=").replace(/<\/a> /g, "</a>&nbsp;");
 }
-//.replace(/<\/a> /g, "</a>&nbsp;").replace(/"/g, "'");
 
 // Improving "#my-tags":
 var myTagsStr1 = document.getElementById("my-tags").textContent;
@@ -85,9 +85,6 @@ if (myTagsStr.match(/\+/g)) {
 } else {
     refreshMyTags(" ");
 }
-
-var replaceTag1 = new RegExp (document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, ""), "g");
-var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
 
 document.body.innerHTML =
 document.body.innerHTML
@@ -187,15 +184,18 @@ if (document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
 
+var replaceTag1 = new RegExp (document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, ""), "g");
+var replaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
+if (!(document.getElementById("tags").value.match(" " + replaceTag2) || document.getElementById("tags").value.match(replaceTag2 + " "))) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTag1, replaceTag2);
+}
+
 // Move filename tags:
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
-if (document.getElementById("tags").value.match(" " + replaceTag1) || document.getElementById("tags").value.match(replaceTag1 + " ")) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTag1, replaceTag2);
-}
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
