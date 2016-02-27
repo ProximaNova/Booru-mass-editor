@@ -120,7 +120,6 @@ Replacing:
 .replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageSrcThumb + "'>iqdb</a> (for anime images)<br>")
 .replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + score + "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
-//.replace(/<div id="tag_list">\n.*<h5>Tags<\/h5>\n.*<ul>.*<strong>/g, "<div id='tag_list'><h5>Tags</h5>" + tagList + "<strong>")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
@@ -132,10 +131,11 @@ Replacing:
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
-//.replace(/<strong>Statistics<\/strong><br>/g, "<b><u>Statistics</u></b><br>")
+//.replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+// Replace tags put "replace:bad_tag_with_good_tag;" in Account > Options > My Tags
 var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
 var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
 var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
@@ -207,6 +207,8 @@ if (document.getElementById("source").value == "Booru mass uploader") {
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
 }
+// Remove tags: replace << / bad_tag /g >>, with, for example << / real /g >>
+// Add tags: put text inside << " "; >>, example: << " solo "; >>
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
 
