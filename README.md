@@ -20,9 +20,9 @@ It is not really a problem that this script only works on older versions of Gelb
 ## Remove, add, and replace tags when the pags loads
 
 Add these tags into Account > Options > My Tags
-To replace tags add: "re:bad_tag_with_good_tag;re;"
-To add tags add: "add:x&y&z;add;" (adds tags "x", "y", and "z")
-To remove tags add: "rm:x&y&z;rm;" (removes tags "x", "y", and "z")
+* To replace tags add: "re:bad_tag_with_good_tag;re;"
+* To add tags add: "add:x&y&z;add;" (adds tags "x", "y", and "z")
+* To remove tags add: "rm:x&y&z;rm;" (removes tags "x", "y", and "z")
 
 ## See also
 Seedmanc's userscripts:
