@@ -7,6 +7,7 @@
 // @include     http://safebooru.org/index.php?page=post&s=view&id=*
 // @include     http://xbooru.com/index.php?page=post&s=view&id=*
 // @include     http://rule34.xxx/index.php?page=post&s=view&id=*
+// @require     https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js
 // @grant 		none 
 // @noframes
 // ==/UserScript==
@@ -221,12 +222,12 @@ document.getElementById("next_post").style.display = "none";
 document.getElementById("edit_form").style.display = "block";
 
 // Positioning:
-document.getElementById("source").style.position = "relative";
-document.getElementById("source").style.top = "-40px";
-document.getElementById("tags").style.position = "relative";
-document.getElementById("tags").style.top = "-55px";
-document.getElementById("my-tags").style.position = "relative";
-document.getElementById("my-tags").style.top = "-72px";
+$("#source").css("position", "relative");
+$("#source").css("top", "-40px");
+$("#tags").css("position", "relative");
+$("#tags").css("top", "-55px");
+$("#my-tags").css("position", "relative");
+$("#my-tags").css("top", "-72px");
 // document.getElementsByName("submit")[1].style.position = "absolute";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
