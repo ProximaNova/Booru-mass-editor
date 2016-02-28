@@ -127,7 +127,7 @@ Replacing:
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
-.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input  id='SubmitButton' style='position:relative;top:-80px;width:403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
+.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
@@ -209,7 +209,8 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
 }
 // Remove tags: replace << / bad_tag /g >>, with, for example << / real /g >>
 // Add tags: put text inside << " "; >>, example: << " solo "; >>
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ").replace(/ bad_tag /g, " ") + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
+.replace(/ bad_tag /g, " ") + " ";
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
 
 // Hiding:
@@ -241,12 +242,8 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 function simulate(element, eventName)
 {
     var options = extend(defaultOptions, arguments[2] || {});
-    var oEvent, eventType = null;
-
-    for (var name in eventMatchers)
-    {
-        if (eventMatchers[name].test(eventName)) { eventType = name; break; }
-    }
+    var oEvent = null;
+    var eventType = 'MouseEvents';
 
     if (!eventType)
         throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
@@ -268,8 +265,6 @@ function simulate(element, eventName)
     }
     else
     {
-        options.clientX = options.pointerX;
-        options.clientY = options.pointerY;
         var evt = document.createEventObject();
         oEvent = extend(evt, options);
         element.fireEvent('on' + eventName, oEvent);
@@ -279,14 +274,10 @@ function simulate(element, eventName)
 
 function extend(destination, source) {
     for (var property in source)
-      destination[property] = source[property];
+        destination[property] = source[property];
     return destination;
 }
 
-var eventMatchers = {
-    'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
-    'MouseEvents': /^(?:click|dblclick|mouse(?:down|up|over|move|out))$/
-}
 var defaultOptions = {
     pointerX: 0,
     pointerY: 0,
@@ -301,20 +292,7 @@ var defaultOptions = {
 // </thanks> 
 
 // Trying to get it to only execute once:
-for (i = 0; i < 1; i++) {
-    simulate(document.getElementById("SubmitButton"), "click");
-}
-
-/* Fail:
-// Submit form when enter is pressed in the textarea:
-document.getElementById("tags").addEventListener("keydown", function(e) {
-    if (e.keyCode == 13) {
-        document.getElementById("edit_form").style.backgroundColor = "green";
-        document.getElementById("edit_form").submit();
-        document.forms[2].submit();
-    }
-});
-*/
+simulate(document.getElementById("SubmitButton"), "click");
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
