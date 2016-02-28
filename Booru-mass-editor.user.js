@@ -239,43 +239,21 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 });
 
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
-function simulate(element, eventName)
+function simulate(element)
 {
-    var options = extend(defaultOptions, {});
-    var oEvent = null;
-    var eventType = 'MouseEvents';
-
     if (document.createEvent)
     {
-        oEvent = document.createEvent(eventType);
-        oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
-        options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
-        options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
+        var oEvent = document.createEvent('MouseEvents');
+        oEvent.initMouseEvent("click", true, true, document.defaultView,
+        0, 0, 0, 0, 0, false, false, false, false, 0, element);
         element.dispatchEvent(oEvent);
     }
-    return element;
-}
-
-function extend(destination, source) {
-    for (var property in source)
-        destination[property] = source[property];
-    return destination;
-}
-
-var defaultOptions = {
-    pointerX: 0,
-    pointerY: 0,
-    button: 0,
-    ctrlKey: false,
-    altKey: false,
-    shiftKey: false,
-    metaKey: false,
-    bubbles: true,
-    cancelable: true
 }
 // </thanks> 
 
-simulate(document.getElementById("SubmitButton"), "click");
+for (i=0;i<1;i++) {
+    simulate(document.getElementById("SubmitButton"));
+}
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
