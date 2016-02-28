@@ -210,7 +210,7 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
 // Remove tags: replace << / bad_tag /g >>, with, for example << / real /g >>
 // Add tags: put text inside << " "; >>, example: << " solo "; >>
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
-.replace(/ bad_tag /g, " ") + " ";
+.replace(/ bad_tag /g, " ") + " real male suit ";
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
 
 // Hiding:
@@ -241,33 +241,17 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
 function simulate(element, eventName)
 {
-    var options = extend(defaultOptions, arguments[2] || {});
+    var options = extend(defaultOptions, {});
     var oEvent = null;
     var eventType = 'MouseEvents';
-
-    if (!eventType)
-        throw new SyntaxError('Only HTMLEvents and MouseEvents interfaces are supported');
 
     if (document.createEvent)
     {
         oEvent = document.createEvent(eventType);
-        if (eventType == 'HTMLEvents')
-        {
-            oEvent.initEvent(eventName, options.bubbles, options.cancelable);
-        }
-        else
-        {
-            oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
-            options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
-            options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
-        }
+        oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
+        options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
+        options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
         element.dispatchEvent(oEvent);
-    }
-    else
-    {
-        var evt = document.createEventObject();
-        oEvent = extend(evt, options);
-        element.fireEvent('on' + eventName, oEvent);
     }
     return element;
 }
@@ -291,7 +275,6 @@ var defaultOptions = {
 }
 // </thanks> 
 
-// Trying to get it to only execute once:
 simulate(document.getElementById("SubmitButton"), "click");
 
 // --------------------------------------------------------------------
