@@ -161,47 +161,47 @@ if (document.getElementById("tags").value.match(/ tagme /g) && document.getEleme
 // Add resolution tags:
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
     if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
+        $("#tags").val($("#tags").val() + " lowres ");
     }
 }
 if (imageSizeWidth >= 1600 && imageSizeHeight >= 1200) {
     if (!(document.getElementById("tags").value.match(/ highres/g) || document.getElementById("tags").value.match(/highres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
+        $("#tags").val($("#tags").val() + " highres ");
     }
 }
 if (imageSizeWidth >= 3200 && imageSizeHeight >= 2400) {
     if (!(document.getElementById("tags").value.match(/ absurdres/g) || document.getElementById("tags").value.match(/absurdres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
+        $("#tags").val($("#tags").val() + " absurdres ");
     }
 }
 if (imageSizeWidth >= 10000 && imageSizeHeight >= 10000) {
     if (!(document.getElementById("tags").value.match(/ incredibly_absurdres/g) || document.getElementById("tags").value.match(/incredibly_absurdres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
+        $("#tags").val($("#tags").val() + " incredibly_absurdres ");
     }
 }
 if (imageSizeHeight > imageSizeWidth * 3) {
     if (!(document.getElementById("tags").value.match(/ tall_image/g) || document.getElementById("tags").value.match(/tall_image /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " tall_image ";
+        $("#tags").val($("#tags").val() + " tall_image ");
     }
 }
 if (imageSizeWidth == imageSizeHeight) {
     if (!(document.getElementById("tags").value.match(/ 1:1_aspect_ratio/g) || document.getElementById("tags").value.match(/1:1_aspect_ratio /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
+        $("#tags").val($("#tags").val() + " 1:1_aspect_ratio ");
     }
 }
 
 // Remove "mass uploader" text feilds:
-if (document.getElementById("title").value == "Booru mass uploader") {
-    document.getElementById("title").value = "";
+if ($("#title").val() == "Booru mass uploader") {
+    $("#title").val("");
 }
-if (document.getElementById("source").value == "https://ibsearch.xxx") {
-    document.getElementById("source").value = "";
+if ($("#source").val() == "https://ibsearch.xxx") {
+    $("#source").val("");
 }
-if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload") {
-    document.getElementById("source").value = "";
+if ($("#source").val() == "http://ibsearch.i-forge.net/mass-upload") {
+    $("#source").val("");
 }
-if (document.getElementById("source").value == "Booru mass uploader") {
-    document.getElementById("source").value = "";
+if ($("#source").val() == "Booru mass uploader") {
+    $("#source").val("");
 }
 
 // Move filename tags:
@@ -210,16 +210,16 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
 }
 // Remove tags: replace << / bad_tag /g >>, with, for example << / real /g >>
 // Add tags: put text inside << " "; >>, example: << " solo "; >>
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
-.replace(/ bad_tag /g, " ") + " real male suit ";
+//document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
+//.replace(/ bad_tag /g, " ") + " real male suit ";
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
 
 // Hiding:
-document.getElementById("previous_post").style.display = "none";
-document.getElementById("next_post").style.display = "none";
+$("#previous_post").css("display", "none");
+$("#next_post").css("display", "none");
 
 // Unhiding:
-document.getElementById("edit_form").style.display = "block";
+$("#edit_form").css("display", "block");
 
 // Positioning:
 $("#source").css("position", "relative");
@@ -231,7 +231,7 @@ $("#my-tags").css("top", "-72px");
 // document.getElementsByName("submit")[1].style.position = "absolute";
 // document.getElementsByName("submit")[1].style.top = "-22px";
 
-document.getElementById("tags").addEventListener("keyup", function(e) {
+$("#tags").keyup(function(e) {
     if (getMyTagsText.match(/\+/g)) {
         refreshMyTags("+");
     } else {
@@ -242,19 +242,14 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
 function simulate(element)
 {
-    if (document.createEvent)
-    {
         var oEvent = document.createEvent('MouseEvents');
         oEvent.initMouseEvent("click", true, true, document.defaultView,
         0, 0, 0, 0, 0, false, false, false, false, 0, element);
         element.dispatchEvent(oEvent);
-    }
 }
 // </thanks> 
 
-for (i=0;i<1;i++) {
-    simulate(document.getElementById("SubmitButton"));
-}
+simulate(document.getElementById("SubmitButton"));
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
