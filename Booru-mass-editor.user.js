@@ -208,7 +208,8 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
 }
-// Add tags put "rm:x&y&z;rm;" in Account > Options > My Tags
+
+// Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
 var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "").split("&");
 for (i = 0; i < myTagsRmTags.length; i++) {
     if (document.getElementById("tags").value.match(" " + myTagsRmTags[i])) {
