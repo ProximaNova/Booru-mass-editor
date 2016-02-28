@@ -135,9 +135,9 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-// Replace tags put "replace:bad_tag_with_good_tag;" in Account > Options > My Tags
+// Replace tags put "replace:bad_tag_with_good_tag;replace;" in Account > Options > My Tags
 var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
-var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;.*/g, "");
+var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;replace;.*/g, "");
 var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
 var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
 var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
@@ -209,25 +209,15 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
 }
 // Remove tags: replace << / bad_tag /g >>, with, for example << / real /g >>
-// Add tags: put text inside << " "; >>, example: << " solo "; >>
 document.getElementById("tags").value = document.getElementById("tags").value
 .replace(/ bad_tag /g, " ");
-if (!
-    (
-     document.getElementById("tags").value.match(" real") 
-     ||
-     document.getElementById("tags").value.match("real ")
-     &&
-     document.getElementById("tags").value.match(" male")
-     ||
-     document.getElementById("tags").value.match("male ")
-     &&
-     document.getElementById("tags").value.match(" suit")
-     ||
-     document.getElementById("tags").value.match("suit ")
-    )
-   ) {
-    document.getElementById("tags").value = document.getElementById("tags").value + " real male suit ";
+
+//Add tags put "add:x&y&z;add;" in Account > Options > My Tags
+var myTagsAddTags = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "").split("&");
+for (i = 0; i < myTagsAddTags.length; i++) {
+    if (!(document.getElementById("tags").value.match(" " + myTagsAddTags[i]) || document.getElementById("tags").value.match(myTagsAddTags[i] + " "))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
+    }
 }
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
 
