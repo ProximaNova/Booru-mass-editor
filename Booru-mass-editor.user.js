@@ -206,7 +206,7 @@ if (imageSizeWidth == imageSizeHeight) {
 // Replace tags put "re:bad_tag_with_good_tag;re;" in Account > Options > My Tags
 var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
 var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
-var myTagsReplaceTagInfo = "Replacing <code>" + myTagsReplaceTag1 + "</code> with<br><code>" + myTagsReplaceTag2 + "</code>";
+var myTagsReplaceTagInfo = "Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code>";
 var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
 var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
 var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
@@ -276,11 +276,12 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 var tagsMods = document.createElement("ul");
 tagsMods.style.cssText = "max-width:20em";
 tagsMods.innerHTML =
+"<h5>Tagging operations</h5>" +
 "<li>" + myTagsReplaceTagInfo + "</li>" +
 "<li>" + myTagsAddTagInfo + "</li>" +
 "<li>" + myTagsRmTagInfo + "</li>";
-tagsMods.style.position = "absolute";
-tagsMods.style.bottom = "0px";
+tagsMods.style.position = "relative";
+tagsMods.style.bottom = "125px";
 document.body.appendChild(tagsMods);
 
 /*
