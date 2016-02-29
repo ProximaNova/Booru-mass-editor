@@ -263,13 +263,13 @@ if (typeof(myTagsAddTags) == "object") {
 }
 
 // Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
-if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
+if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = true;
     var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
     if (myTagsAddTag.match("&")) {
-        var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "").split("&");
+        var myTagsRmTags = myTagsRmTag.split("&");
     } else {
-        var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
+        var myTagsRmTags = myTagsRmTag;
     }
 } else {
     var myTagsRming = false;
@@ -289,7 +289,7 @@ if (typeof(myTagsRmTags) == "object") {
         }
     }
 } else {
-    var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>" : "";
+    var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags + "</code></li>" : "";
     var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags + " ", "gi");
     var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags + " ", "gi");
     var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags + "$", "gi");
