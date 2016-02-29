@@ -168,14 +168,11 @@ if (document.getElementById("source").value == "Booru mass uploader") {
 
 // Remove tagme tag if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
-    var tagsMatchTagmeCase1 = new RegExp(" " + tagme + " ", "gi");
-    var tagsMatchTagmeCase2 = new RegExp("^" + tagme + " ", "gi");
-    var tagsMatchTagmeCase3 = new RegExp(" " + tagme + "$", "gi");
-    if (document.getElementById("tags").value.match(tagsMatchTagmeCase1) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    if (document.getElementById("tags").value.match(/ tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
-    } else if (document.getElementById("tags").value.match(tagsMatchTagmeCase2) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    } else if (document.getElementById("tags").value.match(/^tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
-    } else if (document.getElementById("tags").value.match(tagsMatchTagmeCase3) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    } else if (document.getElementById("tags").value.match(/ tagme$/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
     } else {
         console.log("This images only has the 'tagme' tag.")
