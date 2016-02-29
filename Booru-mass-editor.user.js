@@ -153,12 +153,16 @@ Replacing:
 ;
 
 /*
-// Make below into terniary operator stored in a variable then add it to the top of the replacement area
+// If statement in a variable below, add it to the top of the replacement area and test (see previous revision: if statement missing index number)
 // Or use a different method to insert text just after `<div class="sidebar">` if boolean expression is true:
-if (document.getElementById("parent").value !== ""){
-    var parent = document.getElementsByName("parent")[0].value;
+var parentValue = document.getElementsByName("parent")[0].value;
+var parentCheck = (parentValue !== "")
+?
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parent + "'><b>child posts</b></a>. Child posts are often subsequent pages of a doujinshi, or minor variations of the parent post.</div><br><br>");
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parent + "'><b>child posts</b></a>. Child posts are often subsequent pages of a doujinshi, or minor variations of the parent post.</div><br><br>")
+:
+    ""
+;
 }
 */
 
