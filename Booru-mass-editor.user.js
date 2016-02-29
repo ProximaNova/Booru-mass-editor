@@ -224,7 +224,12 @@ if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
 var myTagsAddTags = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "").split("&");
 var myTagsAddTagInfo = "Adding: <code>" + myTagsAddTags.join(" ") + "</code>";
 for (i = 0; i < myTagsAddTags.length; i++) {
-    if (!(document.getElementById("tags").value.match(" " + myTagsAddTags[i]) || document.getElementById("tags").value.match(myTagsAddTags[i] + " "))) {
+    var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags[i] + " ", "gi");
+    var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags[i] + " ", "gi");
+    var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags[i] + "$", "gi");
+    if (!(document.getElementById("tags").value.match(myTagsAddTagMatchCase1)
+    || document.getElementById("tags").value.match(myTagsAddTagMatchCase2)
+    || document.getElementById("tags").value.match(myTagsAddTagMatchCase3))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
     }
 }
@@ -233,11 +238,15 @@ for (i = 0; i < myTagsAddTags.length; i++) {
 var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "").split("&");
 var myTagsRmTagInfo = "Removing: <code>" + myTagsRmTags.join(" ") + "</code>";
 for (i = 0; i < myTagsRmTags.length; i++) {
-    if (document.getElementById("tags").value.match(" " + myTagsRmTags[i])) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(" " + myTagsRmTags[i], "");
-    }
-    if (document.getElementById("tags").value.match(myTagsRmTags[i] + " ")) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTags[i] + " ", "");
+    var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags[i] + " ", "gi");
+    var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags[i] + " ", "gi");
+    var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags[i] + "$", "gi");
+    if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
+    } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase2, "");
+    } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3, "");
     }
 }
 
@@ -264,8 +273,6 @@ document.getElementById("tags").style.position = "relative";
 document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
-// document.getElementsByName("submit")[1].style.position = "absolute";
-// document.getElementsByName("submit")[1].style.top = "-22px";
 
 document.getElementById("tags").addEventListener("keyup", function(e) {
     if (getMyTagsText.match(/\+/g)) {
