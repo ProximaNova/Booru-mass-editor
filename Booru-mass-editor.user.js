@@ -27,18 +27,22 @@ var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : 
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 
-document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
+if (document.getElementById("tags").value.match(" ")) {
+    document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
+}
 
 // Improving "#tag_list":
-for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
-    if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
-        document.getElementsByTagName("a")[i].style.color = "#A00";
-    } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
-        document.getElementsByTagName("a")[i].style.color = "#0A0";
-    } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
-        document.getElementsByTagName("a")[i].style.color = "#A0A";
+if (document.getElementById("tags").value.match(" ")) {
+    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
+        if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
+            document.getElementsByTagName("a")[i].style.color = "#A00";
+        } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
+            document.getElementsByTagName("a")[i].style.color = "#0A0";
+        } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
+            document.getElementsByTagName("a")[i].style.color = "#A0A";
+        }
+        document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> /g, "</a>&nbsp;");
     }
-    document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> /g, "</a>&nbsp;");
 }
 
 // Improving "#my-tags":
@@ -163,14 +167,19 @@ if (document.getElementById("source").value == "Booru mass uploader") {
 }
 
 // Remove tagme tag if there is 10 other tags:
-if (document.getElementById("tags").value.match(/ tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
-} else if (document.getElementById("tags").value.match(/tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
-} else if (document.getElementById("tags").value.match(/ tagme/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
-} else {
-    console.log("This images only has the 'tagme' tag.") //even after adding this images with just one tag still mess up.
+if (document.getElementById("tags").value.match(" ")) {
+    var tagsMatchTagmeCase1 = new RegExp(" " + tagme + " ", "gi");
+    var tagsMatchTagmeCase2 = new RegExp("^" + tagme + " ", "gi");
+    var tagsMatchTagmeCase3 = new RegExp(" " + tagme + "$", "gi");
+    if (document.getElementById("tags").value.match(tagsMatchTagmeCase1) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
+    } else if (document.getElementById("tags").value.match(tagsMatchTagmeCase2) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
+    } else if (document.getElementById("tags").value.match(tagsMatchTagmeCase3) && document.getElementById("tags").value.match(/ /g).length >= 10) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
+    } else {
+        console.log("This images only has the 'tagme' tag.")
+    }
 }
 
 // Add resolution tags:
@@ -334,7 +343,7 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
     }
 });
 
-//if (myTagsAdding == true || myTagsReplacing == true || myTagsRming == true) {
+if (myTagsAdding == true || myTagsReplacing == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
     tagsMods.style.cssText = "max-width:20em;z-index:-1;";
     tagsMods.innerHTML =
@@ -345,7 +354,7 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
     tagsMods.style.position = "relative";
     tagsMods.style.bottom = "125px";
     document.body.appendChild(tagsMods);
-//}
+}
 
 /*
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
