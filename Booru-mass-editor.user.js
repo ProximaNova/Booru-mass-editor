@@ -206,7 +206,7 @@ if (imageSizeWidth == imageSizeHeight) {
 // Replace tags put "re:bad_tag_with_good_tag;re;" in Account > Options > My Tags
 var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
 var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
-var myTagsReplaceTagT = "Replacing <code>" + myTagsReplaceTag1 + "</code> with <code>" + myTagsReplaceTag2 + "</code>.";
+var myTagsReplaceTagInfo = "Replacing <code>" + myTagsReplaceTag1 + "</code> with<br><code>" + myTagsReplaceTag2 + "</code>";
 var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
 var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
 var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
@@ -220,7 +220,7 @@ if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
 
 // Add tags put "add:x&y&z;add;" in Account > Options > My Tags
 var myTagsAddTags = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "").split("&");
-var myTagsAddTagT = "Adding x, y, and z.";
+var myTagsAddTagInfo = "Adding: <code>" + myTagsAddTags.join(" ") + "</code>";
 for (i = 0; i < myTagsAddTags.length; i++) {
     if (!(document.getElementById("tags").value.match(" " + myTagsAddTags[i]) || document.getElementById("tags").value.match(myTagsAddTags[i] + " "))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
@@ -229,7 +229,7 @@ for (i = 0; i < myTagsAddTags.length; i++) {
 
 // Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
 var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "").split("&");
-var myTagsRmTagT = "Removing x, y, and z.";
+var myTagsRmTagInfo = "Removing: <code>" + myTagsRmTags.join(" ") + "</code>";
 for (i = 0; i < myTagsRmTags.length; i++) {
     if (document.getElementById("tags").value.match(" " + myTagsRmTags[i])) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(" " + myTagsRmTags[i], "");
@@ -273,13 +273,15 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
     }
 });
 
-console.log(
-  "<ul>" +
-  "<li>" + myTagsReplaceTagT + "</li>" +
-  "<li>" + myTagsAddTagT + "</li>" +
-  "<li>" + myTagsRmTagT + "</li>" + 
-  "</ul>"
-);
+var tagsMods = document.createElement("ul");
+tagsMods.style.cssText = "max-width:20em";
+tagsMods.innerHTML =
+"<li>" + myTagsReplaceTagInfo + "</li>" +
+"<li>" + myTagsAddTagInfo + "</li>" +
+"<li>" + myTagsRmTagInfo + "</li>";
+tagsMods.style.position = "absolute";
+tagsMods.style.bottom = "0px";
+document.body.appendChild(tagsMods);
 
 /*
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
