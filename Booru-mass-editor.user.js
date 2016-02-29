@@ -251,7 +251,7 @@ if (typeof(myTagsAddTags) == "object") {
         }
     }
 } else {
-  var myTagsAddTagInfo = (myTagsAdding == true) ? "<li>Adding: <code>" + myTagsAddTags + "</code></li>" : "";
+    var myTagsAddTagInfo = (myTagsAdding == true) ? "<li>Adding: <code>" + myTagsAddTags + "</code></li>" : "";
     var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags + " ", "gi");
     var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags + " ", "gi");
     var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags + "$", "gi");
@@ -265,15 +265,34 @@ if (typeof(myTagsAddTags) == "object") {
 // Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsRming = true;
-    var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "").split("&");
+    var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
+    if (myTagsAddTag.match("&")) {
+        var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "").split("&");
+    } else {
+        var myTagsRmTags = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
+    }
 } else {
     var myTagsRming = false;
 }
-var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>" : "";
-for (i = 0; i < myTagsRmTags.length; i++) {
-    var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags[i] + " ", "gi");
-    var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags[i] + " ", "gi");
-    var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags[i] + "$", "gi");
+if (typeof(myTagsRmTags) == "object") {
+    var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>" : "";
+    for (i = 0; i < myTagsRmTags.length; i++) {
+        var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags[i] + " ", "gi");
+        var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags[i] + " ", "gi");
+        var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags[i] + "$", "gi");
+        if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
+        } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase2, "");
+        } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3, "");
+        }
+    }
+} else {
+    var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>" : "";
+    var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags + " ", "gi");
+    var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags + " ", "gi");
+    var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags + "$", "gi");
     if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
     } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
@@ -315,16 +334,18 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
     }
 });
 
-var tagsMods = document.createElement("ul");
-tagsMods.style.cssText = "max-width:20em;z-index:-1;";
-tagsMods.innerHTML =
-"<h5>Tagging operations</h5>" +
-myTagsReplaceTagInfo +
-myTagsAddTagInfo +
-myTagsRmTagInfo;
-tagsMods.style.position = "relative";
-tagsMods.style.bottom = "125px";
-document.body.appendChild(tagsMods);
+//if (myTagsAdding == true || myTagsReplacing == true || myTagsRming == true) {
+    var tagsMods = document.createElement("ul");
+    tagsMods.style.cssText = "max-width:20em;z-index:-1;";
+    tagsMods.innerHTML =
+    "<h5>Tagging operations</h5>" +
+    myTagsReplaceTagInfo +
+    myTagsAddTagInfo +
+    myTagsRmTagInfo;
+    tagsMods.style.position = "relative";
+    tagsMods.style.bottom = "125px";
+    document.body.appendChild(tagsMods);
+//}
 
 /*
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
