@@ -169,6 +169,8 @@ if (document.getElementById("tags").value.match(/ tagme /g) && document.getEleme
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
 } else if (document.getElementById("tags").value.match(/ tagme/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
+} else {
+    console.log("This images only has the 'tagme' tag.") //even after adding this images with just one tag still mess up.
 }
 
 // Add resolution tags:
@@ -274,7 +276,7 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
 });
 
 var tagsMods = document.createElement("ul");
-tagsMods.style.cssText = "max-width:20em";
+tagsMods.style.cssText = "max-width:20em;z-index:-1;";
 tagsMods.innerHTML =
 "<h5>Tagging operations</h5>" +
 "<li>" + myTagsReplaceTagInfo + "</li>" +
