@@ -135,20 +135,21 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-// Replace tags put "replace:bad_tag_with_good_tag;replace;" in Account > Options > My Tags
-var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
-var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;replace;.*/g, "");
-var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
-var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
-var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
-if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase1, " " + myTagsReplaceTag2 + " ");
-} else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase2)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase2, myTagsReplaceTag2 + " ");
-} else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase3)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase3, " " + myTagsReplaceTag2);
+// Remove "mass uploader" text feilds:
+if (document.getElementById("title").value == "Booru mass uploader") {
+    document.getElementById("title").value = "";
+}
+if (document.getElementById("source").value == "https://ibsearch.xxx") {
+    document.getElementById("source").value = "";
+}
+if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload") {
+    document.getElementById("source").value = "";
+}
+if (document.getElementById("source").value == "Booru mass uploader") {
+    document.getElementById("source").value = "";
 }
 
+// Remove tagme tag if there is 10 other tags:
 if (document.getElementById("tags").value.match(/ tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
 } else if (document.getElementById("tags").value.match(/tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
@@ -189,24 +190,26 @@ if (imageSizeWidth == imageSizeHeight) {
     }
 }
 
-// Remove "mass uploader" text feilds:
-if (document.getElementById("title").value == "Booru mass uploader") {
-    document.getElementById("title").value = "";
-}
-if (document.getElementById("source").value == "https://ibsearch.xxx") {
-    document.getElementById("source").value = "";
-}
-if (document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload") {
-    document.getElementById("source").value = "";
-}
-if (document.getElementById("source").value == "Booru mass uploader") {
-    document.getElementById("source").value = "";
+// Replace tags put "replace:bad_tag_with_good_tag;replace;" in Account > Options > My Tags
+var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/_with_.*/g, "");
+var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*replace:/g, "").replace(/.*_with_/g, "").replace(/;replace;.*/g, "");
+var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
+var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
+var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
+if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase1, " " + myTagsReplaceTag2 + " ");
+} else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase2)) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase2, myTagsReplaceTag2 + " ");
+} else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase3)) {
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase3, " " + myTagsReplaceTag2);
 }
 
-// Move filename tags:
-if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
+// Add tags put "add:x&y&z;add;" in Account > Options > My Tags
+var myTagsAddTags = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "").split("&");
+for (i = 0; i < myTagsAddTags.length; i++) {
+    if (!(document.getElementById("tags").value.match(" " + myTagsAddTags[i]) || document.getElementById("tags").value.match(myTagsAddTags[i] + " "))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
+    }
 }
 
 // Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
@@ -220,13 +223,13 @@ for (i = 0; i < myTagsRmTags.length; i++) {
     }
 }
 
-// Add tags put "add:x&y&z;add;" in Account > Options > My Tags
-var myTagsAddTags = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "").split("&");
-for (i = 0; i < myTagsAddTags.length; i++) {
-    if (!(document.getElementById("tags").value.match(" " + myTagsAddTags[i]) || document.getElementById("tags").value.match(myTagsAddTags[i] + " "))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
-    }
+// Move filename tags:
+if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
+    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
 }
+
+// "  " ---> " "
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
 
 // Hiding:
