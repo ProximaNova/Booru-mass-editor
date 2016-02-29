@@ -152,20 +152,11 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-// <thanks to="http://stackoverflow.com/questions/1310378/determining-image-file-size-dimensions-via-javascript">
-var xhr = new XMLHttpRequest();
-xhr.open('HEAD', imageSrc, true);
-xhr.onreadystatechange = function(){
-  if ( xhr.readyState == 4 ) {
-    if ( xhr.status == 200 ) {
-      alert('Size in bytes: ' + xhr.getResponseHeader('Content-Length'));
-    } else {
-      alert('ERROR');
-    }
-  }
-};
-xhr.send(null);
-// </thanks>
+/*if (document.getElementById("parent").value !== ""){
+    var parent = document.getElementsByName("parent")[0].value;
+    document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parent + "'><b>child posts</b></a>. Child posts are often subsequent pages of a doujinshi, or minor variations of the parent post.</div><br><br>");
+}*/
 
 // Remove "mass uploader" text feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
