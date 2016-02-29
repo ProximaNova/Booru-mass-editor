@@ -51,7 +51,11 @@ function refreshMyTags(sep) {
         var myTagsMatchCase1 = new RegExp(" " + getMyTagsAsArray[i] + " ", "gi");
         var myTagsMatchCase2 = new RegExp("^" + getMyTagsAsArray[i] + " ", "gi");
         var myTagsMatchCase3 = new RegExp(" " + getMyTagsAsArray[i] + "$", "gi");
-        var myTagsBoldToggle = (document.getElementById("tags").value.match(myTagsMatchCase1) || document.getElementById("tags").value.match(myTagsMatchCase2) || document.getElementById("tags").value.match(myTagsMatchCase3)) ?
+        var myTagsBoldToggle =
+        (document.getElementById("tags").value.match(myTagsMatchCase1)
+        || document.getElementById("tags").value.match(myTagsMatchCase2)
+        || document.getElementById("tags").value.match(myTagsMatchCase3))
+        ?
             "if (this.style.fontWeight == 'bold') { \
                  this.style.fontWeight = 'normal' \
              } else { \
@@ -61,7 +65,16 @@ function refreshMyTags(sep) {
         :
             "return false;\""
         ;
-        myTagsNew += "<a href=\"index.php?page=post&amp;s=list&amp;tags=" +
+        var myTagsHiddenTags =
+        (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g))
+        ?
+            "style='display:none;' "
+        :
+            ""
+        ;
+        myTagsNew += "<a " +
+                     myTagsHiddenTags +
+                     "href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      getMyTagsAsArray[i].toLowerCase() +
                      "\" id=\"t_" +
                      getMyTagsAsArray[i].toLowerCase() +
@@ -77,7 +90,7 @@ function refreshMyTags(sep) {
                      +
                      "</a> "
     }
-document.getElementById("my-tags").innerHTML = myTagsNew;
+    document.getElementById("my-tags").innerHTML = myTagsNew;
 }
 if (getMyTagsText.match(/\+/g)) {
     refreshMyTags("+");
@@ -225,12 +238,12 @@ for (i = 0; i < myTagsRmTags.length; i++) {
 
 // Move filename tags:
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ")
+    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g);
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ");
 }
 
 // "  " ---> " "
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ")
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
