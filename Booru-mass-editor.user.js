@@ -152,6 +152,21 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+// <thanks to="http://stackoverflow.com/questions/1310378/determining-image-file-size-dimensions-via-javascript">
+var xhr = new XMLHttpRequest();
+xhr.open('HEAD', imageSrc, true);
+xhr.onreadystatechange = function(){
+  if ( xhr.readyState == 4 ) {
+    if ( xhr.status == 200 ) {
+      alert('Size in bytes: ' + xhr.getResponseHeader('Content-Length'));
+    } else {
+      alert('ERROR');
+    }
+  }
+};
+xhr.send(null);
+// </thanks>
+
 // Remove "mass uploader" text feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
