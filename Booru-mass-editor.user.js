@@ -31,9 +31,21 @@ if (document.getElementById("tags").value.match(" ")) {
     document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
+// Display parent if viewing child:
+var parentValue = document.getElementsByName("parent")[0].value;
+if (parentValue !== "") {
+    document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentValue + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
+    var linkNumber1 = 10
+    var linkNumber2 = 11
+} else {
+    var linkNumber1 = 11
+    var linkNumber2 = 12
+}
+
 // Improving "#tag_list":
 if (document.getElementById("tags").value.match(" ")) {
-    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
+    for (i = linkNumber1; i < document.getElementById("tags").value.match(/ /g).length + linkNumber2; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
@@ -151,20 +163,6 @@ Replacing:
 .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
-
-/*
-// If statement in a variable below, add it to the top of the replacement area and test (see previous revision: if statement missing index number)
-// Or use a different method to insert text just after `<div class="sidebar">` if boolean expression is true:
-var parentValue = document.getElementsByName("parent")[0].value;
-var parentCheck = (parentValue !== "")
-?
-    document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parent + "'><b>child posts</b></a>. Child posts are often subsequent pages of a doujinshi, or minor variations of the parent post.</div><br><br>")
-:
-    ""
-;
-}
-*/
 
 // Remove "mass uploader" text feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
