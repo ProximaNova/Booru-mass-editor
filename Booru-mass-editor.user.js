@@ -27,6 +27,7 @@ var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : 
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 
+// Improve title:
 if (document.getElementById("tags").value.match(" ")) {
     document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
@@ -222,7 +223,6 @@ if (imageSizeWidth == imageSizeHeight) {
         document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
     }
 }
-
 // Failure handling one add, one remove, no replace, etc. Mainly works with replastring: >1 adds and removes
 // Works without replace and just adds and removes? If array then object then >1 adds or removes, else just one add or remove, then string:
 // TAGGING OPERATIONS:
@@ -231,19 +231,20 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = true;
     var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
     var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
+    var myTagsReplaceTagInfo = "<li>Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code></li>";
+    var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
+    var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
+    var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
+    if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase1, " " + myTagsReplaceTag2 + " ");
+    } else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase2)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase2, myTagsReplaceTag2 + " ");
+    } else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase3)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase3, " " + myTagsReplaceTag2);
+    }
 } else {
     var myTagsReplacing = false;
-}
-var myTagsReplaceTagInfo = (myTagsReplacing == true) ? "<li>Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code></li>" : "";
-var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
-var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
-var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
-if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase1, " " + myTagsReplaceTag2 + " ");
-} else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase2)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase2, myTagsReplaceTag2 + " ");
-} else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase3)) {
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase3, " " + myTagsReplaceTag2);
+    var myTagsReplaceTagInfo = "";
 }
 
 // Add tags put "add:x&y&z;add;" in Account > Options > My Tags
@@ -255,51 +256,61 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     } else {
         var myTagsAddTags = myTagsAddTag;
     }
-} else {
-    var myTagsAdding = false;
-}
-if (typeof(myTagsAddTags) == "object") {
-    var myTagsAddTagInfo = (myTagsAdding == true) ? "<li>Adding: <code>" + myTagsAddTags.join(" ") + "</code></li>" : "";
-    for (i = 0; i < myTagsAddTags.length; i++) {
-        var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags[i] + " ", "gi");
-        var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags[i] + " ", "gi");
-        var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags[i] + "$", "gi");
+    if (typeof(myTagsAddTags) == "object") {
+        for (i = 0; i < myTagsAddTags.length; i++) {
+            var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags[i] + " ", "gi");
+            var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags[i] + " ", "gi");
+            var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags[i] + "$", "gi");
+            if (!(document.getElementById("tags").value.match(myTagsAddTagMatchCase1)
+            || document.getElementById("tags").value.match(myTagsAddTagMatchCase2)
+            || document.getElementById("tags").value.match(myTagsAddTagMatchCase3))) {
+                document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
+            }
+        }
+        var myTagsAddTagInfo = "<li>Adding: <code>" + myTagsAddTags.join(" ") + "</code></li>";
+    } else {
+        var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags + " ", "gi");
+        var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags + " ", "gi");
+        var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags + "$", "gi");
         if (!(document.getElementById("tags").value.match(myTagsAddTagMatchCase1)
         || document.getElementById("tags").value.match(myTagsAddTagMatchCase2)
         || document.getElementById("tags").value.match(myTagsAddTagMatchCase3))) {
-            document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
+            document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags + " ";
         }
+        var myTagsAddTagInfo = "<li>Adding: <code>" + myTagsAddTags + "</code></li>";
     }
 } else {
-    var myTagsAddTagInfo = (myTagsAdding == true) ? "<li>Adding: <code>" + myTagsAddTags + "</code></li>" : "";
-    var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags + " ", "gi");
-    var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags + " ", "gi");
-    var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags + "$", "gi");
-    if (!(document.getElementById("tags").value.match(myTagsAddTagMatchCase1)
-    || document.getElementById("tags").value.match(myTagsAddTagMatchCase2)
-    || document.getElementById("tags").value.match(myTagsAddTagMatchCase3))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags + " ";
-    }
+    var myTagsAdding = false;
+    var myTagsAddTagInfo = "";
 }
 
 // Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
 if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = true;
     var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
-    if (myTagsAddTag.match("&")) {
+    if (myTagsRmTag.match("&")) {
         var myTagsRmTags = myTagsRmTag.split("&");
     } else {
         var myTagsRmTags = myTagsRmTag;
     }
-} else {
-    var myTagsRming = false;
-}
-if (typeof(myTagsRmTags) == "object") {
-    var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>" : "";
-    for (i = 0; i < myTagsRmTags.length; i++) {
-        var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags[i] + " ", "gi");
-        var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags[i] + " ", "gi");
-        var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags[i] + "$", "gi");
+    if (typeof(myTagsRmTags) == "object") {
+        for (i = 0; i < myTagsRmTags.length; i++) {
+            var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags[i] + " ", "gi");
+            var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags[i] + " ", "gi");
+            var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags[i] + "$", "gi");
+            if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
+                document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1[i], " ");
+            } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
+                document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase2[i], "");
+            } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
+                document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3[i], "");
+            }
+        }
+        var myTagsRmTagInfo = "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>";
+    } else {
+        var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags + " ", "gi");
+        var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags + " ", "gi");
+        var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags + "$", "gi");
         if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
             document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
         } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
@@ -307,19 +318,11 @@ if (typeof(myTagsRmTags) == "object") {
         } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
             document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3, "");
         }
+        var myTagsRmTagInfo = "<li>Removing: <code>" + myTagsRmTags + "</code></li>";
     }
 } else {
-    var myTagsRmTagInfo = (myTagsRming == true) ? "<li>Removing: <code>" + myTagsRmTags + "</code></li>" : "";
-    var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags + " ", "gi");
-    var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags + " ", "gi");
-    var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags + "$", "gi");
-    if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
-    } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase2, "");
-    } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3, "");
-    }
+    var myTagsRming = false;
+    var myTagsRmTagInfo = "";
 }
 
 // Move filename tags:
@@ -354,7 +357,7 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
     }
 });
 
-if (myTagsAdding == true || myTagsReplacing == true || myTagsRming == true) {
+if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
     tagsMods.style.cssText = "max-width:20em;z-index:-1;";
     tagsMods.innerHTML =
