@@ -187,8 +187,11 @@ if (document.getElementById("tags").value.match(" ")) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
     } else if (document.getElementById("tags").value.match(/ tagme$/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
-    } else {
-        console.log("This images only has the 'tagme' tag.")
+    } else if (!(document.getElementById("tags").value.match(/ tagme /g)
+    || document.getElementById("tags").value.match(/^tagme /g)
+    || document.getElementById("tags").value.match(/ tagme$/g))
+    && document.getElementById("tags").value.match(/ /g).length <= 10) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
     }
 }
 
@@ -223,8 +226,7 @@ if (imageSizeWidth == imageSizeHeight) {
         document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
     }
 }
-// Failure handling one add, one remove, no replace, etc. Mainly works with replastring: >1 adds and removes
-// Works without replace and just adds and removes? If array then object then >1 adds or removes, else just one add or remove, then string:
+
 // TAGGING OPERATIONS:
 // Replace tags put "re:bad_tag_with_good_tag;re;" in Account > Options > My Tags
 if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
