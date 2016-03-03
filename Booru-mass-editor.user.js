@@ -187,6 +187,7 @@ if (document.getElementById("tags").value.match(" ")) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
     } else if (document.getElementById("tags").value.match(/ tagme$/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
+    // Adding "tagme" if image has <10 tags, this should be a number variable defined by the user though:
     } else if (!(document.getElementById("tags").value.match(/ tagme /g)
     || document.getElementById("tags").value.match(/^tagme /g)
     || document.getElementById("tags").value.match(/ tagme$/g))
