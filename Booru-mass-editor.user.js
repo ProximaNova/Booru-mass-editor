@@ -226,7 +226,7 @@ if (imageSizeWidth == imageSizeHeight) {
 }
 
 // TAGGING OPERATIONS:
-// Replace tags put "re:bad_tag_with_good_tag;re;" in Account > Options > My Tags
+// Replace tags:
 if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = true;
     var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
@@ -247,7 +247,7 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplaceTagInfo = "";
 }
 
-// Add tags put "add:x&y&z;add;" in Account > Options > My Tags
+// Add tags:
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAdding = true;
     var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
@@ -284,7 +284,7 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAddTagInfo = "";
 }
 
-// Remove tags put "rm:x&y&z;rm;" in Account > Options > My Tags
+// Remove tags:
 if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = true;
     var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
@@ -374,8 +374,8 @@ var reverseSearch = document.createElement("ul");
 reverseSearch.style.cssText = "max-width:20em;z-index:1;";
 reverseSearch.innerHTML =
 "<h5>Reverse search</h5> \
-<li><a href='http://iqdb.org/?url=" + imageSrcThumb + "'>iqdb</a> (for anime images)</li> \
-<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrcThumb + "'>Google</a> (for general images)</li>";
+<li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li> \
+<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li>";
 reverseSearch.style.position = "relative";
 reverseSearch.style.bottom = "125px";
 document.body.appendChild(reverseSearch);
