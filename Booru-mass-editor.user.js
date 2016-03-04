@@ -207,10 +207,10 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
     }
-    if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
+    if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
     }
-    if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
+    if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
     }
 }
