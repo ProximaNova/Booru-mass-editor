@@ -160,7 +160,7 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-// Remove "mass uploader" text feilds:
+// Remove "mass uploader" in feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
