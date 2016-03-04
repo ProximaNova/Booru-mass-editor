@@ -254,8 +254,8 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAdding = true;
     var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
-    if (myTagsAddTag.match("&")) {
-        var myTagsAddTags = myTagsAddTag.split("&");
+    if (myTagsAddTag.match("|")) {
+        var myTagsAddTags = myTagsAddTag.split("|");
     } else {
         var myTagsAddTags = myTagsAddTag;
     }
@@ -291,8 +291,8 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
 if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = true;
     var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
-    if (myTagsRmTag.match("&")) {
-        var myTagsRmTags = myTagsRmTag.split("&");
+    if (myTagsRmTag.match("|")) {
+        var myTagsRmTags = myTagsRmTag.split("|");
     } else {
         var myTagsRmTags = myTagsRmTag;
     }
