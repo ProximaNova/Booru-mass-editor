@@ -190,33 +190,33 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 // Add resolution tags:
-function addResolutionTags (resTag) {
-    var addResTagMatchCase1 = new RegExp(" " + resTag + " ", "gi");
-    var addResTagMatchCase2 = new RegExp("^" + resTag + " ", "gi");
-    var addResTagMatchCase3 = new RegExp(" " + resTag + "$", "gi");
-    if (!(document.getElementById("tags").value.match(addResTagMatchCase1) ||
-    document.getElementById("tags").value.match(addResTagMatchCase2) ||
-    document.getElementById("tags").value.match(addResTagMatchCase3))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " " + resTag + " ";
+function addTags(tagToAdd) {
+    var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
+    var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
+    var addTagMatchCase3 = new RegExp(" " + tagToAdd + "$", "gi");
+    if (!(document.getElementById("tags").value.match(addTagMatchCase1) ||
+    document.getElementById("tags").value.match(addTagMatchCase2) ||
+    document.getElementById("tags").value.match(addTagMatchCase3))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
     }
 }
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
-    addResolutionTags("lowres");
+    addTags("lowres");
 }
 if (imageSizeWidth >= 1600 && imageSizeHeight >= 1200) {
-    addResolutionTags("highres");
+    addTags("highres");
 }
 if (imageSizeWidth >= 3200 && imageSizeHeight >= 2400) {
-    addResolutionTags("absurdres");
+    addTags("absurdres");
 }
 if (imageSizeWidth >= 10000 && imageSizeHeight >= 10000) {
-    addResolutionTags("incredibly_absurdres");
+    addTags("incredibly_absurdres");
 }
 if (imageSizeHeight > imageSizeWidth * 3) {
-    addResolutionTags("tall_image");
+    addTags("tall_image");
 }
 if (imageSizeWidth == imageSizeHeight) {
-    addResolutionTags("1:1_aspect_ratio");
+    addTags("1:1_aspect_ratio");
 }
 
 // TAGGING OPERATIONS:
@@ -252,25 +252,11 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     }
     if (typeof(myTagsAddTags) == "object") {
         for (i = 0; i < myTagsAddTags.length; i++) {
-            var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags[i] + " ", "gi");
-            var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags[i] + " ", "gi");
-            var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags[i] + "$", "gi");
-            if (!(document.getElementById("tags").value.match(myTagsAddTagMatchCase1)
-            || document.getElementById("tags").value.match(myTagsAddTagMatchCase2)
-            || document.getElementById("tags").value.match(myTagsAddTagMatchCase3))) {
-                document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags[i] + " ";
-            }
+            addTags(myTagsAddTags[i]);
         }
         var myTagsAddTagInfo = "<li>Adding: <code>" + myTagsAddTags.join(" ") + "</code></li>";
     } else {
-        var myTagsAddTagMatchCase1 = new RegExp(" " + myTagsAddTags + " ", "gi");
-        var myTagsAddTagMatchCase2 = new RegExp("^" + myTagsAddTags + " ", "gi");
-        var myTagsAddTagMatchCase3 = new RegExp(" " + myTagsAddTags + "$", "gi");
-        if (!(document.getElementById("tags").value.match(myTagsAddTagMatchCase1)
-        || document.getElementById("tags").value.match(myTagsAddTagMatchCase2)
-        || document.getElementById("tags").value.match(myTagsAddTagMatchCase3))) {
-            document.getElementById("tags").value = document.getElementById("tags").value + " " + myTagsAddTags + " ";
-        }
+        addTags(myTagsAddTags);
         var myTagsAddTagInfo = "<li>Adding: <code>" + myTagsAddTags + "</code></li>";
     }
 } else {
