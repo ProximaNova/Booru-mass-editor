@@ -334,6 +334,12 @@ if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ");
 }
 
+// Move UNIX timestamp:
+if (document.getElementById("tags").value.match(/^\d{13}/g)) {
+    document.getElementById("source").value = document.getElementById("tags").value.match(/\d{13}/g);
+    document.getElementById("tags").value = document.getElementById("tags").value.replace(/\d{13} /g, "");
+}
+
 // "  " ---> " "
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
 
@@ -353,6 +359,13 @@ document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
 
 document.getElementById("tags").addEventListener("keyup", function(e) {
+    if (getMyTagsText.match(/\+/g)) {
+        refreshMyTags("+");
+    } else {
+        refreshMyTags(" ");
+    }
+});
+window.addEventListener("load", function(e) {
     if (getMyTagsText.match(/\+/g)) {
         refreshMyTags("+");
     } else {
