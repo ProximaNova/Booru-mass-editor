@@ -23,6 +23,7 @@ Add these tags into Account > Options > My Tags (no one or more tags should be i
 * To replace tags add: "re:bad_tag_with_good_tag;re;"
 * To add tags add: "add:x|y|z;add;" (adds tags "x", "y", and "z") or "add:x;add;" (only adds "x")
 * To remove tags add: "rm:x|y|z;rm;" (removes tags "x", "y", and "z") or "rm:x;rm;" (only removes "x")
+* To add the "tagme" tag if an image has less than a certain amount of tags add: "tagmeif:lt#;endif;" where "#" is, for example, "5"
 
 ## See also
 Seedmanc's userscripts:
