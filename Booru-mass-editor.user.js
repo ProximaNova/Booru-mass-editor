@@ -190,35 +190,33 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 // Add resolution tags:
-if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
-    if (!(document.getElementById("tags").value.match(/ lowres/g) || document.getElementById("tags").value.match(/lowres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " lowres ";
+function addResolutionTags (resTag) {
+    var addResTagMatchCase1 = new RegExp(" " + resTag + " ", "gi");
+    var addResTagMatchCase2 = new RegExp("^" + resTag + " ", "gi");
+    var addResTagMatchCase3 = new RegExp(" " + resTag + "$", "gi");
+    if (!(document.getElementById("tags").value.match(addResTagMatchCase1) ||
+    document.getElementById("tags").value.match(addResTagMatchCase2) ||
+    document.getElementById("tags").value.match(addResTagMatchCase3))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " " + resTag + " ";
     }
+}
+if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
+    addResolutionTags("lowres");
 }
 if (imageSizeWidth >= 1600 && imageSizeHeight >= 1200) {
-    if (!(document.getElementById("tags").value.match(/ highres/g) || document.getElementById("tags").value.match(/highres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " highres ";
-    }
+    addResolutionTags("highres");
 }
 if (imageSizeWidth >= 3200 && imageSizeHeight >= 2400) {
-    if (!(document.getElementById("tags").value.match(/ absurdres/g) || document.getElementById("tags").value.match(/absurdres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " absurdres ";
-    }
+    addResolutionTags("absurdres");
 }
 if (imageSizeWidth >= 10000 && imageSizeHeight >= 10000) {
-    if (!(document.getElementById("tags").value.match(/ incredibly_absurdres/g) || document.getElementById("tags").value.match(/incredibly_absurdres /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " incredibly_absurdres ";
-    }
+    addResolutionTags("incredibly_absurdres");
 }
 if (imageSizeHeight > imageSizeWidth * 3) {
-    if (!(document.getElementById("tags").value.match(/ tall_image/g) || document.getElementById("tags").value.match(/tall_image /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " tall_image ";
-    }
+    addResolutionTags("tall_image");
 }
 if (imageSizeWidth == imageSizeHeight) {
-    if (!(document.getElementById("tags").value.match(/ 1:1_aspect_ratio/g) || document.getElementById("tags").value.match(/1:1_aspect_ratio /g))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " 1:1_aspect_ratio ";
-    }
+    addResolutionTags("1:1_aspect_ratio");
 }
 
 // TAGGING OPERATIONS:
