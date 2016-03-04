@@ -21,8 +21,8 @@ It is not really a problem that this script only works on older versions of Gelb
 
 Add these tags into Account > Options > My Tags (no one or more tags should be in both adition and subtraction):
 * To replace tags add: "re:bad_tag_with_good_tag;re;"
-* To add tags add: "add:x&y&z;add;" (adds tags "x", "y", and "z") or "add:x;add;" (only adds "x")
-* To remove tags add: "rm:x&y&z;rm;" (removes tags "x", "y", and "z") or "rm:x;rm;" (only removes "x")
+* To add tags add: "add:x|y|z;add;" (adds tags "x", "y", and "z") or "add:x;add;" (only adds "x")
+* To remove tags add: "rm:x|y|z;rm;" (removes tags "x", "y", and "z") or "rm:x;rm;" (only removes "x")
 
 ## See also
 Seedmanc's userscripts:
