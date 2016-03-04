@@ -26,6 +26,7 @@ var userName = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sid
 var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
+var parentID = document.getElementsByName("parent")[0].value;
 
 // Improve title:
 if (document.getElementById("tags").value.match(" ")) {
@@ -33,10 +34,9 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 // Display parent if viewing child:
-var parentValue = document.getElementsByName("parent")[0].value;
-if (parentValue !== "") {
+if (parentID !== "") {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentValue + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
 }
 
 // Improving "#tag_list":
@@ -138,12 +138,12 @@ Removing:
 Replacing:
 */
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
-.replace(/          Id.*<br>/g, "<b>File format:</b> " + imageSrcExt + "<br>")
+.replace(/          Id.*<br>/g, "<b style='color:#808080'>File format:</b> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <b>Uploader:</b> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
-.replace(/          Size.*<br>/g, "<b>Size:</b> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
-.replace(/          Source: /g, "          <b>Source:</b> ")
-.replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + score + "<br>")
+.replace(/          By: .*? <br>/g, "          <b style='color:#808080'>Uploader:</b> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+.replace(/          Size.*<br>/g, "<b style='color:#808080'>Size:</b> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
+.replace(/          Source: /g, "          <b style='color:#808080'>Source:</b> ")
+.replace(/          Score: \d+ <br>/g, "          <b style='color:#808080'>Score:</b> " + score + "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
