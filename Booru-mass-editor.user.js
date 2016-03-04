@@ -37,11 +37,11 @@ var parentValue = document.getElementsByName("parent")[0].value;
 if (parentValue !== "") {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentValue + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
-    var linkNumber1 = 10
-    var linkNumber2 = 11
-} else {
     var linkNumber1 = 11
     var linkNumber2 = 12
+} else {
+    var linkNumber1 = 10
+    var linkNumber2 = 11
 }
 
 // Improving "#tag_list":
