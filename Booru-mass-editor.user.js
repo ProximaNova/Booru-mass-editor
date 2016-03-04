@@ -202,18 +202,18 @@ if (document.getElementById("tags").value.match(" ")) {
     || document.getElementById("tags").value.match(/^tagme /g)
     || document.getElementById("tags").value.match(/ tagme$/g)
     && document.getElementById("tags").value.match(/ /g).length >= 10) {
-        replaceTags("tagme", " ", "", "")
+        replaceTags("tagme", " ", "", "");
     }
-}
 
 // Add the "tagme" tag based on user defined specifications:
-if (!(document.getElementById("tags").value.match(/ tagme /g)
-|| document.getElementById("tags").value.match(/^tagme /g)
-|| document.getElementById("tags").value.match(/ tagme$/g))
-&& document.getElementById("my-tags").textContent.match(/tagmeif:lt.*;endif;/g)
-&& document.getElementById("tags").value.match(/ /g).length <=
-Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
-    document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
+    if (!(document.getElementById("tags").value.match(/ tagme /g)
+    || document.getElementById("tags").value.match(/^tagme /g)
+    || document.getElementById("tags").value.match(/ tagme$/g))
+    && document.getElementById("my-tags").textContent.match(/tagmeif:lt.*;endif;/g)
+    && document.getElementById("tags").value.match(/ /g).length <=
+    Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
+    }
 }
 
 // Add resolution tags:
