@@ -37,16 +37,11 @@ var parentValue = document.getElementsByName("parent")[0].value;
 if (parentValue !== "") {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentValue + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
-    var linkNumber1 = 11
-    var linkNumber2 = 12
-} else {
-    var linkNumber1 = 10
-    var linkNumber2 = 11
 }
 
 // Improving "#tag_list":
 if (document.getElementById("tags").value.match(" ")) {
-    for (i = linkNumber1; i < document.getElementById("tags").value.match(/ /g).length + linkNumber2; i++) {
+    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
@@ -191,7 +186,9 @@ if (document.getElementById("tags").value.match(" ")) {
     } else if (!(document.getElementById("tags").value.match(/ tagme /g)
     || document.getElementById("tags").value.match(/^tagme /g)
     || document.getElementById("tags").value.match(/ tagme$/g))
-    && document.getElementById("tags").value.match(/ /g).length <= 10) {
+    && document.getElementById("my-tags").textContent.match(/tagmeif:lt.*;endif;/g)
+    && document.getElementById("tags").value.match(/ /g).length <=
+    Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
     }
 }
