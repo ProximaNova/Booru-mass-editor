@@ -116,6 +116,7 @@ document.body.innerHTML
 Removing:
 */
 .replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
+.replace(/Rating.*<br>/g, "")
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
 .replace(/Parent<br>/g, "")
@@ -139,10 +140,9 @@ Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 .replace(/          Id.*<br>/g, "<b>File format:</b> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <b>Posted:</b> by <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+.replace(/          By: .*? <br>/g, "          <b>Uploader:</b> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 .replace(/          Size.*<br>/g, "<b>Size:</b> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <b>Source:</b> ")
-.replace(/Rating.*<br>/g, "<b>Similar:</b> <a href='http://iqdb.org/?url=" + imageSrcThumb + "'>iqdb</a> (for anime images)<br>")
 .replace(/          Score: \d+ <br>/g, "          <b>Score:</b> " + score + "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
@@ -370,9 +370,19 @@ window.addEventListener("load", function(e) {
     }
 });
 
+var reverseSearch = document.createElement("ul");
+reverseSearch.style.cssText = "max-width:20em;z-index:1;";
+reverseSearch.innerHTML =
+"<h5>Reverse search</h5> \
+<li><a href='http://iqdb.org/?url=" + imageSrcThumb + "'>iqdb</a> (for anime images)</li> \
+<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrcThumb + "'>Google</a> (for general images)</li>";
+reverseSearch.style.position = "relative";
+reverseSearch.style.bottom = "125px";
+document.body.appendChild(reverseSearch);
+
 if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
-    tagsMods.style.cssText = "max-width:20em;z-index:-1;";
+    tagsMods.style.cssText = "max-width:20em;z-index:1;";
     tagsMods.innerHTML =
     "<h5>Tagging operations</h5>" +
     myTagsReplaceTagInfo +
