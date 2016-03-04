@@ -189,7 +189,6 @@ if (document.getElementById("tags").value.match(" ")) {
     }
 }
 
-// Add resolution tags:
 function addTags(tagToAdd) {
     var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
     var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
@@ -200,6 +199,23 @@ function addTags(tagToAdd) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
     }
 }
+
+function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
+    var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
+    var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
+    var replaceTagMatchCase3 = new RegExp(" " + tagToReplace + "$", "gi");
+    if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
+    }
+    if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
+    }
+    if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+    }
+}
+
+// Add resolution tags:
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
     addTags("lowres");
 }
@@ -225,17 +241,8 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = true;
     var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
     var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
+    replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
     var myTagsReplaceTagInfo = "<li>Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code></li>";
-    var myTagsReplaceTagMatchCase1 = new RegExp(" " + myTagsReplaceTag1 + " ", "gi");
-    var myTagsReplaceTagMatchCase2 = new RegExp("^" + myTagsReplaceTag1 + " ", "gi");
-    var myTagsReplaceTagMatchCase3 = new RegExp(" " + myTagsReplaceTag1 + "$", "gi");
-    if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase1)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase1, " " + myTagsReplaceTag2 + " ");
-    } else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase2)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase2, myTagsReplaceTag2 + " ");
-    } else if (document.getElementById("tags").value.match(myTagsReplaceTagMatchCase3)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsReplaceTagMatchCase3, " " + myTagsReplaceTag2);
-    }
 } else {
     var myTagsReplacing = false;
     var myTagsReplaceTagInfo = "";
@@ -275,29 +282,11 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     }
     if (typeof(myTagsRmTags) == "object") {
         for (i = 0; i < myTagsRmTags.length; i++) {
-            var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags[i] + " ", "gi");
-            var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags[i] + " ", "gi");
-            var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags[i] + "$", "gi");
-            if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
-                document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
-            } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
-                document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase2, " ");
-            } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
-                document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3, " ");
-            }
+            replaceTags(myTagsRmTags[i], " ", " ", " ")
         }
         var myTagsRmTagInfo = "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>";
     } else {
-        var myTagsRmTagMatchCase1 = new RegExp(" " + myTagsRmTags + " ", "gi");
-        var myTagsRmTagMatchCase2 = new RegExp("^" + myTagsRmTags + " ", "gi");
-        var myTagsRmTagMatchCase3 = new RegExp(" " + myTagsRmTags + "$", "gi");
-        if (document.getElementById("tags").value.match(myTagsRmTagMatchCase1)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase1, " ");
-        } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase2)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase2, "");
-        } else if (document.getElementById("tags").value.match(myTagsRmTagMatchCase3)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(myTagsRmTagMatchCase3, "");
-        }
+        replaceTags(myTagsRmTags, " ", "", "")
         var myTagsRmTagInfo = "<li>Removing: <code>" + myTagsRmTags + "</code></li>";
     }
 } else {
