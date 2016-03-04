@@ -170,25 +170,6 @@ document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
 
-// Remove tagme tag if there is 10 other tags:
-if (document.getElementById("tags").value.match(" ")) {
-    if (document.getElementById("tags").value.match(/ tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme /g, " ");
-    } else if (document.getElementById("tags").value.match(/^tagme /g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(/tagme /g, " ");
-    } else if (document.getElementById("tags").value.match(/ tagme$/g) && document.getElementById("tags").value.match(/ /g).length >= 10) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(/ tagme/g, " ");
-    // Adding "tagme" if image has <10 tags, this should be a number variable defined by the user though:
-    } else if (!(document.getElementById("tags").value.match(/ tagme /g)
-    || document.getElementById("tags").value.match(/^tagme /g)
-    || document.getElementById("tags").value.match(/ tagme$/g))
-    && document.getElementById("my-tags").textContent.match(/tagmeif:lt.*;endif;/g)
-    && document.getElementById("tags").value.match(/ /g).length <=
-    Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
-    }
-}
-
 function addTags(tagToAdd) {
     var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
     var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
@@ -213,6 +194,26 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
     }
+}
+
+// Remove the "tagme" tag if there is 10 other tags:
+if (document.getElementById("tags").value.match(" ")) {
+    if (document.getElementById("tags").value.match(/ tagme /g)
+    || document.getElementById("tags").value.match(/^tagme /g)
+    || document.getElementById("tags").value.match(/ tagme$/g)
+    && document.getElementById("tags").value.match(/ /g).length >= 10) {
+        replaceTags("tagme", " ", "", "")
+    }
+}
+
+// Add the "tagme" tag based on user defined specifications:
+if (!(document.getElementById("tags").value.match(/ tagme /g)
+|| document.getElementById("tags").value.match(/^tagme /g)
+|| document.getElementById("tags").value.match(/ tagme$/g))
+&& document.getElementById("my-tags").textContent.match(/tagmeif:lt.*;endif;/g)
+&& document.getElementById("tags").value.match(/ /g).length <=
+Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+    document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
 }
 
 // Add resolution tags:
