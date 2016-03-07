@@ -11,7 +11,6 @@
 // @noframes
 // ==/UserScript==
 
-var hostname = window.location.href.replace(/http:\/\//g, "").replace(/\.booru\.org.*/g, "");
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
@@ -30,7 +29,7 @@ var parentID = document.getElementsByName("parent")[0].value;
 
 // Improve title:
 if (document.getElementById("tags").value.match(" ")) {
-    document.getElementsByTagName("title")[0].innerHTML = hostname + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
+    document.getElementsByTagName("title")[0].innerHTML = document.getElementsByTagName("h2")[0].textContent + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
 // Display parent if viewing child:
