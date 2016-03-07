@@ -41,13 +41,19 @@ if (parentID !== "" && imageSizeWidth < 800) {
 // Notify that the image has been "resized" and it has a parent:
 else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div> \
-    <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version</a>. Click to expand and contract.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br> \
+    <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
+}
+// FAIL:
+// Notify that the image has been "resized" when there is a notification of child post(s):
+else if (parentID !== "" && imageSizeWidth > 800 && document.body.innerHTML.match("<b>child posts</b>")) {
+    document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<br><div class="sidebar">/g,
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
 // Notify that the image has been "resized":
 else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version</a>. Click to expand and contract.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
 
 // Improving "#tag_list":
