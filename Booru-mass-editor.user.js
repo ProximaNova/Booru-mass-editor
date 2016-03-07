@@ -39,6 +39,12 @@ if (parentID !== "") {
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
 }
 
+// Notify that the image has been "resized":
+if (imageSizeWidth > 800 && parentID == "") {
+    document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version</a>. Click to expand and contract.</div><br><br><div class='sidebar'>")
+}
+
 // Improving "#tag_list":
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
