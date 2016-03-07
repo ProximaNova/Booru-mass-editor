@@ -34,13 +34,18 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 // Display parent if viewing child:
-if (parentID !== "") {
+if (parentID !== "" && imageSizeWidth < 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
 }
-
+// Notify that the image has been "resized" and it has a parent:
+else if (parentID !== "" && imageSizeWidth > 800) {
+    document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div> \
+    <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version</a>. Click to expand and contract.</div><br><br><div class='sidebar'>")
+}
 // Notify that the image has been "resized":
-if (imageSizeWidth > 800 && parentID == "") {
+else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version</a>. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
@@ -144,12 +149,12 @@ Removing:
 Replacing:
 */
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
-.replace(/          Id.*<br>/g, "<b style='color:#808080'>File format:</b> " + imageSrcExt + "<br>")
+.replace(/          Id.*<br>/g, "<u>File format:</u> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <b style='color:#808080'>Uploader:</b> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
-.replace(/          Size.*<br>/g, "<b style='color:#808080'>Size:</b> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
-.replace(/          Source: /g, "          <b style='color:#808080'>Source:</b> ")
-.replace(/          Score: \d+ <br>/g, "          <b style='color:#808080'>Score:</b> " + score + "<br>")
+.replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
+.replace(/          Source: /g, "          <u>Source:</u> ")
+.replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score + "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
