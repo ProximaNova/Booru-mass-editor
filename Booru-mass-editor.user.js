@@ -375,9 +375,15 @@ myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
 myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ") + " ";
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
+var myTagsEdit3 = document.createElement("input");
+myTagsEdit3.setAttribute('type', 'submit');
+myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;";
+myTagsEdit3.value = "Edit my tags";
+document.getElementById("tag_list").appendChild(myTagsEdit3);
+
 if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
-    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:110px;";
+    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:105px;";
     tagsMods.innerHTML =
     "<h5>Tagging operations</h5>" +
     myTagsReplaceTagInfo +
