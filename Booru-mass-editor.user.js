@@ -372,7 +372,7 @@ document.getElementById("tag_list").appendChild(myTagsEdit1);
 
 var myTagsEdit2 = document.createElement("textarea");
 myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
-myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
+myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ") + " ";
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
 if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
