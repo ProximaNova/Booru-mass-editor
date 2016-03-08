@@ -371,12 +371,15 @@ myTagsEdit1.innerHTML =
 document.getElementById("tag_list").appendChild(myTagsEdit1);
 
 var myTagsEdit2 = document.createElement("textarea");
+myTagsEdit2.setAttribute("id", "MyTagsEdit");
 myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
-myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ") + " ";
+myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
 document.getElementById("tag_list").appendChild(myTagsEdit2);
+var MyTagsEditVal = document.getElementById('MyTagsEdit').value;
 
 var myTagsEdit3 = document.createElement("input");
-myTagsEdit3.setAttribute('type', 'submit');
+myTagsEdit3.setAttribute("type", "submit");
+myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + MyTagsEditVal + "'"); 
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;";
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
