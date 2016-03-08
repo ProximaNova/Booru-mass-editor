@@ -364,9 +364,20 @@ reverseSearch.innerHTML =
 <li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li>";
 document.getElementById("tag_list").appendChild(reverseSearch);
 
+var myTagsEdit1 = document.createElement("h5");
+myTagsEdit1.style.cssText = "max-width:20em;position:relative;bottom:125px;";
+myTagsEdit1.innerHTML =
+"My Tags";
+document.getElementById("tag_list").appendChild(myTagsEdit1);
+
+var myTagsEdit2 = document.createElement("textarea");
+myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
+myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
+document.getElementById("tag_list").appendChild(myTagsEdit2);
+
 if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
-    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:125px;";
+    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:110px;";
     tagsMods.innerHTML =
     "<h5>Tagging operations</h5>" +
     myTagsReplaceTagInfo +
@@ -376,6 +387,7 @@ if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
 }
 
 /*
+// Fail:
 // There is only sequence here but it is causing a loop--maybe there is repetitive bits in the initMouseEvent method
 // Or maybe initMouseEvent executes around 16 times each time submitting the form:
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
