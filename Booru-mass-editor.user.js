@@ -368,15 +368,13 @@ document.body.appendChild(reverseSearch);
 
 if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
-    tagsMods.style.cssText = "max-width:20em;z-index:1;";
+    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:125px;";
     tagsMods.innerHTML =
     "<h5>Tagging operations</h5>" +
     myTagsReplaceTagInfo +
     myTagsAddTagInfo +
     myTagsRmTagInfo;
-    tagsMods.style.position = "relative";
-    tagsMods.style.bottom = "125px";
-    document.body.appendChild(tagsMods);
+    document.getElementById("tag_list").appendChild(tagsMods);
 }
 
 /*
