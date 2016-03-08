@@ -357,14 +357,12 @@ window.addEventListener("load", function(e) {
 });
 
 var reverseSearch = document.createElement("ul");
-reverseSearch.style.cssText = "max-width:20em;z-index:1;";
+reverseSearch.style.cssText = "max-width:20em;position:relative;bottom:125px;";
 reverseSearch.innerHTML =
 "<h5>Reverse search</h5> \
 <li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li> \
 <li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li>";
-reverseSearch.style.position = "relative";
-reverseSearch.style.bottom = "125px";
-document.body.appendChild(reverseSearch);
+document.getElementById("tag_list").appendChild(reverseSearch);
 
 if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
