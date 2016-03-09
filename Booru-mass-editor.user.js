@@ -45,7 +45,7 @@ else if (parentID !== "" && imageSizeWidth > 800) {
 }
 // FAIL:
 // Notify that the image has been "resized" when there is a notification of child post(s):
-else if (parentID !== "" && imageSizeWidth > 800 && document.body.innerHTML.match("<b>child posts</b>")) {
+else if (parentID !== "" && imageSizeWidth > 800 && document.body.match("<b>child posts</b>")) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<br><div class="sidebar">/g,
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
@@ -119,11 +119,6 @@ function refreshMyTags(sep) {
                      "</a> "
     }
     document.getElementById("my-tags").innerHTML = myTagsNew;
-}
-if (getMyTagsText.match(/\+/g)) {
-    refreshMyTags("+");
-} else {
-    refreshMyTags(" ");
 }
 
 document.body.innerHTML =
@@ -324,7 +319,7 @@ if (document.getElementById("tags").value.match(/^\d{13}/g)) {
 }
 
 // "  " ---> " "
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ") + " ";
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
@@ -375,11 +370,10 @@ myTagsEdit2.setAttribute("id", "MyTagsEdit");
 myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
 myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
 document.getElementById("tag_list").appendChild(myTagsEdit2);
-var MyTagsEditVal = document.getElementById('MyTagsEdit').value;
 
 var myTagsEdit3 = document.createElement("input");
 myTagsEdit3.setAttribute("type", "submit");
-myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + MyTagsEditVal + "'"); 
+myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + document.getElementById('MyTagsEdit').value + "';location.reload()"); //$("#MyTagsEdit").value gets the old version
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
