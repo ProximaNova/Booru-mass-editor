@@ -207,6 +207,7 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     }
 }
 
+// This is mess up on my laptop:
 // Remove the "tagme" tag if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
     if (document.getElementById("tags").value.match(/ tagme /g)
