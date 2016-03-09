@@ -380,7 +380,7 @@ var MyTagsEditVal = document.getElementById('MyTagsEdit').value;
 var myTagsEdit3 = document.createElement("input");
 myTagsEdit3.setAttribute("type", "submit");
 myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + MyTagsEditVal + "'"); 
-myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;";
+myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
 
