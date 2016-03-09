@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name		Booru Mass Editor
-// @description	Quickly edit images on older versions of Gelbooru
-// @version	5
-// @author		usernam
-// @include     http://*.booru.org/index.php?page=post&s=view&id=*
-// @include     http://safebooru.org/index.php?page=post&s=view&id=*
-// @include     http://xbooru.com/index.php?page=post&s=view&id=*
-// @include     http://rule34.xxx/index.php?page=post&s=view&id=*
-// @grant 		none 
+// @name          Booru Mass Editor
+// @description   Quickly edit images on older versions of Gelbooru
+// @version       5
+// @author        usernam
+// @include       http://*.booru.org/index.php?page=post&s=view&id=*
+// @include       http://safebooru.org/index.php?page=post&s=view&id=*
+// @include       http://xbooru.com/index.php?page=post&s=view&id=*
+// @include       http://rule34.xxx/index.php?page=post&s=view&id=*
+// @grant         none 
 // @noframes
 // ==/UserScript==
 
@@ -371,9 +371,14 @@ myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
 myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
+var myTagsEditVal = document.getElementById('MyTagsEdit').value;
+document.getElementById('MyTagsEdit').addEventListener("MyTagsEdit", function() {
+    var myTagsEditVal = document.getElementById('MyTagsEdit').value;
+});
+
 var myTagsEdit3 = document.createElement("input");
 myTagsEdit3.setAttribute("type", "submit");
-myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + document.getElementById('MyTagsEdit').value + "';location.reload()"); //$("#MyTagsEdit").value gets the old version
+myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + myTagsEditVal + "';location.reload()"); //$("#MyTagsEdit").value gets the old version
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
