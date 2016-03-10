@@ -207,7 +207,7 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     }
 }
 
-// This is mess up on my laptop:
+// This removes tagme if no "tagmeif:lt#;endif;" tag:
 // Remove the "tagme" tag if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
     if (document.getElementById("tags").value.match(/ tagme /g)
@@ -221,7 +221,7 @@ if (document.getElementById("tags").value.match(" ")) {
     if (!(document.getElementById("tags").value.match(/ tagme /g)
     || document.getElementById("tags").value.match(/^tagme /g)
     || document.getElementById("tags").value.match(/ tagme$/g))
-    && document.getElementById("my-tags").textContent.match(/tagmeif:lt.*;endif;/g)
+    && document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
     && document.getElementById("tags").value.match(/ /g).length <=
     Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
