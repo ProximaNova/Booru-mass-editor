@@ -171,6 +171,18 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+// Set rating:
+if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
+    var myTagsSettingRating = true;
+    var myTagsSetRatingTag = document.getElementById("my-tags").textContent.replace(/.*r:/g, "").replace(/;r;.*/, "")
+    var myTagsSettingRatingInfo = "<li>Setting rating: <code>" + myTagsSetRatingTag + "</code></li>";
+    for (i = 0; i < 3; i++) {
+        if (document.getElementsByName("rating")[i].value == myTagsSetRatingTag) {
+            document.getElementsByName("rating")[i].checked = true;
+        }
+    }
+}
+
 // Remove "mass uploader" in feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
@@ -384,11 +396,12 @@ myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;displ
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
 
-if (myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
+if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
     tagsMods.style.cssText = "max-width:20em;position:relative;bottom:105px;";
     tagsMods.innerHTML =
     "<h5>Tagging operations</h5>" +
+    myTagsSettingRatingInfo +
     myTagsReplaceTagInfo +
     myTagsAddTagInfo +
     myTagsRmTagInfo;
