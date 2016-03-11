@@ -263,10 +263,23 @@ if (imageSizeWidth == imageSizeHeight) {
 // Replace tags:
 if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = true;
-    var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
-    var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
-    replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-    var myTagsReplaceTagInfo = "<li>Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code></li>";
+    var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+    if (myTagsReplaceTag.match("|")) {
+        var myTagsReplaceTags = myTagsReplaceTag.split("|");
+        //var myTagsReplaceTagInfo1 = "";
+        for (i = 0; i < myTagsReplaceTags.length; i++) {
+            var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_with_.*/g, "");
+            var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_with_/g, "");
+            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+            //var myTagsReplaceTagInfo1 += "Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code><br>";
+        }
+        //var myTagsReplaceTagInfo = "<li>" + myTagsReplaceTagInfo1 + "</li>";
+    } else {
+        var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
+        var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
+        replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+        var myTagsReplaceTagInfo = "<li>Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code></li>";
+    }
 } else {
     var myTagsReplacing = false;
     var myTagsReplaceTagInfo = "";
