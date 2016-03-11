@@ -216,7 +216,6 @@ if (document.getElementById("tags").value.match(" ")) {
     && document.getElementById("tags").value.match(/ /g).length >= 10) {
         replaceTags("tagme", " ", "", "");
     }
-
 // Add the "tagme" tag based on user defined specifications:
     if (!(document.getElementById("tags").value.match(/ tagme /g)
     || document.getElementById("tags").value.match(/^tagme /g)
@@ -319,8 +318,9 @@ if (document.getElementById("tags").value.match(/^\d{13}/g)) {
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/\d{13} /g, "");
 }
 
-// "  " ---> " "
-document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ") + " ";
+// + " " & "  " ---> " "
+document.getElementById("tags").value = document.getElementById("tags").value + " ";
+document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
 
 // Hiding:
 document.getElementById("previous_post").style.display = "none";
