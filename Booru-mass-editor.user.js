@@ -65,6 +65,9 @@ if (document.getElementById("tags").value.match(" ")) {
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A0A";
         }
+        if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
+            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>")
+        }
         document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> /g, "</a>&nbsp;");
     }
 }
