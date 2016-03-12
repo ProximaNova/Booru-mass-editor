@@ -61,6 +61,7 @@ var numberOfTags = (document.getElementById("tags").value.match(/ /g).length >= 
 :
     "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>"
 ;
+document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
