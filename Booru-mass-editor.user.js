@@ -182,7 +182,6 @@ Replacing:
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
-.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
@@ -403,8 +402,7 @@ document.getElementById("tag_list").appendChild(reverseSearch);
 
 var myTagsEdit1 = document.createElement("h5");
 myTagsEdit1.style.cssText = "max-width:20em;position:relative;bottom:125px;";
-myTagsEdit1.innerHTML =
-"My Tags";
+myTagsEdit1.innerHTML = "My Tags";
 document.getElementById("tag_list").appendChild(myTagsEdit1);
 
 var myTagsEdit2 = document.createElement("textarea");
@@ -436,6 +434,13 @@ if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == tr
     myTagsRmTagInfo;
     document.getElementById("tag_list").appendChild(tagsMods);
 }
+
+document.getElementsName("submit")[1].style.position = "relative";
+document.getElementsName("submit")[1].style.top = "-80px";
+document.getElementsName("submit")[1].style.width = "403px";
+document.getElementsName("submit")[1].style.height = "100px";
+document.getElementsName("submit")[1].style.fontSize = "20pt";
+document.getElementsName("submit")[1].setAttribute("id", "SubmitButton");
 
 /*
 // Fail:
