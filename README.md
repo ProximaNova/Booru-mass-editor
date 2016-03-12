@@ -9,7 +9,7 @@ Functionality (it works best on Firefox):
 It is not really a problem that this script only works on older versions of Gelbooru:
 * Gelbooru version Beta 0.1.11"
  * Users could post images with no tags resulting in the images having the "tagme" tag
- * Many boorus have vast image dumps with no tags (for example, 80% images at [meme.booru.org](http://meme.booru.org/index.php?page=forum&s=list) have no tags (23,375/29,024 images total))
+ * Many boorus have vast image dumps with no tags (for example, 80% images at [meme.booru.org](http://meme.booru.org/index.php?page=forum&s=list) have no tags (out of 30,000 images total))
  * Thus, many boorus really need to be tagged
 * Gelbooru versions equal to or greater than "Beta 0.2":
  * The software forces users to have at least 4 tags
