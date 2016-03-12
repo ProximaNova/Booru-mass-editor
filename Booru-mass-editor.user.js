@@ -56,11 +56,21 @@ else if (parentID == "" && imageSizeWidth > 800) {
 }
 
 // Improving "#tag_list":
-var numberOfTags = (document.getElementById("tags").value.match(/ /g).length >= 5) ?
-    "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>"
-:
-    "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>"
-;
+if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
+    if (document.getElementById("tags").value.match(/ /g).length > 4) {
+        var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+    } else {
+        var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+    }
+} else {
+    if (document.getElementById("tags").value.match(/ /g).length > 3) {
+        var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
+        var numberOfTags = "Tags <small>(" + numberOfTagsTemp  + ")</small>";
+    } else {
+        var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
+        var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + ")</small>";
+    }
+}
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
@@ -234,16 +244,12 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
 // This removes tagme if no "tagmeif:lt#;endif;" tag:
 // Remove the "tagme" tag if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
-    if (document.getElementById("tags").value.match(/ tagme /g)
-    || document.getElementById("tags").value.match(/^tagme /g)
-    || document.getElementById("tags").value.match(/ tagme$/g)
+    if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)
     && document.getElementById("tags").value.match(/ /g).length >= 10) {
         replaceTags("tagme", " ", "", "");
     }
 // Add the "tagme" tag based on user defined specifications:
-    if (!(document.getElementById("tags").value.match(/ tagme /g)
-    || document.getElementById("tags").value.match(/^tagme /g)
-    || document.getElementById("tags").value.match(/ tagme$/g))
+    if (!(document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g))
     && document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
     && document.getElementById("tags").value.match(/ /g).length <=
     Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
