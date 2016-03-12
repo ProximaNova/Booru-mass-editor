@@ -56,6 +56,11 @@ else if (parentID == "" && imageSizeWidth > 800) {
 }
 
 // Improving "#tag_list":
+var numberOfTags = (document.getElementById("tags").value.match(/ /g).length >= 5) ?
+    "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>"
+:
+    "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>"
+;
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
