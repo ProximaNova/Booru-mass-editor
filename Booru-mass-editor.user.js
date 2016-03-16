@@ -400,14 +400,26 @@ reverseSearch.innerHTML =
 <li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li>";
 document.getElementById("tag_list").appendChild(reverseSearch);
 
+if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
+    var tagsMods = document.createElement("ul");
+    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:122px;";
+    tagsMods.innerHTML =
+    "<h5>Tagging operations</h5>" +
+    myTagsSettingRatingInfo +
+    myTagsReplaceTagInfo +
+    myTagsAddTagInfo +
+    myTagsRmTagInfo;
+    document.getElementById("tag_list").appendChild(tagsMods);
+}
+
 var myTagsEdit1 = document.createElement("h5");
-myTagsEdit1.style.cssText = "max-width:20em;position:relative;bottom:125px;";
+myTagsEdit1.style.cssText = "max-width:20em;position:relative;bottom:120px;";
 myTagsEdit1.innerHTML = "My Tags";
 document.getElementById("tag_list").appendChild(myTagsEdit1);
 
 var myTagsEdit2 = document.createElement("textarea");
 myTagsEdit2.setAttribute("id", "MyTagsEdit");
-myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:120px;";
+myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:118px;";
 myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
@@ -422,18 +434,6 @@ myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + myTagsEditVal + "
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
-
-if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
-    var tagsMods = document.createElement("ul");
-    tagsMods.style.cssText = "max-width:20em;position:relative;bottom:105px;";
-    tagsMods.innerHTML =
-    "<h5>Tagging operations</h5>" +
-    myTagsSettingRatingInfo +
-    myTagsReplaceTagInfo +
-    myTagsAddTagInfo +
-    myTagsRmTagInfo;
-    document.getElementById("tag_list").appendChild(tagsMods);
-}
 
 document.getElementsName("submit")[1].style.position = "relative";
 document.getElementsName("submit")[1].style.top = "-80px";
