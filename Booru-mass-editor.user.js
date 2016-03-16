@@ -284,14 +284,14 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     if (myTagsReplaceTag.match("|")) {
         var myTagsReplaceTags = myTagsReplaceTag.split("|");
         for (i = 0; i < myTagsReplaceTags.length; i++) {
-            var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_with_.*/g, "");
-            var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_with_/g, "");
+            var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
+            var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
             replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
         }
-        var myTagsReplaceTagInfo = "<li>Replacing multiple tags</li>"
+        var myTagsReplaceTagInfo = "<li>Replacing multiple tags.</li>"
     } else {
-        var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_with_.*/g, "");
-        var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_with_/g, "").replace(/;re;.*/g, "");
+        var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
+        var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
         replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
         var myTagsReplaceTagInfo = "<li>Replacing: <code>" + myTagsReplaceTag1 + "</code> &rarr;<br><code>" + myTagsReplaceTag2 + "</code></li>";
     }
