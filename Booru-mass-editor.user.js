@@ -72,8 +72,13 @@ if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
     }
 }
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
+if (parentID == "") {
+    var tagListStart = 12;
+} else if (parentID !== "" || document.body.match("<b>child posts</b>")) {
+    var tagListStart = 13;
+}
 if (document.getElementById("tags").value.match(" ")) {
-    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 11; i++) {
+    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
@@ -377,6 +382,11 @@ document.getElementById("tags").style.position = "relative";
 document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
+//if statement messes it up (why?):
+//if (document.getElementById("my-tags").match(/save:..;save;/g)) {
+    document.getElementById("SubmitButton").style.position = "absolute";
+    document.getElementById("SubmitButton").style.top = "0";
+//}
 
 document.getElementById("tags").addEventListener("keyup", function(e) {
     if (getMyTagsText.match(/\+/g)) {
