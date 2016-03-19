@@ -195,11 +195,6 @@ Replacing:
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-if (document.getElementById("my-tags").innerHTML.match("save:top;save;")) {    
-    document.getElementById("SubmitButton").style.position = "absolute";
-    document.getElementById("SubmitButton").style.top = "0";
-}
-
 // Set rating:
 if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
     var myTagsSettingRating = true;
@@ -387,11 +382,17 @@ document.getElementById("tags").style.position = "relative";
 document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
-document.getElementsByName("submit")[1].style.position = "relative"
-document.getElementsByName("submit")[1].style.top = "-80px"
+// "Save changes" button:
 document.getElementsByName("submit")[1].style.width = "403px"
 document.getElementsByName("submit")[1].style.height = "100px"
 document.getElementsByName("submit")[1].style.fontSize = "20pt"
+if (document.getElementById("my-tags").innerHTML.match("save:top;save;")) {    
+    document.getElementsByName("submit")[1].style.position = "absolute";
+    document.getElementsByName("submit")[1].style.top = "0";
+} else {
+    document.getElementsByName("submit")[1].style.position = "relative"
+    document.getElementsByName("submit")[1].style.top = "-80px"
+}
 
 document.getElementById("tags").addEventListener("keyup", function(e) {
     if (getMyTagsText.match(/\+/g)) {
