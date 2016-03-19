@@ -151,7 +151,6 @@ document.body.innerHTML
 Removing:
 */
 .replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
-.replace(/Rating.*<br>/g, "")
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
 .replace(/Parent<br>/g, "")
@@ -178,6 +177,7 @@ Replacing:
 .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 .replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
+.replace(/          Rating: /g, "          <u>Rating:</u> ")
 .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score + "<br>")
 .replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
