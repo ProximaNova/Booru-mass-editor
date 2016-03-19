@@ -387,6 +387,11 @@ document.getElementById("tags").style.position = "relative";
 document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
+document.getElementsByName("submit")[1].style.position = "relative"
+document.getElementsByName("submit")[1].style.top = "-80px"
+document.getElementsByName("submit")[1].style.width = "403px"
+document.getElementsByName("submit")[1].style.height = "100px"
+document.getElementsByName("submit")[1].style.fontSize = "20pt"
 
 document.getElementById("tags").addEventListener("keyup", function(e) {
     if (getMyTagsText.match(/\+/g)) {
