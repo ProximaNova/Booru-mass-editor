@@ -459,8 +459,12 @@ document.getElementById("tag_list").appendChild(myTagsEdit1);
 
 var myTagsEdit2 = document.createElement("textarea");
 myTagsEdit2.setAttribute("id", "MyTagsEdit");
-myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:118px;";
-myTagsEdit2.innerHTML = readCookie("tags").replace(/\+/g, " ");
+myTagsEdit2.style.cssText = "max-width:19em;height:15em;position:relative;bottom:118px;";
+if (readCookie("tags").match(/\+/g)) {
+    myTagsEdit2.innerHTML = readCookie("tags").replace(/\+/g, " ");
+} else {
+    myTagsEdit2.innerHTML = readCookie("tags");
+}
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
 var myTagsEditVal = document.getElementById('MyTagsEdit').value;
