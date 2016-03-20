@@ -467,18 +467,17 @@ if (readCookie("tags").match(/\+/g)) {
 }
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
-var myTagsEditVal = document.getElementById('MyTagsEdit').value;
-document.getElementById('MyTagsEdit').addEventListener("MyTagsEdit", function() {
-    var myTagsEditVal = document.getElementById('MyTagsEdit').value;
-});
-
-var myTagsEdit3 = document.createElement("input");
-myTagsEdit3.setAttribute("type", "submit");
-// Fail: $("#MyTagsEdit").value gets the old version:
-myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + myTagsEditVal + "';location.reload()");
+var myTagsEdit3 = document.createElement("button");
+myTagsEdit3.setAttribute("id", "ButtonToChangeMyTags");
+myTagsEdit3.setAttribute("type", "button");
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
-myTagsEdit3.value = "Edit my tags";
+myTagsEdit3.innerHTML = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
+
+document.getElementById("ButtonToChangeMyTags").addEventListener("click", function() {
+    document.cookie="tags=" + document.getElementById("MyTagsEdit").value;
+    location.reload();
+});
 
 /*
 // Fail:
