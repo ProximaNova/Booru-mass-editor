@@ -16,7 +16,9 @@ var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d
 var sidebar = document.getElementById("tag_list").innerHTML;
 var imageSrc = document.getElementById("image").src;
 var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
-var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org").replace(/\/\/images\//g, "/thumbnails//").replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
+var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org")
+                    .replace(/\/\/images\//g, "/thumbnails//")
+                    .replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
 var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase();
 var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
@@ -29,30 +31,36 @@ var parentID = document.getElementsByName("parent")[0].value;
 
 // Improve title:
 if (document.getElementById("tags").value.match(" ")) {
-    document.getElementsByTagName("title")[0].innerHTML = document.getElementsByTagName("h2")[0].textContent + " - " + document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
+    document.getElementsByTagName("title")[0].innerHTML = document.getElementsByTagName("h2")[0].textContent + " - " + 
+    document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
 // Display parent if viewing child:
 if (parentID !== "" && imageSizeWidth < 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?\
+    page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br><div class='sidebar'>")
 }
 // Notify that the image has been "resized" and it has a parent:
 else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br> \
-    <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?\
+    page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br> \
+    <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
+    however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
 // FAIL:
 // Notify that the image has been "resized" when there is a notification of child post(s):
 else if (parentID !== "" && imageSizeWidth > 800 && document.body.match("<b>child posts</b>")) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<br><div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
+    however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
 // Notify that the image has been "resized":
 else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
+    however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
 
 // Improving "#tag_list":
@@ -87,9 +95,16 @@ if (document.getElementById("tags").value.match(" ")) {
             document.getElementsByTagName("a")[i].style.color = "#A0A";
         }
         if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
-            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>")
+            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+            .replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>")
         }
-        document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML.replace(/<\/a> /g, "</a>&nbsp;");
+        document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+        .replace(/<\/a> /g, "</a>&nbsp;");
+    }
+    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
+        var tagsArray = document.getElementById("tags").value.split(" ");
+        document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+        .replace(/\? /g, "<a href='https://www.google.com/#q=" + tagsArray[i - 10] + "'>?</a> ");
     }
 }
 
@@ -154,7 +169,7 @@ Removing:
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
 .replace(/Parent<br>/g, "")
-.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?">.*?<\/a>/g, "")
+.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>/g, "")
 .replace(/ \| /g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
@@ -174,23 +189,31 @@ Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 .replace(/          Id.*<br>/g, "<u>File format:</u> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
-.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " + imageSizeHeight + " pixels<br>")
+.replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
+         "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
+         imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
 .replace(/          Rating: /g, "          <u>Rating:</u> ")
 .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score + "<br>")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; position:relative; top:-7px;'")
+.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth \
+         == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; \
+         position:relative; top:-7px;'")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
+.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' \
+         onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
-.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
+.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:\
+         403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
-.replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input name='parent'")
-.replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td></tr><tr><td><br><input style='display: none;' name='next_post'")
+.replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input \
+         name='parent'")
+.replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>\
+         </tr><tr><td><br><input style='display: none;' name='next_post'")
 .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
@@ -413,8 +436,8 @@ var reverseSearch = document.createElement("ul");
 reverseSearch.style.cssText = "max-width:20em;position:relative;bottom:125px;";
 reverseSearch.innerHTML =
 "<h5>Reverse search</h5> \
-<li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li> \
-<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li>";
+<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li> \
+<li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li>";
 document.getElementById("tag_list").appendChild(reverseSearch);
 
 if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
@@ -437,7 +460,7 @@ document.getElementById("tag_list").appendChild(myTagsEdit1);
 var myTagsEdit2 = document.createElement("textarea");
 myTagsEdit2.setAttribute("id", "MyTagsEdit");
 myTagsEdit2.style.cssText = "max-width:20em;position:relative;bottom:118px;";
-myTagsEdit2.innerHTML = readCookie("tags").split(" ").join(" ");
+myTagsEdit2.innerHTML = readCookie("tags").replace(/\+/g, " ");
 document.getElementById("tag_list").appendChild(myTagsEdit2);
 
 var myTagsEditVal = document.getElementById('MyTagsEdit').value;
@@ -447,7 +470,8 @@ document.getElementById('MyTagsEdit').addEventListener("MyTagsEdit", function() 
 
 var myTagsEdit3 = document.createElement("input");
 myTagsEdit3.setAttribute("type", "submit");
-myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + myTagsEditVal + "';location.reload()"); //$("#MyTagsEdit").value gets the old version
+// Fail: $("#MyTagsEdit").value gets the old version:
+myTagsEdit3.setAttribute("onclick", "document.cookie='tags=" + myTagsEditVal + "';location.reload()");
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
 myTagsEdit3.value = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
