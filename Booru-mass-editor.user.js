@@ -475,7 +475,7 @@ myTagsEdit3.innerHTML = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
 
 document.getElementById("ButtonToChangeMyTags").addEventListener("click", function() {
-    document.cookie="tags=" + document.getElementById("MyTagsEdit").value;
+    document.cookie = "tags=" + document.getElementById("MyTagsEdit").value + ";";
     location.reload();
 });
 
