@@ -102,7 +102,7 @@ if (document.getElementById("tags").value.match(" ")) {
         .replace(/<\/a> /g, "</a>&nbsp;");
     }
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
-        var tagsArray = document.getElementById("tags").value.split(" ");
+        var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
         document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
         .replace(/\? /g, "<a href='https://www.google.com/#q=" + tagsArray[i - 10] + "'>?</a> ");
     }
@@ -222,7 +222,7 @@ Replacing:
 if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
     var myTagsSettingRating = true;
     var myTagsSetRatingTag = document.getElementById("my-tags").textContent.replace(/.*r:/g, "").replace(/;r;.*/, "")
-    var myTagsSettingRatingInfo = "<li>Setting rating: <code>" + myTagsSetRatingTag + "</code></li>";
+    var myTagsSettingRatingInfo = "<li><u>Setting rating:</u> <code>" + myTagsSetRatingTag + "</code></li>";
     for (i = 0; i < 3; i++) {
         if (document.getElementsByName("rating")[i].value == myTagsSetRatingTag) {
             document.getElementsByName("rating")[i].checked = true;
@@ -231,6 +231,17 @@ if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
 } else {
     var myTagsSettingRating = false;
     var myTagsSettingRatingInfo = "";
+}
+
+// Delete source feild:
+if (document.getElementById("my-tags").textContent.match(/del:.*;del;/g)) {
+    if (document.getElementById("my-tags").textContent.match(/del:s;del;/g)) {
+        document.getElementById("source").value = "";
+    } else if (document.getElementById("my-tags").textContent.match(/del:t;del;/g)) {
+        document.getElementById("title").value = "";
+    } else if (document.getElementById("my-tags").textContent.match(/del:p;del;/g)) {
+        document.getElementsByName("parent")[0].value = "";
+    }
 }
 
 // Remove "mass uploader" in feilds:
@@ -312,12 +323,20 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
     if (myTagsReplaceTag.match("|")) {
         var myTagsReplaceTags = myTagsReplaceTag.split("|");
+        var myTagsReplaceTagsLefts = [];
+        var myTagsReplaceTagsRights = [];
         for (i = 0; i < myTagsReplaceTags.length; i++) {
             var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
             var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
             replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+            myTagsReplaceTagsLefts[i]  = myTagsReplaceTag1;
+            myTagsReplaceTagsRights[i] = myTagsReplaceTag2;
         }
-        var myTagsReplaceTagInfo = "<li>Replacing multiple tags.</li>"
+        var myTagsReplaceTagInfo = "<li><u>Replacing tags:</u><br>";
+        for (i = 0; i < myTagsReplaceTagsLefts.length; i++) {
+            myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> with <code>" + myTagsReplaceTagsRights[i] + "</code>,<br>";
+        }
+        myTagsReplaceTagInfo += "</li>";
     } else {
         var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
         var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
@@ -342,10 +361,10 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
         for (i = 0; i < myTagsAddTags.length; i++) {
             addTags(myTagsAddTags[i]);
         }
-        var myTagsAddTagInfo = "<li>Adding: <code>" + myTagsAddTags.join(" ") + "</code></li>";
+        var myTagsAddTagInfo = "<li><u>Adding:</u> <code>" + myTagsAddTags.join(" ") + "</code></li>";
     } else {
         addTags(myTagsAddTags);
-        var myTagsAddTagInfo = "<li>Adding: <code>" + myTagsAddTags + "</code></li>";
+        var myTagsAddTagInfo = "<li><u>Adding:</u> <code>" + myTagsAddTags + "</code></li>";
     }
 } else {
     var myTagsAdding = false;
@@ -365,10 +384,10 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
         for (i = 0; i < myTagsRmTags.length; i++) {
             replaceTags(myTagsRmTags[i], " ", " ", " ")
         }
-        var myTagsRmTagInfo = "<li>Removing: <code>" + myTagsRmTags.join(" ") + "</code></li>";
+        var myTagsRmTagInfo = "<li><u>Removing:</u> <code>" + myTagsRmTags.join(" ") + "</code></li>";
     } else {
         replaceTags(myTagsRmTags, " ", "", "")
-        var myTagsRmTagInfo = "<li>Removing: <code>" + myTagsRmTags + "</code></li>";
+        var myTagsRmTagInfo = "<li><u>Removing:</u> <code>" + myTagsRmTags + "</code></li>";
     }
 } else {
     var myTagsRming = false;
