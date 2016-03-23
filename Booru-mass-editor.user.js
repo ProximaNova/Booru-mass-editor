@@ -513,10 +513,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
     location.reload();
 });
 
-/*
-// Fail:
-// There is only sequence here but it is causing a loop--maybe there is repetitive bits in the initMouseEvent method
-// Or maybe initMouseEvent executes around 16 times each time submitting the form:
+
 // <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
 function simulate(element)
 {
@@ -526,9 +523,11 @@ function simulate(element)
     element.dispatchEvent(oEvent);
     
 }
-// </thanks> 
-simulate(document.getElementById("SubmitButton"));
-*/
+// </thanks>
+if (document.getElementById("tags").innerHTML + " " !== document.getElementById("tags").value) {
+    simulate(document.getElementById("SubmitButton"));
+}
+
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
