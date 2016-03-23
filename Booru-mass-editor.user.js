@@ -293,16 +293,16 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     }
 }
 
-// This removes tagme if no "tagmeif:lt#;endif;" tag:
 // Remove the "tagme" tag if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
-    if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
+    && document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)
     && document.getElementById("tags").value.match(/ /g).length >= 10) {
         replaceTags("tagme", " ", "", "");
     }
+} else {
 // Add the "tagme" tag based on user defined specifications:
-    if (!(document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g))
-    && document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
     && document.getElementById("tags").value.match(/ /g).length <=
     Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
