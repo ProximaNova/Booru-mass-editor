@@ -121,22 +121,14 @@ function refreshMyTags(sep) {
         if (document.getElementById("tags").value.match(myTagsMatchCase1)
         || document.getElementById("tags").value.match(myTagsMatchCase2)
         || document.getElementById("tags").value.match(myTagsMatchCase3)) {
-            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/ $/g)) { \
-                 document.getElementById('tags').value = \
-                 document.getElementById('tags').value.replace(/ $/g, '') \
-             }; \
-             if (this.style.fontWeight == 'bold') { \
+            var myTagsBoldToggle = "if (this.style.fontWeight == 'bold') { \
                  this.style.fontWeight = 'normal' \
              } else { \
                  this.style.fontWeight = 'bold'; \
              }; \
              return false;\" style='font-weight:bold;'"
         } else {
-            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/ $/g)) { \
-                 document.getElementById('tags').value = \
-                 document.getElementById('tags').value.replace(/ $/g, '') \
-             }; \
-             return false;\""
+            var myTagsBoldToggle = "return false;\""
         }
         
         if (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g)) {
@@ -163,6 +155,10 @@ function refreshMyTags(sep) {
                      "</a> "
     }
     document.getElementById("my-tags").innerHTML = myTagsNew;
+    if (document.getElementById("tags").value.match(/ $/g)) {
+        document.getElementById("tags").value =
+        document.getElementById("tags").value.replace(/ $/g, "");
+    }
 }
 
 document.body.innerHTML =
