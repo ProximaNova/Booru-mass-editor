@@ -122,11 +122,11 @@ function refreshMyTags(sep) {
         || document.getElementById("tags").value.match(myTagsMatchCase2)
         || document.getElementById("tags").value.match(myTagsMatchCase3)) {
             var myTagsBoldToggle = "if (this.style.fontWeight == 'bold') { \
-                 this.style.fontWeight = 'normal' \
-             } else { \
-                 this.style.fontWeight = 'bold'; \
-             }; \
-             return false;\" style='font-weight:bold;'"
+                                        this.style.fontWeight = 'normal' \
+                                    } else { \
+                                        this.style.fontWeight = 'bold'; \
+                                    }; \
+                                    return false;\" style='font-weight:bold;'"
         } else {
             var myTagsBoldToggle = "return false;\""
         }
@@ -136,7 +136,7 @@ function refreshMyTags(sep) {
         } else {
             var myTagsHiddenTags = "";
         }
-        myTagsNew += "<a " +
+        myTagsNew += "<a class='MyTagsTag' " +
                      myTagsHiddenTags +
                      "href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      getMyTagsAsArray[i].toLowerCase() +
@@ -155,10 +155,6 @@ function refreshMyTags(sep) {
                      "</a> "
     }
     document.getElementById("my-tags").innerHTML = myTagsNew;
-    if (document.getElementById("tags").value.match(/ $/g)) {
-        document.getElementById("tags").value =
-        document.getElementById("tags").value.replace(/ $/g, "");
-    }
 }
 
 document.body.innerHTML =
@@ -444,6 +440,15 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
         refreshMyTags(" ");
     }
 });
+
+for (i = 0; i < document.getElementsByClassName("MyTagsTag").length; i++) {
+    document.getElementsByClassName("MyTagsTag")[i].addEventListener("click", function(e) {
+        if (document.getElementById('tags').value.match(/ $/g)) {
+            document.getElementById('tags').value =
+            document.getElementById('tags').value.replace(/ $/g, '')
+        }
+    });
+}
 
 // Sometimes this fails:
 window.addEventListener("load", function(e) {
