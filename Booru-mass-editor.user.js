@@ -125,6 +125,10 @@ function refreshMyTags(sep) {
                                         document.getElementById('tags').value = \
                                         document.getElementById('tags').value.replace(/  /g, ' '); \
                                     }; \
+                                    if (!(document.getElementById('tags').value.match(/ $/g))) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value + ' '; \
+                                    }; \
                                     if (this.style.fontWeight == 'bold') { \
                                         this.style.fontWeight = 'normal' \
                                     } else { \
@@ -135,6 +139,10 @@ function refreshMyTags(sep) {
             var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
                                         document.getElementById('tags').value = \
                                         document.getElementById('tags').value.replace(/  /g, ' '); \
+                                    }; \
+                                    if (!(document.getElementById('tags').value.match(/ $/g))) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value + ' '; \
                                     }; \
                                     return false;\""
         }
