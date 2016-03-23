@@ -23,7 +23,7 @@ var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase();
 var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
 var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
-var userName = sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:"));
+var userName = escape(sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:")));
 var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
@@ -104,7 +104,7 @@ if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
         document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-        .replace(/\? /g, "<a href='https://www.google.com/#q=" + tagsArray[i - 10] + "'>?</a> ");
+        .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 10]) + "'>?</a> ");
     }
 }
 
@@ -155,13 +155,13 @@ function refreshMyTags(sep) {
         myTagsNew += "<a " +
                      myTagsHiddenTags +
                      "href=\"index.php?page=post&amp;s=list&amp;tags=" +
-                     getMyTagsAsArray[i].toLowerCase() +
+                     escape(getMyTagsAsArray[i].toLowerCase()) +
                      "\" id=\"t_" +
-                     getMyTagsAsArray[i].toLowerCase() +
+                     escape(getMyTagsAsArray[i].toLowerCase()) +
                      "\" onclick=\"javascript:toggleTags('" +
-                     getMyTagsAsArray[i].toLowerCase() +
+                     escape(getMyTagsAsArray[i].toLowerCase()) +
                      "','tags','t_" +
-                     getMyTagsAsArray[i].toLowerCase() +
+                     escape(getMyTagsAsArray[i].toLowerCase()) +
                      "');" +
                      myTagsBoldToggle +
                      ">"
