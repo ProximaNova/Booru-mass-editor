@@ -121,14 +121,22 @@ function refreshMyTags(sep) {
         if (document.getElementById("tags").value.match(myTagsMatchCase1)
         || document.getElementById("tags").value.match(myTagsMatchCase2)
         || document.getElementById("tags").value.match(myTagsMatchCase3)) {
-            var myTagsBoldToggle = "if (this.style.fontWeight == 'bold') { \
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value.replace(/  /g, ' '); \
+                                    }; \
+                                    if (this.style.fontWeight == 'bold') { \
                                         this.style.fontWeight = 'normal' \
                                     } else { \
                                         this.style.fontWeight = 'bold'; \
                                     }; \
                                     return false;\" style='font-weight:bold;'"
         } else {
-            var myTagsBoldToggle = "return false;\""
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value.replace(/  /g, ' '); \
+                                    }; \
+                                    return false;\""
         }
         
         if (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g)) {
@@ -136,7 +144,7 @@ function refreshMyTags(sep) {
         } else {
             var myTagsHiddenTags = "";
         }
-        myTagsNew += "<a class='MyTagsTag' " +
+        myTagsNew += "<a " +
                      myTagsHiddenTags +
                      "href=\"index.php?page=post&amp;s=list&amp;tags=" +
                      getMyTagsAsArray[i].toLowerCase() +
@@ -440,15 +448,6 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
         refreshMyTags(" ");
     }
 });
-
-for (i = 0; i < document.getElementsByClassName("MyTagsTag").length; i++) {
-    document.getElementsByClassName("MyTagsTag")[i].addEventListener("click", function(e) {
-        if (document.getElementById('tags').value.match(/ $/g)) {
-            document.getElementById('tags').value =
-            document.getElementById('tags').value.replace(/ $/g, '')
-        }
-    });
-}
 
 // Sometimes this fails:
 window.addEventListener("load", function(e) {
