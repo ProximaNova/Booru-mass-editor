@@ -118,27 +118,32 @@ function refreshMyTags(sep) {
         var myTagsMatchCase1 = new RegExp(" " + getMyTagsAsArray[i] + " ", "gi");
         var myTagsMatchCase2 = new RegExp("^" + getMyTagsAsArray[i] + " ", "gi");
         var myTagsMatchCase3 = new RegExp(" " + getMyTagsAsArray[i] + "$", "gi");
-        var myTagsBoldToggle =
-        (document.getElementById("tags").value.match(myTagsMatchCase1)
+        if (document.getElementById("tags").value.match(myTagsMatchCase1)
         || document.getElementById("tags").value.match(myTagsMatchCase2)
-        || document.getElementById("tags").value.match(myTagsMatchCase3))
-        ?
-            "if (this.style.fontWeight == 'bold') { \
+        || document.getElementById("tags").value.match(myTagsMatchCase3)) {
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/ $/g)) { \
+                 document.getElementById('tags').value = \
+                 document.getElementById('tags').value.replace(/ $/g, '') \
+             }; \
+             if (this.style.fontWeight == 'bold') { \
                  this.style.fontWeight = 'normal' \
              } else { \
                  this.style.fontWeight = 'bold'; \
              }; \
              return false;\" style='font-weight:bold;'"
-        :
-            "return false;\""
-        ;
-        var myTagsHiddenTags =
-        (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g))
-        ?
-            "style='display:none;' "
-        :
-            ""
-        ;
+        } else {
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/ $/g)) { \
+                 document.getElementById('tags').value = \
+                 document.getElementById('tags').value.replace(/ $/g, '') \
+             }; \
+             return false;\""
+        }
+        
+        if (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g)) {
+            var myTagsHiddenTags = "style='display:none;' ";
+        } else {
+            var myTagsHiddenTags = "";
+        }
         myTagsNew += "<a " +
                      myTagsHiddenTags +
                      "href=\"index.php?page=post&amp;s=list&amp;tags=" +
@@ -443,6 +448,8 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
         refreshMyTags(" ");
     }
 });
+
+// Sometimes this fails:
 window.addEventListener("load", function(e) {
     if (getMyTagsText.match(/\+/g)) {
         refreshMyTags("+");
