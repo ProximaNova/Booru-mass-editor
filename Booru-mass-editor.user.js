@@ -466,6 +466,25 @@ window.addEventListener("load", function(e) {
     }
 });
 
+function simulateClickSubmit(element)
+{
+    var oEvent = document.createEvent('MouseEvents');
+    oEvent.initMouseEvent("click", true, true, document.defaultView,
+    0, 0, 0, 0, 0, false, false, false, false, 0, element);
+    element.dispatchEvent(oEvent);
+    
+}
+if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
+    var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%'>&#9758;</span> \
+                                  <span style='position:relative;top:-15px;'>Submitting tag<br>\
+                                  operation(s) on page load</li>"
+    if (document.getElementById("tags").innerHTML + " " !== document.getElementById("tags").value) {
+        simulateClickSubmit(document.getElementById("SubmitButton"));
+    }
+} else {
+    var myTagsSubmitOnLoadInfo = "";
+}
+
 var reverseSearch = document.createElement("ul");
 reverseSearch.style.cssText = "max-width:20em;position:relative;bottom:125px;";
 reverseSearch.innerHTML =
@@ -482,7 +501,8 @@ if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == tr
     myTagsSettingRatingInfo +
     myTagsReplaceTagInfo +
     myTagsAddTagInfo +
-    myTagsRmTagInfo;
+    myTagsRmTagInfo +
+    myTagsSubmitOnLoadInfo;
     document.getElementById("tag_list").appendChild(tagsMods);
 }
 
@@ -512,22 +532,6 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
     document.cookie = "tags=" + escape(document.getElementById("MyTagsEdit").value) + ";";
     location.reload();
 });
-
-
-// <thanks to="http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript">
-function simulate(element)
-{
-    var oEvent = document.createEvent('MouseEvents');
-    oEvent.initMouseEvent("click", true, true, document.defaultView,
-    0, 0, 0, 0, 0, false, false, false, false, 0, element);
-    element.dispatchEvent(oEvent);
-    
-}
-// </thanks>
-if (document.getElementById("tags").innerHTML + " " !== document.getElementById("tags").value) {
-    simulate(document.getElementById("SubmitButton"));
-}
-
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
