@@ -91,13 +91,16 @@ if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
-            document.getElementsByTagName("a")[i].className = "ColoredTagLink"
+            document.getElementsByTagName("a")[i].setAttribute = ("onmouseover", "this.style.color = '#9093ff'")
+            document.getElementsByTagName("a")[i].setAttribute = ("onmouseout", "this.style.color = '#A00'")
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#0A0";
-            document.getElementsByTagName("a")[i].className = "ColoredTagLink"
+            document.getElementsByTagName("a")[i].setAttribute = ("onmouseover", "this.style.color = '#9093ff'")
+            document.getElementsByTagName("a")[i].setAttribute = ("onmouseout", "this.style.color = '#0A0'")
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A0A";
-            document.getElementsByTagName("a")[i].className = "ColoredTagLink"
+            document.getElementsByTagName("a")[i].setAttribute = ("onmouseover", "this.style.color = '#9093ff'")
+            document.getElementsByTagName("a")[i].setAttribute = ("onmouseout", "this.style.color = '#A0A'")
         }
         if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
@@ -111,48 +114,25 @@ if (document.getElementById("tags").value.match(" ")) {
         if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
-                     "' class='ColoredTagLink' style='color:#A00;'>?</a> ");
+                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A00'\" \
+                     style='color:#A00;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(character\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
-                     "' class='ColoredTagLink' style='color:#0A0;'>?</a> ");
+                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#0A0'\" \
+                     style='color:#0A0;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
-                     "' class='ColoredTagLink' style='color:#A0A;'>?</a> ");
+                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A0A'\" \
+                     style='color:#A0A;'>?</a> ");
         } else {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
-                     "' class='ColoredTagLink'>?</a> ");
+                     "'>?</a> ");
         }
     }
 }
-
-
-for (i = 0; i < document.getElementsByClassName("ColoredTagLink").length; i++) {
-    document.getElementsByClassName("ColoredTagLink")[i].addEventListener("mouseover", function () {
-        document.getElementsByClassName("ColoredTagLink")[i].style.color = "#9093ff";
-    });
-}
-
-//document.styleSheets[0].insertRule("a.ColoredTagLink:hover { color:#9093ff; }", 0);
-//for (i = 0; i < document.getElementsByClassName("ColoredTagLink").length; i++) {
-//    var linkHoverStyle = ".ColoredTagLink:hover { color:#9093ff; }";
-//    
-//    var applyStyle = document.createElement('style');
-//    document.getElementById("tag_list").appendChild(applyStyle);
-//}
-//
-//
-//style = document.createElement('style');
-//
-//if (style.styleSheet) {
-//    style.styleSheet.cssText = css;
-//} else {
-//    style.appendChild(document.createTextNode(css));
-//}
-//
-//document.getElementsByTagName('head')[0].appendChild(style);
 
 // Improving "#my-tags":
 var getMyTagsText1 = document.getElementById("my-tags").textContent;
