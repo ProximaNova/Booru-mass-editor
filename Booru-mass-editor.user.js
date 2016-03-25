@@ -49,9 +49,8 @@ else if (parentID !== "" && imageSizeWidth > 800) {
     <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
     however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
-// FAIL:
 // Notify that the image has been "resized" when there is a notification of child post(s):
-else if (parentID !== "" && imageSizeWidth > 800 && document.body.match("<b>child posts</b>")) {
+else if (parentID == "" && imageSizeWidth > 800 && document.body.match("<b>child posts</b>")) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<br><div class="sidebar">/g,
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
     however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
@@ -91,16 +90,16 @@ if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
-            document.getElementsByTagName("a")[i].setAttribute = ("onmouseover", "this.style.color = '#9093ff'")
-            document.getElementsByTagName("a")[i].setAttribute = ("onmouseout", "this.style.color = '#A00'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A00'")
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#0A0";
-            document.getElementsByTagName("a")[i].setAttribute = ("onmouseover", "this.style.color = '#9093ff'")
-            document.getElementsByTagName("a")[i].setAttribute = ("onmouseout", "this.style.color = '#0A0'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#0A0'")
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A0A";
-            document.getElementsByTagName("a")[i].setAttribute = ("onmouseover", "this.style.color = '#9093ff'")
-            document.getElementsByTagName("a")[i].setAttribute = ("onmouseout", "this.style.color = '#A0A'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A0A'")
         }
         if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
