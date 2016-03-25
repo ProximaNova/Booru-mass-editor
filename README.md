@@ -14,6 +14,7 @@ It is not really a problem that this script only works on older versions of Gelb
 * Gelbooru versions equal to or greater than "Beta 0.2":
  * The software forces users to have at least 4 tags
  * The software is not free so the popularity of the booru has to pay for the software's cost
+ * Basically they mainly contain popular content that is very well tagged so there is not really a reason to worry about this not working for the newer Gelbooru software. (Also at Gebooru.com tags can only be submitted between annoyingly long intervals of time, so it is impossible to bulk edit, that is, submit changes just when the page loads.)
 
 (For quicker editting at the newest version of Gelbooru get the form to display automatically instead of having to click "Edit" to unhide it.)
 
