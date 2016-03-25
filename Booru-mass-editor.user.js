@@ -500,8 +500,8 @@ function simulateClickSubmit(element)
     
 }
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-    var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%'>&#9758;</span> \
-                                  <span style='position:relative;top:-15px;'>Submitting tag<br>\
+    var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> \
+                                  <span style='position:relative;top:-30px;'>Submitting tag<br>\
                                   operation(s) on page load</li>"
     if (document.getElementById("tags").innerHTML + " " !== document.getElementById("tags").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
