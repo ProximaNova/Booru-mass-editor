@@ -103,8 +103,19 @@ if (document.getElementById("tags").value.match(" ")) {
     }
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
-        document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-        .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 10]) + "'>?</a> ");
+        if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
+            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "' style='color:#A00;'>?</a> ");
+        } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(character\)/g)) {
+            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "' style='color:#0A0;'>?</a> ");
+        } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(copyright\)/g)) {
+            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "' style='color:#A0A;'>?</a> ");
+        } else {
+            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "'>?</a> ");
+        }
     }
 }
 
