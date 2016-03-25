@@ -44,8 +44,8 @@ if (parentID !== "" && imageSizeWidth < 800) {
 // Notify that the image has been "resized" and it has a parent:
 else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML.replace(/<div class="sidebar">/g,
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?\
-    page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br> \
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?" +
+    "page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br> \
     <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
     however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br><div class='sidebar'>")
 }
@@ -64,19 +64,21 @@ else if (parentID == "" && imageSizeWidth > 800) {
 }
 
 // Improving "#tag_list":
-if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
-    if (document.getElementById("tags").value.match(/ /g).length > 4) {
-        var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+if (document.getElementById("tags").value.match(" ")) {
+    if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
+        if (document.getElementById("tags").value.match(/ /g).length > 4) {
+            var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+        } else {
+            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+        }
     } else {
-        var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
-    }
-} else {
-    if (document.getElementById("tags").value.match(/ /g).length > 3) {
-        var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
-        var numberOfTags = "Tags <small>(" + numberOfTagsTemp  + ")</small>";
-    } else {
-        var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
-        var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + ")</small>";
+        if (document.getElementById("tags").value.match(/ /g).length > 3) {
+            var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
+            var numberOfTags = "Tags <small>(" + numberOfTagsTemp  + ")</small>";
+        } else {
+            var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
+            var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + ")</small>";
+        }
     }
 }
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
@@ -89,10 +91,13 @@ if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
+            document.getElementsByTagName("a")[i].className = "ColoredTagLink"
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#0A0";
+            document.getElementsByTagName("a")[i].className = "ColoredTagLink"
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A0A";
+            document.getElementsByTagName("a")[i].className = "ColoredTagLink"
         }
         if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
@@ -105,19 +110,49 @@ if (document.getElementById("tags").value.match(" ")) {
         var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
         if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "' style='color:#A00;'>?</a> ");
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+                     "' class='ColoredTagLink' style='color:#A00;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(character\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "' style='color:#0A0;'>?</a> ");
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+                     "' class='ColoredTagLink' style='color:#0A0;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "' style='color:#A0A;'>?</a> ");
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+                     "' class='ColoredTagLink' style='color:#A0A;'>?</a> ");
         } else {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) + "'>?</a> ");
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+                     "' class='ColoredTagLink'>?</a> ");
         }
     }
 }
+
+
+for (i = 0; i < document.getElementsByClassName("ColoredTagLink").length; i++) {
+    document.getElementsByClassName("ColoredTagLink")[i].addEventListener("mouseover", function () {
+        document.getElementsByClassName("ColoredTagLink")[i].style.color = "#9093ff";
+    });
+}
+
+//document.styleSheets[0].insertRule("a.ColoredTagLink:hover { color:#9093ff; }", 0);
+//for (i = 0; i < document.getElementsByClassName("ColoredTagLink").length; i++) {
+//    var linkHoverStyle = ".ColoredTagLink:hover { color:#9093ff; }";
+//    
+//    var applyStyle = document.createElement('style');
+//    document.getElementById("tag_list").appendChild(applyStyle);
+//}
+//
+//
+//style = document.createElement('style');
+//
+//if (style.styleSheet) {
+//    style.styleSheet.cssText = css;
+//} else {
+//    style.appendChild(document.createTextNode(css));
+//}
+//
+//document.getElementsByTagName('head')[0].appendChild(style);
 
 // Improving "#my-tags":
 var getMyTagsText1 = document.getElementById("my-tags").textContent;
