@@ -12,6 +12,7 @@
 // ==/UserScript==
 
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
+var booruName = document.getElementsByTagName("h2")[0].textContent;
 var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
 var imageSrc = document.getElementById("image").src;
@@ -28,22 +29,23 @@ var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : 
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 var parentID = document.getElementsByName("parent")[0].value;
-var booruName = document.getElementsByTagName("h2")[0].textContent;
 
-// Improve title:
+//  1.0  Improve $("title"):
 if (document.getElementById("tags").value.match(" ")) {
     document.getElementsByTagName("title")[0].innerHTML = booruName + " - " + 
     document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
-// Display parent if viewing child:
+
+//  2.0  Top notifications of parent/child and "resized":
+//  2.1  Display parent if viewing child and not "resized":
 if (parentID !== "" && imageSizeWidth < 800) {
     document.getElementById("post-view").innerHTML =
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?" +
     "page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
-// Notify that the image has been "resized" and it has a parent:
+//  2.2  Display parent if viewing child and "resized":
 else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php? \
@@ -52,14 +54,14 @@ else if (parentID !== "" && imageSizeWidth > 800) {
     however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
-// Notify that the image has been "resized" when there is a notification of child post(s):
+//  2.3  Display "resized" when viewing parent:
 else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
     document.getElementById("post-view").innerHTML = 
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
     however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br>" +
     document.getElementById("post-view").innerHTML;
 }
-// Notify that the image has been "resized":
+//  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
     "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
@@ -67,7 +69,8 @@ else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML;
 }
 
-// Improving "#tag_list":
+//  3.0  Improving $("#tag_list"):
+//  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
 if (document.getElementById("tags").value.match(" ")) {
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
@@ -86,7 +89,7 @@ if (document.getElementById("tags").value.match(" ")) {
     }
 }
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
-
+//  3.2  Get the index of the first link that is a tag and the correct iteration offset to get tags from an array:
 var tagListStart = 12;
 if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")) {
     var tagListq = 11;
@@ -95,6 +98,7 @@ if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")) {
 }
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
+//  3.3  Color artist, character, and copyright tags:
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
             document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
@@ -108,13 +112,16 @@ if (document.getElementById("tags").value.match(" ")) {
             document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
             document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A0A'")
         }
+//  3.4  If the tag is only on one image then "1" will be colored red:
         if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>")
         }
+//  3.5  Non breaking space between "? tag" and "#":
         document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
         .replace(/<\/a> /g, "</a>&nbsp;");
     }
+//  3.6  "?" - intended to link to a tag wiki, now links to a Google search of the tag (it is also appropriately colored):
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
         var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
         if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
@@ -140,7 +147,7 @@ if (document.getElementById("tags").value.match(" ")) {
     }
 }
 
-// Improving "#my-tags":
+//  4.0  Improving $("#my-tags"):
 var getMyTagsText1 = document.getElementById("my-tags").textContent;
 var getMyTagsText  = getMyTagsText1.substring(0, getMyTagsText1.length - 1);
 function refreshMyTags(sep) {
@@ -259,7 +266,8 @@ Replacing:
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>\
          </tr><tr><td><br><input style='display: none;' name='next_post'")
 .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
-//.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
+// This should be switched on/off via the tags cookie
+// .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
 // Image:
