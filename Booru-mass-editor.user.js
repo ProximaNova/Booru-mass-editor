@@ -252,7 +252,7 @@ Replacing:
 .replace(/>Tag History<\/a>/g, ">Tag history</a>")
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
-.replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
+.replace(/; return false;\">Keep<\/a>/g, ";post_vote('" + ID + "', 'up');return false;\">Favorite</a> &bull; ")
 .replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:\
          403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
