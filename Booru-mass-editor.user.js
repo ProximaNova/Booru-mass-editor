@@ -91,11 +91,10 @@ var isFirefox = typeof InstallTrigger !== 'undefined';
 var isChrome = !!window.chrome && !!window.chrome.webstore;
 // </thanks>
 var tagListStart = 12;
-if (isFirefox) {
-    var tagListq = 10;
-}
-if (isChrome) {
+if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")) {
     var tagListq = 11;
+} else {
+    var tagListq = 10;
 }
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
