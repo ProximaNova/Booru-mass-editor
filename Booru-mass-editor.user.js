@@ -415,7 +415,7 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
         var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
         var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
         replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-        var myTagsReplaceTagInfo = "<li>Replacing:<br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" + myTagsReplaceTag2 + "</code></li>";
+        var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" + myTagsReplaceTag2 + "</code></li>";
     }
 } else {
     var myTagsReplacing = false;
