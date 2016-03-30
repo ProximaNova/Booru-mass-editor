@@ -85,10 +85,17 @@ if (document.getElementById("tags").value.match(" ")) {
     }
 }
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
-if (parentID == "") {
-    var tagListStart = 12;
-//} else if (document.getElementById("post-view").match("<b>child posts</b>")) {
-//    var tagListStart = 13;
+
+// <thanks to="http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser">
+var isFirefox = typeof InstallTrigger !== 'undefined';
+var isChrome = !!window.chrome && !!window.chrome.webstore;
+// </thanks>
+var tagListStart = 12;
+if (isFirefox) {
+    var tagListq = 10;
+}
+if (isChrome) {
+    var tagListq = 11;
 }
 if (document.getElementById("tags").value.match(" ")) {
     for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
@@ -116,22 +123,22 @@ if (document.getElementById("tags").value.match(" ")) {
         var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
         if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
                      "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A00'\" \
                      style='color:#A00;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(character\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
                      "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#0A0'\" \
                      style='color:#0A0;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
                      "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A0A'\" \
                      style='color:#A0A;'>?</a> ");
         } else {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - 11]) +
+            .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
                      "'>?</a> ");
         }
     }
