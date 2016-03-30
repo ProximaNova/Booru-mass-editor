@@ -19,7 +19,7 @@ var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc
 var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.org/g, "thumbs.booru.org")
                     .replace(/\/\/images\//g, "/thumbnails//")
                     .replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
-var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase();
+var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase().replace(/JPEG/g, "JPG");
 var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
 var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
@@ -28,10 +28,11 @@ var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : 
 var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
 var parentID = document.getElementsByName("parent")[0].value;
+var booruName = document.getElementsByTagName("h2")[0].textContent;
 
 // Improve title:
 if (document.getElementById("tags").value.match(" ")) {
-    document.getElementsByTagName("title")[0].innerHTML = document.getElementsByTagName("h2")[0].textContent + " - " + 
+    document.getElementsByTagName("title")[0].innerHTML = booruName + " - " + 
     document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
@@ -86,10 +87,6 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 
-// <thanks to="http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser">
-var isFirefox = typeof InstallTrigger !== 'undefined';
-var isChrome = !!window.chrome && !!window.chrome.webstore;
-// </thanks>
 var tagListStart = 12;
 if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")) {
     var tagListq = 11;
@@ -249,7 +246,8 @@ Replacing:
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/>Tag History<\/a>/g, ">Tag history</a>")
+.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; <a href='" + imageSrc + "' download='" + 
+         document.getElementById("tags").value + " " + booruName + "#" + ID + "." + imageSrcExt.toLowerCase() + "'>Download</a>")
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/; return false;\">Keep<\/a>/g, ";post_vote('" + ID + "', 'up');return false;\">Favorite</a> &bull; ")
