@@ -243,15 +243,13 @@ Replacing:
          imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
 .replace(/          Rating: /g, "          <u>Rating:</u> ")
-.replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score + "<br>")
-.replace(/ id="image" onclick="Note.toggle\(\);" style="margin-right\: 70px;"/g, " id='image' onclick=\"Note.toggle();if (this.style.maxWidth \
-         == '800px') {this.style.maxWidth = 'none';} else {this.style.maxWidth = '800px';}\" style='max-width:800px; margin-right:70px; \
-         position:relative; top:-7px;'")
+.replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
+         " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' \
+         onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br>")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; Vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">+</a> <a href='#' \
-         onclick=\"post_vote('" + ID + "', 'down')\">-</a>")
+.replace(/>Tag History<\/a>/g, ">Tag history</a>")
 .replace(/Previous Post<br>/g, "<br>")
 .replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
 .replace(/>Keep<\/a>/g, ">Favorite</a> &bull; ")
@@ -265,6 +263,18 @@ Replacing:
 .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
 //.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
+
+// Image:
+document.getElementById("image").style.maxWidth = "800px";
+document.getElementById("image").style.position = "relative";
+document.getElementById("image").style.top = "-7px";
+document.getElementById("image").addEventListener("click", function() {
+    if (document.getElementById("image").style.maxWidth == '800px') {
+        document.getElementById("image").style.maxWidth = 'none';
+    } else {
+        document.getElementById("image").style.maxWidth = '800px';
+    }
+});
 
 // Set rating:
 if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
