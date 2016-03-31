@@ -36,7 +36,6 @@ if (document.getElementById("tags").value.match(" ")) {
     document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
-
 //  2.0  Top notifications of parent/child and "resized":
 //  2.1  Display parent if viewing child and not "resized":
 if (parentID !== "" && imageSizeWidth < 800) {
@@ -212,11 +211,10 @@ function refreshMyTags(sep) {
     document.getElementById("my-tags").innerHTML = myTagsNew;
 }
 
+//  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
-/*
-Removing:
-*/
+//  5.1  Removing:
 .replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
@@ -235,9 +233,7 @@ Removing:
 .replace(/My Tags<br>/g, "<br>")
 .replace(/          Posted: .* <br>/g, "")
 .replace(/          Source:  <br>/g, "")
-/*
-Replacing:
-*/
+//  5.2  Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 .replace(/          Id.*<br>/g, "<u>File format:</u> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
@@ -270,7 +266,7 @@ Replacing:
 // .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
-// Image:
+//  6.0  Improving $("#image"):
 document.getElementById("image").style.maxWidth = "800px";
 document.getElementById("image").style.position = "relative";
 document.getElementById("image").style.top = "-7px";
@@ -282,7 +278,7 @@ document.getElementById("image").addEventListener("click", function() {
     }
 });
 
-// Set rating:
+//  7.0  Set rating (based on ("#my-tags")):
 if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
     var myTagsSettingRating = true;
     var myTagsSetRatingTag = document.getElementById("my-tags").textContent.replace(/.*r:/g, "").replace(/;r;.*/, "")
@@ -297,7 +293,7 @@ if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
     var myTagsSettingRatingInfo = "";
 }
 
-// Delete source feild:
+//  8.0  Delete source feild (based on ("#my-tags")):
 if (document.getElementById("my-tags").textContent.match(/del:.*;del;/g)) {
     if (document.getElementById("my-tags").textContent.match(/del:s;del;/g)) {
         document.getElementById("source").value = "";
@@ -308,7 +304,7 @@ if (document.getElementById("my-tags").textContent.match(/del:.*;del;/g)) {
     }
 }
 
-// Remove "mass uploader" in feilds:
+//  9.0  Remove "mass upload" text in feilds:
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
@@ -318,6 +314,7 @@ document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
 
+//  10.0  Functions for adding and replacing tags:
 function addTags(tagToAdd) {
     var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
     var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
@@ -328,7 +325,6 @@ function addTags(tagToAdd) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
     }
 }
-
 function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
     var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
@@ -344,7 +340,8 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     }
 }
 
-// Remove the "tagme" tag if there is 10 other tags:
+//  11.0  Dealing with the "tagme" tag:
+//  11.1  Remove it if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
     if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
     && document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)
@@ -352,7 +349,7 @@ if (document.getElementById("tags").value.match(" ")) {
         replaceTags("tagme", " ", "", "");
     }
 } else {
-// Add the "tagme" tag based on user defined specifications:
+//  11.2  Add it (based on ("#my-tags")):
     if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
     && document.getElementById("tags").value.match(/ /g).length <=
     Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
@@ -360,7 +357,7 @@ if (document.getElementById("tags").value.match(" ")) {
     }
 }
 
-// Add resolution tags:
+//  12.0  Add resolution tags:
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
     addTags("lowres");
 }
@@ -380,8 +377,8 @@ if (imageSizeWidth == imageSizeHeight) {
     addTags("1:1_aspect_ratio");
 }
 
-// TAGGING OPERATIONS:
-// Replace tags:
+//  13.0  TAGGING OPERATIONS (based on ("#my-tags")):
+//  13.1  Replace tags:
 if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = true;
     var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
@@ -427,8 +424,7 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = false;
     var myTagsReplaceTagInfo = "";
 }
-
-// Add tags:
+//  13.2  Add tags:
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAdding = true;
     var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
@@ -450,8 +446,7 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAdding = false;
     var myTagsAddTagInfo = "";
 }
-
-// Remove tags:
+//  13.3  Remove tags:
 if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = true;
     var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
@@ -474,37 +469,36 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRmTagInfo = "";
 }
 
-// Move filename tags:
+//  14.0  Move filename tags:
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g);
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ");
 }
-
-// Move UNIX timestamp:
+//  14.1  Move UNIX timestamp:
 if (document.getElementById("tags").value.match(/^\d{13}/g)) {
     document.getElementById("source").value = document.getElementById("tags").value.match(/\d{13}/g);
     document.getElementById("tags").value = document.getElementById("tags").value.replace(/\d{13} /g, "");
 }
 
-// + " " & "  " ---> " "
+//  15.0  Add " " at the end and replace "  " with " ":
 document.getElementById("tags").value = document.getElementById("tags").value + " ";
 document.getElementById("tags").value = document.getElementById("tags").value.replace(/  /g, " ");
 
-// Hiding:
+//  16.0  Changing visibility
+//  16.1  Hiding:
 document.getElementById("previous_post").style.display = "none";
 document.getElementById("next_post").style.display = "none";
-
-// Unhiding:
+//  16.2  Unhiding:
 document.getElementById("edit_form").style.display = "block";
 
-// Positioning:
+//  17.0  Positioning:
 document.getElementById("source").style.position = "relative";
 document.getElementById("source").style.top = "-40px";
 document.getElementById("tags").style.position = "relative";
 document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
-// "Save changes" button:
+//  17.1  "Save changes" button:
 document.getElementsByName("submit")[1].style.width = "403px"
 document.getElementsByName("submit")[1].style.height = "100px"
 document.getElementsByName("submit")[1].style.fontSize = "20pt"
@@ -516,6 +510,8 @@ if (document.getElementById("my-tags").innerHTML.match("save:top;save;")) {
     document.getElementsByName("submit")[1].style.top = "-80px"
 }
 
+//  18.0  Improve $("#my-tags") onload and onkeyup:
+//  18.1  Update $("#my-tags") when typing:
 document.getElementById("tags").addEventListener("keyup", function(e) {
     if (getMyTagsText.match(/\+/g)) {
         refreshMyTags("+");
@@ -523,8 +519,7 @@ document.getElementById("tags").addEventListener("keyup", function(e) {
         refreshMyTags(" ");
     }
 });
-
-// Sometimes this fails:
+//  18.2  Update $("#my-tags") when the page loads (sometimes this fails):
 window.addEventListener("load", function(e) {
     if (getMyTagsText.match(/\+/g)) {
         refreshMyTags("+");
@@ -533,6 +528,7 @@ window.addEventListener("load", function(e) {
     }
 });
 
+//  19.0  Mass edit tags: submition of modified tags onload (based on ("#my-tags")):
 function simulateClickSubmit(element)
 {
     var oEvent = document.createEvent('MouseEvents');
@@ -552,6 +548,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     var myTagsSubmitOnLoadInfo = "";
 }
 
+//  20.0  Display user defined changes:
 var reverseSearch = document.createElement("ul");
 reverseSearch.style.cssText = "max-width:20em;position:relative;bottom:125px;";
 reverseSearch.innerHTML =
