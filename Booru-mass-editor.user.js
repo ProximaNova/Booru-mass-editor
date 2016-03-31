@@ -379,7 +379,7 @@ if (imageSizeWidth == imageSizeHeight) {
 }
 
 //  13.0  TAGGING OPERATIONS (based on ("#my-tags")):
-//  13.1  Replace tags:
+//  13.1  Replace tags (doesn't work very well with parentheses in the "My Tags"):
 if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplacing = true;
     var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
