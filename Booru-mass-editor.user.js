@@ -11,6 +11,7 @@
 // @noframes
 // ==/UserScript==
 
+// Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var booruName = document.getElementsByTagName("h2")[0].textContent;
 var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
@@ -528,7 +529,7 @@ window.addEventListener("load", function(e) {
     }
 });
 
-//  19.0  Mass edit tags: submition of modified tags onload (based on ("#my-tags")):
+//  19.0  Mass edit tags: submission of changes a second or less after the page loads (based on ("#my-tags")):
 function simulateClickSubmit(element)
 {
     var oEvent = document.createEvent('MouseEvents');
@@ -548,7 +549,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     var myTagsSubmitOnLoadInfo = "";
 }
 
-//  20.0  Display user defined changes:
+//  20.0  Add reverse search section:
 var reverseSearch = document.createElement("ul");
 reverseSearch.style.cssText = "max-width:20em;position:relative;bottom:125px;";
 reverseSearch.innerHTML =
@@ -557,11 +558,12 @@ reverseSearch.innerHTML =
 <li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li>";
 document.getElementById("tag_list").appendChild(reverseSearch);
 
+//  21.0  Display user defined changes:
 if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
     var tagsMods = document.createElement("ul");
     tagsMods.style.cssText = "max-width:20em;position:relative;bottom:122px;";
     tagsMods.innerHTML =
-    "<h5>Tagging operations</h5>" +
+    "<h5>User-defined change(s)</h5>" +
     myTagsSettingRatingInfo +
     myTagsReplaceTagInfo +
     myTagsAddTagInfo +
@@ -570,11 +572,13 @@ if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == tr
     document.getElementById("tag_list").appendChild(tagsMods);
 }
 
+//  22.0  Add section to view and edit "My Tags":
+//  21.1  Header:
 var myTagsEdit1 = document.createElement("h5");
 myTagsEdit1.style.cssText = "max-width:20em;position:relative;bottom:120px;";
 myTagsEdit1.innerHTML = "My Tags";
 document.getElementById("tag_list").appendChild(myTagsEdit1);
-
+//  21.2  Text area:
 var myTagsEdit2 = document.createElement("textarea");
 myTagsEdit2.setAttribute("id", "MyTagsEdit");
 myTagsEdit2.style.cssText = "max-width:19em;height:15em;position:relative;bottom:118px;";
@@ -584,14 +588,14 @@ if (readCookie("tags").match(/\+/g)) {
     myTagsEdit2.innerHTML = readCookie("tags");
 }
 document.getElementById("tag_list").appendChild(myTagsEdit2);
-
+//  22.3  Submit button:
 var myTagsEdit3 = document.createElement("button");
 myTagsEdit3.setAttribute("id", "ButtonToChangeMyTags");
 myTagsEdit3.setAttribute("type", "button");
 myTagsEdit3.style.cssText = "max-width:20em;position:relative;bottom:120px;display:block;";
 myTagsEdit3.innerHTML = "Edit my tags";
 document.getElementById("tag_list").appendChild(myTagsEdit3);
-
+//  22.3.1  Reload the page when it is clicked:
 document.getElementById("ButtonToChangeMyTags").addEventListener("click", function() {
     document.cookie = "tags=" + escape(document.getElementById("MyTagsEdit").value) + ";";
     location.reload();
@@ -601,6 +605,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
 
+// Part 2:
 // From: http://www.arantius.com/misc/greasemonkey/linkify-plus.user.js
 // This should works on the whole booru but only works on the &id part:
 // ==UserScript==
