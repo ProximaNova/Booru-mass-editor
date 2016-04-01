@@ -91,7 +91,11 @@ if (document.getElementById("tags").value.match(" ")) {
 document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 //  3.2  Get the index of the first link that is a tag and the correct iteration offset to get tags from an array:
 var tagListStart = 12;
-if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")) {
+if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
+&& !(document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;"))) {
+    var tagListq = 10;
+} else if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
+&& document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;")) {
     var tagListq = 11;
 } else {
     var tagListq = 10;
