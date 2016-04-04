@@ -315,6 +315,7 @@ if (document.getElementById("title").value == "Booru mass uploader") {
 }
 if (document.getElementById("source").value == "https://ibsearch.xxx" ||
 document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload" ||
+document.getElementById("source").value == "http://i-forge.net/imageboards/mass-upload" ||
 document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
