@@ -16,8 +16,6 @@ It is not really a problem that this script only works on older versions of Gelb
  * The software is not free so the popularity of the booru has to pay for the software's cost
  * Basically they mainly contain popular content that is very well tagged so there is not really a reason to worry about this not working for the newer Gelbooru software. (Also at Gebooru.com tags can only be submitted between annoyingly long intervals of time, so it is impossible to bulk edit, that is, submit changes just when the page loads.)
 
-(For quicker editting at the newest version of Gelbooru get the form to display automatically instead of having to click "Edit" to unhide it.)
-
 ## Editing upgrades
 
 Add these tags at the ID page or Account > Options > My Tags (no one or more of the same tag(s) should be in "My Tags"):
@@ -28,7 +26,13 @@ Add these tags at the ID page or Account > Options > My Tags (no one or more of 
 * To add the "tagme" tag if an image has less than a certain amount of tags add: `tagmeif:lt#;endif;` where `#` is, examples: `tagmeif:lt5;endif;` and `tagmeif:lt10;endif;`
 * To submit the aforementioned changes when the page loads add: `op:onload;op;`; this bullet point is why this script is called a "mass editor": careful using this one.
 
+## Future updates:
+For newer versions of Gelbooru:
+* Get the form to display automatically instead of having to click "Edit" to unhide it
+* Autotag on page load for missing tag implications (see: http://danbooru.donmai.us/tag_implications)
+* Other stuff: this script is not finished
+
 ## See also
 Seedmanc's userscripts:
 * [Booru mass uploader](https://github.com/Seedmanc/Booru-mass-uploader)
-* [Booru Augmentation Project](https://github.com/Seedmanc/Booru-Augmentation-Project)
+* [Booru Augmentation Project](https://github.com/Seedmanc/Booru-Augmentation-Project) ([my fork](https://github.com/ProximaNova/Booru-Augmentation-Project))
