@@ -77,7 +77,8 @@ var metadataHeader = document.createElement("h4");
 metadataHeader.innerHTML = "Metadata";
 document.getElementById("tag_list").insertBefore(metadataHeader, document.getElementById("tag_list").childNodes[0]);
 if (document.getElementById("tags").value.match(" ")) {
-    var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "'>history</a>)</small>";
+    var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "' style='color:#006ffa' " + 
+                         "onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">history</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
             var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagHistoryLink;
