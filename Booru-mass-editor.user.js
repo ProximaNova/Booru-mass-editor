@@ -87,13 +87,12 @@ if (document.getElementById("tags").value.match(" ")) {
             var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + ")</small>";
         }
     }
+    document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 }
-document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 //  3.2  Get the index of the first link that is a tag and the correct iteration offset to get tags from an array:
-var tagListStart = 12;
 if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
 && !(document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;"))) {
-    var tagListq = 10;
+    var tagListq = 11;
 } else if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
 && document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;")) {
     var tagListq = 11;
@@ -101,7 +100,7 @@ if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
     var tagListq = 10;
 }
 if (document.getElementById("tags").value.match(" ")) {
-    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
+    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 12; i++) {
 //  3.3  Color artist, character, and copyright tags:
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
@@ -126,7 +125,7 @@ if (document.getElementById("tags").value.match(" ")) {
         .replace(/<\/a> /g, "</a>&nbsp;");
     }
 //  3.6  "?" - intended to link to a tag wiki, now links to a Google search of the tag (it is also appropriately colored):
-    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + tagListStart; i++) {
+    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 12; i++) {
         var tagsArray = document.getElementById("tags").value.replace(/_/g, "+").split(" ");
         if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
