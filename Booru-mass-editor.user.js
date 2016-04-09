@@ -13,6 +13,8 @@
 
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
+var IDnext = Number(ID) + 1;
+var IDprev = Number(ID) - 1;
 var booruName = document.getElementsByTagName("h2")[0].textContent;
 var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
@@ -234,7 +236,9 @@ document.body.innerHTML
 .replace(/          Source:  <br>/g, "")
 //  5.2  Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
-.replace(/          Id.*<br>/g, "<u>File format:</u> " + imageSrcExt + "<br>")
+.replace(/          Id.*<br>/g, "<u>ID</u>: " + ID + " (<a href='index.php?page=post&s=view&id=" + IDnext +
+         "'>next</a>/<a href='index.php?page=post&s=view&id=" + IDprev + "'>previous</a>)" +
+         "<br><u>File format:</u> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
          "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
@@ -249,11 +253,9 @@ document.body.innerHTML
          "return false;\">Favorite</a><br><a href='" + imageSrc + "' download='" + document.getElementById("tags").value +
          " " + booruName + "#" + ID + "." + imageSrcExt.toLowerCase() + "'>Download</a><br>" +
          "<a href='#' id='rp" + ID + "' onclick=\"Element.toggle('report_form')\">Report</a><br>" +
-
          "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
          "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID + 
-         "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>"
-         )
+         "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
