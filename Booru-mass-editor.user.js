@@ -7,7 +7,7 @@
 // @include       http://safebooru.org/index.php?page=post&s=view&id=*
 // @include       http://xbooru.com/index.php?page=post&s=view&id=*
 // @include       http://rule34.xxx/index.php?page=post&s=view&id=*
-// @grant         none 
+// @grant         none
 // @noframes
 // ==/UserScript==
 
@@ -26,14 +26,14 @@ var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") +
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
 var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
 var userName = escape(sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:")));
-var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A"
-var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28)
-var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "))
+var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A";
+var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28);
+var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
 var parentID = document.getElementsByName("parent")[0].value;
 
 //  1.0  Improve $("title"):
 if (document.getElementById("tags").value.match(" ")) {
-    document.getElementsByTagName("title")[0].innerHTML = booruName + " - " + 
+    document.getElementsByTagName("title")[0].innerHTML = booruName + " - " +
     document.getElementById("tags").value.replace(/ /g, ", ").replace(/_/g, " ");
 }
 
@@ -48,53 +48,54 @@ if (parentID !== "" && imageSizeWidth < 800) {
 //  2.2  Display parent if viewing child and "resized":
 else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php? \
-    page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br> \
-    <div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
-    however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?" +
+    "page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\";" +
+    "however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
 //  2.3  Display "resized" when viewing parent:
 else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
-    document.getElementById("post-view").innerHTML = 
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
-    however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br>" +
+    document.getElementById("post-view").innerHTML =
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\";" +
+    "however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br>" +
     document.getElementById("post-view").innerHTML;
 }
 //  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\"; \
-    however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\";" +
+    "however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
 
 //  3.0  Improving $("#tag_list"):
 //  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
 if (document.getElementById("tags").value.match(" ")) {
+    var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "'>history</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
-            var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+            var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagHistoryLink;
         } else {
-            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length  + ")</small>";
+            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length + tagHistoryLink;
         }
     } else {
         if (document.getElementById("tags").value.match(/ /g).length > 3) {
             var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
-            var numberOfTags = "Tags <small>(" + numberOfTagsTemp  + ")</small>";
+            var numberOfTags = "Tags <small>(" + numberOfTagsTemp + tagHistoryLink;
         } else {
             var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
-            var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + ")</small>";
+            var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + tagHistoryLink;
         }
     }
     document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 }
 //  3.2  Get the index of the first link that is a tag and the correct iteration offset to get tags from an array:
-if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
-&& !(document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;"))) {
+if (document.getElementById("navbar").innerHTML.match(">Mass Upload<") &&
+!(document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;"))) {
     var tagListq = 11;
-} else if (document.getElementById("navbar").innerHTML.match(">Mass Upload<")
-&& document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;")) {
+} else if (document.getElementById("navbar").innerHTML.match(">Mass Upload<") &&
+document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network</strong></a> &raquo;")) {
     var tagListq = 11;
 } else {
     var tagListq = 10;
@@ -104,21 +105,21 @@ if (document.getElementById("tags").value.match(" ")) {
 //  3.3  Color artist, character, and copyright tags:
         if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A00";
-            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
-            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A00'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
+            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A00'");
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#0A0";
-            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
-            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#0A0'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
+            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#0A0'");
         } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("a")[i].style.color = "#A0A";
-            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'")
-            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A0A'")
+            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
+            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A0A'");
         }
 //  3.4  If the tag is only on one image then "1" will be colored red:
         if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
-            .replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>")
+            .replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>");
         }
 //  3.5  Non breaking space between "? tag" and "#":
         document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
@@ -130,18 +131,18 @@ if (document.getElementById("tags").value.match(" ")) {
         if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(artist\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
-                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A00'\" \
-                     style='color:#A00;'>?</a> ");
+                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A00'\"" +
+                     "style='color:#A00;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(character\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
-                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#0A0'\" \
-                     style='color:#0A0;'>?</a> ");
+                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#0A0'\"" +
+                     "style='color:#0A0;'>?</a> ");
         } else if (document.getElementsByTagName("li")[i].innerHTML.match(/_\(copyright\)/g)) {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
-                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A0A'\" \
-                     style='color:#A0A;'>?</a> ");
+                     "' onmouseover=\"this.style.color = '#9093ff'\" onmouseout = \"this.style.color = '#A0A'\"" +
+                     "style='color:#A0A;'>?</a> ");
         } else {
             document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
             .replace(/\? /g, "<a href='https://www.google.com/#q=" + escape(tagsArray[i - tagListq]) +
@@ -160,35 +161,35 @@ function refreshMyTags(sep) {
         var myTagsMatchCase1 = new RegExp(" " + getMyTagsAsArray[i] + " ", "gi");
         var myTagsMatchCase2 = new RegExp("^" + getMyTagsAsArray[i] + " ", "gi");
         var myTagsMatchCase3 = new RegExp(" " + getMyTagsAsArray[i] + "$", "gi");
-        if (document.getElementById("tags").value.match(myTagsMatchCase1)
-        || document.getElementById("tags").value.match(myTagsMatchCase2)
-        || document.getElementById("tags").value.match(myTagsMatchCase3)) {
-            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
-                                        document.getElementById('tags').value = \
-                                        document.getElementById('tags').value.replace(/  /g, ' '); \
-                                    }; \
-                                    if (!(document.getElementById('tags').value.match(/ $/g))) { \
-                                        document.getElementById('tags').value = \
-                                        document.getElementById('tags').value + ' '; \
-                                    }; \
-                                    if (this.style.fontWeight == 'bold') { \
-                                        this.style.fontWeight = 'normal' \
-                                    } else { \
-                                        this.style.fontWeight = 'bold'; \
-                                    }; \
-                                    return false;\" style='font-weight:bold;'"
+        if (document.getElementById("tags").value.match(myTagsMatchCase1) ||
+        document.getElementById("tags").value.match(myTagsMatchCase2) ||
+        document.getElementById("tags").value.match(myTagsMatchCase3)) {
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) {" +
+                                        "document.getElementById('tags').value = " +
+                                        "document.getElementById('tags').value.replace(/  /g, ' ');" +
+                                    "};" +
+                                    "if (!(document.getElementById('tags').value.match(/ $/g))) {" +
+                                        "document.getElementById('tags').value = " +
+                                        "document.getElementById('tags').value + ' ';" +
+                                    "}; " +
+                                    "if (this.style.fontWeight == 'bold') { " +
+                                        "this.style.fontWeight = 'normal' " +
+                                    "} else { " +
+                                        "this.style.fontWeight = 'bold'; " +
+                                    "}; " +
+                                    "return false;\" style='font-weight:bold;'";
         } else {
-            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
-                                        document.getElementById('tags').value = \
-                                        document.getElementById('tags').value.replace(/  /g, ' '); \
-                                    }; \
-                                    if (!(document.getElementById('tags').value.match(/ $/g))) { \
-                                        document.getElementById('tags').value = \
-                                        document.getElementById('tags').value + ' '; \
-                                    }; \
-                                    return false;\""
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { " +
+                                        "document.getElementById('tags').value = " +
+                                        "document.getElementById('tags').value.replace(/  /g, ' '); " +
+                                    "}; " +
+                                    "if (!(document.getElementById('tags').value.match(/ $/g))) { " +
+                                        "document.getElementById('tags').value = " +
+                                        "document.getElementById('tags').value + ' '; " +
+                                    "}; " +
+                                    "return false;\"";
         }
-        
+
         if (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g)) {
             var myTagsHiddenTags = "style='display:none;' ";
         } else {
@@ -210,7 +211,7 @@ function refreshMyTags(sep) {
                      +
                      getMyTagsAsArray[i]
                      +
-                     "</a> "
+                     "</a> ";
     }
     document.getElementById("my-tags").innerHTML = myTagsNew;
 }
@@ -223,17 +224,11 @@ document.body.innerHTML
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
 .replace(/Parent<br>/g, "")
-.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>/g, "")
-.replace(/ \| /g, "")
+.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
 .replace(/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g, "")
-.replace(/>Note history</g, "><")
-.replace(/>Add note</g, "><")
-.replace(/>Next</g, "><")
-.replace(/>Previous</g, "><")
 .replace(/>Next Post</g, "><")
-.replace(/>Edit</g, "><")
 .replace(/My Tags<br>/g, "<br>")
 .replace(/          Posted: .* <br>/g, "")
 .replace(/          Source:  <br>/g, "")
@@ -246,25 +241,30 @@ document.body.innerHTML
 .replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
          imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
-.replace(/          Rating: /g, "          <u>Rating:</u> ")
+
+.replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
 .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
-         " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' \
-         onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br>")
+         " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' " +
+         "onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br><a href='#' onclick=\"addFav('23078');post_vote('23078', 'up');" +
+         "return false;\">Favorite</a><br><a href='" + imageSrc + "' download='" + document.getElementById("tags").value +
+         " " + booruName + "#" + ID + "." + imageSrcExt.toLowerCase() + "'>Download</a><br>" +
+         "<a href='#' id='rp" + ID + "' onclick=\"Element.toggle('report_form')\">Report</a><br>" +
+
+         "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
+         "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID + 
+         "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>"
+         )
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/>Tag History<\/a>/g, ">Tag history</a> &bull; <a href='" + imageSrc + "' download='" + 
-         document.getElementById("tags").value + " " + booruName + "#" + ID + "." + imageSrcExt.toLowerCase() + "'>Download</a>")
 .replace(/Previous Post<br>/g, "<br>")
-.replace(/;}; return false;">Remove<\/a>/g, ";}; return false;\">Remove</a> &bull; ")
-.replace(/; return false;\">Keep<\/a>/g, ";post_vote('" + ID + "', 'up');return false;\">Favorite</a> &bull; ")
-.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:\
-         403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
+.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:" +
+         "403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
-.replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input \
-         name='parent'")
-.replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>\
-         </tr><tr><td><br><input style='display: none;' name='next_post'")
+.replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " +
+         "name='parent'")
+.replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>" +
+         "</tr><tr><td><br><input style='display: none;' name='next_post'")
 .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
 // This should be switched on/off via the tags cookie
 // .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
@@ -285,7 +285,7 @@ document.getElementById("image").addEventListener("click", function() {
 //  7.0  Set rating (based on ("#my-tags")):
 if (document.getElementById("my-tags").textContent.match(/r:.*?;r;/g)) {
     var myTagsSettingRating = true;
-    var myTagsSetRatingTag = document.getElementById("my-tags").textContent.replace(/.*r:/g, "").replace(/;r;.*/, "")
+    var myTagsSetRatingTag = document.getElementById("my-tags").textContent.replace(/.*r:/g, "").replace(/;r;.*/, "");
     var myTagsSettingRatingInfo = "<li><u>Setting rating:</u> <code>" + myTagsSetRatingTag + "</code></li>";
     for (i = 0; i < 3; i++) {
         if (document.getElementsByName("rating")[i].value == myTagsSetRatingTag) {
@@ -348,15 +348,15 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
 //  11.0  Dealing with the "tagme" tag:
 //  11.1  Remove it if there is 10 other tags:
 if (document.getElementById("tags").value.match(" ")) {
-    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
-    && document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)
-    && document.getElementById("tags").value.match(/ /g).length >= 10) {
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+    document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
+    document.getElementById("tags").value.match(/ /g).length >= 10) {
         replaceTags("tagme", " ", "", "");
     }
 } else {
 //  11.2  Add it (based on ("#my-tags")):
-    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g)
-    && document.getElementById("tags").value.match(/ /g).length <=
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+    document.getElementById("tags").value.match(/ /g).length <=
     Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
     }
@@ -454,7 +454,7 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
 //  13.3  Remove tags:
 if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = true;
-    var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "")
+    var myTagsRmTag = document.getElementById("my-tags").textContent.replace(/.*rm:/g, "").replace(/;rm;.*/g, "");
     if (myTagsRmTag.match("|")) {
         var myTagsRmTags = myTagsRmTag.split("|");
     } else {
@@ -462,11 +462,11 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     }
     if (typeof(myTagsRmTags) == "object") {
         for (i = 0; i < myTagsRmTags.length; i++) {
-            replaceTags(myTagsRmTags[i], " ", " ", " ")
+            replaceTags(myTagsRmTags[i], " ", " ", " ");
         }
         var myTagsRmTagInfo = "<li><u>Removing:</u> <code>" + myTagsRmTags.join(" ") + "</code></li>";
     } else {
-        replaceTags(myTagsRmTags, " ", "", "")
+        replaceTags(myTagsRmTags, " ", "", "");
         var myTagsRmTagInfo = "<li><u>Removing:</u> <code>" + myTagsRmTags + "</code></li>";
     }
 } else {
@@ -504,15 +504,15 @@ document.getElementById("tags").style.top = "-55px";
 document.getElementById("my-tags").style.position = "relative";
 document.getElementById("my-tags").style.top = "-72px";
 //  17.1  "Save changes" button:
-document.getElementsByName("submit")[1].style.width = "403px"
-document.getElementsByName("submit")[1].style.height = "100px"
-document.getElementsByName("submit")[1].style.fontSize = "20pt"
-if (document.getElementById("my-tags").innerHTML.match("save:top;save;")) {    
+document.getElementsByName("submit")[1].style.width = "403px";
+document.getElementsByName("submit")[1].style.height = "100px";
+document.getElementsByName("submit")[1].style.fontSize = "20pt";
+if (document.getElementById("my-tags").innerHTML.match("save:top;save;")) {
     document.getElementsByName("submit")[1].style.position = "absolute";
     document.getElementsByName("submit")[1].style.top = "0";
 } else {
-    document.getElementsByName("submit")[1].style.position = "relative"
-    document.getElementsByName("submit")[1].style.top = "-80px"
+    document.getElementsByName("submit")[1].style.position = "relative";
+    document.getElementsByName("submit")[1].style.top = "-80px";
 }
 
 //  18.0  Improve $("#my-tags") onload and onkeyup:
@@ -540,12 +540,11 @@ function simulateClickSubmit(element)
     oEvent.initMouseEvent("click", true, true, document.defaultView,
     0, 0, 0, 0, 0, false, false, false, false, 0, element);
     element.dispatchEvent(oEvent);
-    
 }
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-    var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> \
-                                  <span style='position:relative;top:-30px;'>Submitting tag<br>\
-                                  operation(s) on page load</li>"
+    var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> " +
+                                  "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
+                                  "operation(s) on page load</li>";
     if (document.getElementById("tags").innerHTML + " " !== document.getElementById("tags").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
     }
@@ -557,13 +556,13 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
 var reverseSearch = document.createElement("ul");
 reverseSearch.style.cssText = "max-width:20em;position:relative;bottom:125px;";
 reverseSearch.innerHTML =
-"<h5>Reverse search</h5> \
-<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li> \
-<li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li>";
+"<h5>Reverse search</h5> " +
+"<li><a href='http://www.google.com/searchbyimage?image_url=" + imageSrc + "'>Google</a> (for general images)</li> " +
+"<li><a href='http://iqdb.org/?url=" + imageSrc + "'>iqdb</a> (for anime images)</li>";
 document.getElementById("tag_list").appendChild(reverseSearch);
 
 //  21.0  Display user defined changes:
-if (myTagsSettingRating == true || myTagsReplacing == true || myTagsAdding == true || myTagsRming == true) {
+if (myTagsSettingRating === true || myTagsReplacing === true || myTagsAdding === true || myTagsRming === true) {
     var tagsMods = document.createElement("ul");
     tagsMods.style.cssText = "max-width:20em;position:relative;bottom:122px;";
     tagsMods.innerHTML =
