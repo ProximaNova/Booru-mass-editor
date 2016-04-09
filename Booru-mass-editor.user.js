@@ -71,6 +71,9 @@ else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML;
 }
 
+// Search: h5 ---> h4
+//document.getElementByTagName("h5")[0]
+
 //  3.0  Improving $("#tag_list"):
 //  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
 var metadataHeader = document.createElement("h4");
