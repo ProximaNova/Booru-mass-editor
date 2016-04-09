@@ -73,6 +73,9 @@ else if (parentID == "" && imageSizeWidth > 800) {
 
 //  3.0  Improving $("#tag_list"):
 //  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
+var metadataHeader = document.createElement("h4");
+metadataHeader.innerHTML = "Metadata";
+document.getElementById("tag_list").insertBefore(metadataHeader, document.getElementById("tag_list").childNodes[0]);
 if (document.getElementById("tags").value.match(" ")) {
     var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "'>history</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
@@ -267,7 +270,7 @@ document.body.innerHTML
          "name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>" +
          "</tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/<strong>Statistics<\/strong><br>/g, "<h5>Statistics</h5>")
+.replace(/<strong>Statistics<\/strong><br>/g, "<h5>Other</h5>")
 // This should be switched on/off via the tags cookie
 // .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
@@ -581,7 +584,7 @@ if (myTagsSettingRating === true || myTagsReplacing === true || myTagsAdding ===
 //  21.1  Header:
 var myTagsEdit1 = document.createElement("h5");
 myTagsEdit1.style.cssText = "max-width:20em;position:relative;bottom:120px;";
-myTagsEdit1.innerHTML = "My Tags";
+myTagsEdit1.innerHTML = "Change My Tags";
 document.getElementById("tag_list").appendChild(myTagsEdit1);
 //  21.2  Text area:
 var myTagsEdit2 = document.createElement("textarea");
