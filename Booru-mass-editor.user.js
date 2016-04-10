@@ -72,7 +72,10 @@ else if (parentID == "" && imageSizeWidth > 800) {
 }
 
 // Search: h5 ---> h4
-//document.getElementByTagName("h5")[0]
+// document.getElementByTagName("h5")[0]
+// http://stackoverflow.com/questions/10165262/best-way-to-write-jquerys-replacewith-in-natural-javascript
+// --->
+/// http://api.jquery.com/replacewith/
 
 //  3.0  Improving $("#tag_list"):
 //  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
