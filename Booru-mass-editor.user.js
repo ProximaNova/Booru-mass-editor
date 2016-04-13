@@ -43,31 +43,35 @@ if (document.getElementById("tags").value.match(" ")) {
 //  2.1  Display parent if viewing child and not "resized":
 if (parentID !== "" && imageSizeWidth < 800) {
     document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?" +
-    "page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID +
+    "'><b>parent post</b></a>.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
 //  2.2  Display parent if viewing child and "resized":
 else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This post has a <a href='index.php?" +
-    "page=post&amp;s=list&amp;tags=parent:" + parentID + "'><b>parent post</b></a>.</div><br>" +
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\";" +
-    "however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID +
+    "'><b>parent post</b></a>.</div><br><div style='background: #f0f0f0; padding: 10px; text-align: " +
+    "center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or " +
+    "save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
 //  2.3  Display "resized" when viewing parent:
 else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
     document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\";" +
-    "however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
+    "version. Click to expand and contract.</div><br>" +
     document.getElementById("post-view").innerHTML;
 }
 //  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>This image has been \"resized\";" +
-    "however, if you copy or save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
+    "version. Click to expand and contract.</div><br><br>" +
     document.getElementById("post-view").innerHTML;
 }
 
@@ -487,14 +491,32 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
 }
 
 //  14.0  Move filename tags:
-if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g);
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ");
+if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g) &&
+(document.getElementById("source").value == "" ||
+document.getElementById("title").value == "")) {
+    if (document.getElementById("source").value == "") {
+        document.getElementById("source").value =
+          document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g);
+        document.getElementById("tags").value =
+          document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ");
+    } else if (document.getElementById("title").value == "") {
+        document.getElementById("title").value =
+          document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g);
+        document.getElementById("tags").value =
+          document.getElementById("tags").value.replace(/ ?(\.+)?[^ ]+\.(jpe?g|png|gif) ?/g, " ");
+    }
 }
 //  14.1  Move UNIX timestamp:
-if (document.getElementById("tags").value.match(/^\d{13}/g)) {
-    document.getElementById("source").value = document.getElementById("tags").value.match(/\d{13}/g);
-    document.getElementById("tags").value = document.getElementById("tags").value.replace(/\d{13} /g, "");
+if (document.getElementById("tags").value.match(/^\d{13}/g) &&
+(document.getElementById("source").value == "" ||
+document.getElementById("title").value == "")) {
+    if (document.getElementById("source").value == "") {
+        document.getElementById("source").value = document.getElementById("tags").value.match(/\d{13}/g);
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(/\d{13} /g, "");
+    } else if (document.getElementById("title").value == "") {
+        document.getElementById("title").value = document.getElementById("tags").value.match(/\d{13}/g);
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(/\d{13} /g, "");
+    }
 }
 
 //  15.0  Add " " at the end and replace "  " with " ":
