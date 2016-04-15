@@ -59,13 +59,13 @@ else if (parentID !== "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML;
 }
 //  2.3  Display "resized" when viewing parent:
-else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
-    document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
-    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
-    "version. Click to expand and contract.</div><br>" +
-    document.getElementById("post-view").innerHTML;
-}
+//else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
+//    document.getElementById("post-view").innerHTML =
+//    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+//    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
+//    "version. Click to expand and contract.</div><br>" +
+//    document.getElementById("post-view").innerHTML;
+//}
 //  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML =
@@ -187,30 +187,30 @@ function refreshMyTags(sep) {
         if (document.getElementById("tags").value.match(myTagsMatchCase1) ||
         document.getElementById("tags").value.match(myTagsMatchCase2) ||
         document.getElementById("tags").value.match(myTagsMatchCase3)) {
-            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) {" +
-                                        "document.getElementById('tags').value = " +
-                                        "document.getElementById('tags').value.replace(/  /g, ' ');" +
-                                    "};" +
-                                    "if (!(document.getElementById('tags').value.match(/ $/g))) {" +
-                                        "document.getElementById('tags').value = " +
-                                        "document.getElementById('tags').value + ' ';" +
-                                    "}; " +
-                                    "if (this.style.fontWeight == 'bold') { " +
-                                        "this.style.fontWeight = 'normal' " +
-                                    "} else { " +
-                                        "this.style.fontWeight = 'bold'; " +
-                                    "}; " +
-                                    "return false;\" style='font-weight:bold;'";
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value.replace(/  /g, ' '); \
+                                    }; \
+                                    if (!(document.getElementById('tags').value.match(/ $/g))) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value + ' '; \
+                                    }; \
+                                    if (this.style.fontWeight == 'bold') { \
+                                        this.style.fontWeight = 'normal' \
+                                    } else { \
+                                        this.style.fontWeight = 'bold'; \
+                                    }; \
+                                    return false;\" style='font-weight:bold;'";
         } else {
-            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { " +
-                                        "document.getElementById('tags').value = " +
-                                        "document.getElementById('tags').value.replace(/  /g, ' '); " +
-                                    "}; " +
-                                    "if (!(document.getElementById('tags').value.match(/ $/g))) { " +
-                                        "document.getElementById('tags').value = " +
-                                        "document.getElementById('tags').value + ' '; " +
-                                    "}; " +
-                                    "return false;\"";
+            var myTagsBoldToggle = "if (document.getElementById('tags').value.match(/  /g)) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value.replace(/  /g, ' '); \
+                                    }; \
+                                    if (!(document.getElementById('tags').value.match(/ $/g))) { \
+                                        document.getElementById('tags').value = \
+                                        document.getElementById('tags').value + ' '; \
+                                    }; \
+                                    return false;\"";
         }
 
         if (getMyTagsAsArray[i].match(/.*?:.*?;.*?;/g)) {
