@@ -645,6 +645,8 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
     location.reload();
 });
 
+// todo: "tag_(c)" should color as a copyright
+
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
