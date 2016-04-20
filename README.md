@@ -24,7 +24,7 @@ Add these tags at the ID page or Account > Options > My Tags (no one or more of 
 * To add tags add: `add:x|y|z;add;` (adds tags `x`, `y`, and `z`) or `add:x;add;` (only adds `x`)
 * To remove tags add: `rm:x|y|z;rm;` (removes tags `x`, `y`, and `z`) or `rm:x;rm;` (only removes `x`)
 * To add the "tagme" tag if an image has less than a certain amount of tags add: `tagmeif:lt#;endif;` where `#` is, examples: `tagmeif:lt5;endif;` and `tagmeif:lt10;endif;`
-* To submit the aforementioned changes when the page loads add: `op:onload;op;`; this bullet point is why this script is called a "mass editor": careful using this one.
+* To submit the aforementioned changes when the page loads add: `op:onload;op;`; this bullet point is why this script is called a "mass editor": careful using this one. DO NOT add aliased tags because it will submit the form a bunch of times which results in duplicate tag history revisions.
 
 ## Future updates:
 For newer versions of Gelbooru:
