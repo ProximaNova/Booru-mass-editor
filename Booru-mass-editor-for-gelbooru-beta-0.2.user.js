@@ -91,8 +91,11 @@ function simulateClickSubmit(element)
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
-        setTimeout(function() {
-            window.close();
-        }, 10000);
     }
 }
+
+// <thanks to="http://javascript.info/tutorial/onload-ondomcontentloaded">
+window.addEventListener("load", function() {
+    window.close();
+});
+// </thanks>
