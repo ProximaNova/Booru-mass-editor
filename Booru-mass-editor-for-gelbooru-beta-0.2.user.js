@@ -57,22 +57,22 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
-    var myTagsAdding = true;
     var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
-    if (myTagsAddTag.match("|")) {
-        var myTagsAddTags = myTagsAddTag.split("|");
-    } else {
-        var myTagsAddTags = myTagsAddTag;
-    }
+    var myTagsAddTags = myTagsAddTag;
     if (typeof(myTagsAddTags) == "object") {
         for (i = 0; i < myTagsAddTags.length; i++) {
             addTags(myTagsAddTags[i]);
         }
-        var myTagsAddTagInfo = "<li><u>Adding:</u> <code>" + myTagsAddTags.join(" ") + "</code></li>";
     } else {
         addTags(myTagsAddTags);
-        var myTagsAddTagInfo = "<li><u>Adding:</u> <code>" + myTagsAddTags + "</code></li>";
     }
+}
+
+if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
+    var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+    var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
+    var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
+    replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
 }
 
 function htmlDecode(input){
