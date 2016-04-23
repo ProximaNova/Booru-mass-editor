@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name        implying
 // @namespace   booru
+// @include     http://placeholder-because-there-are-other-sites.com/*
 // @include     http://rule34.xxx/index.php?page=post&s=view&id=*
 // @version     1
 // @grant       none
