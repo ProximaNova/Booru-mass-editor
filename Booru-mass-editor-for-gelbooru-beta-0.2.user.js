@@ -89,12 +89,10 @@ function simulateClickSubmit(element)
     element.dispatchEvent(oEvent);
 }
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-    var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> " +
-                                  "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
-                                  "operation(s) on page load</li>";
     if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
+        setTimeout(function() {
+            window.close();
+        }, 10000);
     }
-} else {
-    var myTagsSubmitOnLoadInfo = "";
 }
