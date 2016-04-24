@@ -75,19 +75,6 @@ else if (parentID == "" && imageSizeWidth > 800) {
     document.getElementById("post-view").innerHTML;
 }
 
-// Search: h5 ---> h4
-// <thanks to="http://stackoverflow.com/questions/10165262/best-way-to-write-jquerys-replacewith-in-natural-javascript">
-// var searchHeader = document.getElementByTagName("h5")[0],
-//     searchHeaderparent = searchHeader.parentNode,
-//     tempHeader50 = document.createElement('div');
-// 
-// tempHeader50.innerHTML = "<h4>Search</h4>";
-// 
-// var input = tempHeader50.childNodes[0];
-// 
-// searchHeaderparent.replaceChild(input, searchHeader);
-// </thanks>
-
 //  3.0  Improving $("#tag_list"):
 //  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
 var metadataHeader = document.createElement("h4");
@@ -294,10 +281,13 @@ document.body.innerHTML
 ;
 
 // Improve Search header (h5 ---> h4):
+// <thanks to1="http://stackoverflow.com/questions/27481491/javascript-replacechild-doesnt-work"
+//         to2="http://www.w3schools.com/jsref/met_node_replacechild.asp">
 var headerNew = document.createElement("h4");
 headerNew.appendChild(document.createTextNode("Search"));
 var headerOld = document.getElementsByClassName("space")[0];
 headerOld.replaceChild(headerNew, headerOld.children[0]);
+// </thanks>
 
 //  6.0  Improving $("#image"):
 document.getElementById("image").style.maxWidth = "800px";
