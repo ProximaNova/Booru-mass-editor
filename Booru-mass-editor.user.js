@@ -293,6 +293,12 @@ document.body.innerHTML
 // .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+// Improve Search header (h5 ---> h4):
+var headerNew = document.createElement("h4");
+headerNew.appendChild(document.createTextNode("Search"));
+var headerOld = document.getElementsByClassName("space")[0];
+headerOld.replaceChild(headerNew, headerOld.children[0]);
+
 //  6.0  Improving $("#image"):
 document.getElementById("image").style.maxWidth = "800px";
 document.getElementById("image").style.position = "relative";
