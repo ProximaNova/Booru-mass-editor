@@ -58,7 +58,11 @@ if (document.getElementById("tags").value.match(" ")) {
 
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
-    var myTagsAddTags = myTagsAddTag;
+    if (myTagsAddTag.match("|")) {
+        var myTagsAddTags = myTagsAddTag.split("|");
+    } else {
+        var myTagsAddTags = myTagsAddTag;
+    }
     if (typeof(myTagsAddTags) == "object") {
         for (i = 0; i < myTagsAddTags.length; i++) {
             addTags(myTagsAddTags[i]);
@@ -94,8 +98,6 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     }
 }
 
-// <thanks to="http://javascript.info/tutorial/onload-ondomcontentloaded">
 window.addEventListener("load", function() {
     window.close();
 });
-// </thanks>
