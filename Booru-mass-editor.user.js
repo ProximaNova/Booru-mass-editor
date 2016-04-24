@@ -33,6 +33,9 @@ var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, 
 var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
 var parentID = document.getElementsByName("parent")[0].value;
 
+document.getElementsByTagName("h2")[0].style.display = "inline";
+document.getElementsByTagName("h2")[0].innerHTML += "&emsp;";
+
 //  1.0  Improve $("title"):
 if (document.getElementById("tags").value.match(" ")) {
     document.getElementsByTagName("title")[0].innerHTML = booruName + " - " +
@@ -76,12 +79,12 @@ else if (parentID == "" && imageSizeWidth > 800) {
 }
 
 //  3.0  Improving $("#tag_list"):
-//  3.1  Replace header "Tags" with "Tags (#)" where "#" is the amount of tags and "(#)" is red if # < 5:
+//  3.1  Replace header "Tags" with "Tags (# | history)" where "#" is the amount of tags and "(# | history)" is red if # < 5:
 var metadataHeader = document.createElement("h4");
 metadataHeader.innerHTML = "Metadata";
 document.getElementById("tag_list").insertBefore(metadataHeader, document.getElementById("tag_list").childNodes[0]);
 if (document.getElementById("tags").value.match(" ")) {
-    var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "' style='color:#006ffa' " + 
+    var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "' style='color:#006ffa' " +
                          "onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">history</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
@@ -259,10 +262,10 @@ document.body.innerHTML
          " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' " +
          "onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br><a href='#' onclick=\"addFav('23078');post_vote('23078', 'up');" +
          "return false;\">Favorite</a><br><a href='" + imageSrc + "' download='" + document.getElementById("tags").value +
-         " " + booruName + "#" + ID + "." + imageSrcExt.toLowerCase() + "'>Download</a><br>" +
+         " " + booruName + "#" + ID + "'>Download</a><br>" +
          "<a href='#' id='rp" + ID + "' onclick=\"Element.toggle('report_form')\">Report</a><br>" +
          "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
-         "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID + 
+         "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
          "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
 .replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
@@ -281,13 +284,10 @@ document.body.innerHTML
 ;
 
 // Improve Search header (h5 ---> h4):
-// <thanks to1="http://stackoverflow.com/questions/27481491/javascript-replacechild-doesnt-work"
-//         to2="http://www.w3schools.com/jsref/met_node_replacechild.asp">
 var headerNew = document.createElement("h4");
 headerNew.appendChild(document.createTextNode("Search"));
 var headerOld = document.getElementsByClassName("space")[0];
 headerOld.replaceChild(headerNew, headerOld.children[0]);
-// </thanks>
 
 //  6.0  Improving $("#image"):
 document.getElementById("image").style.maxWidth = "800px";
