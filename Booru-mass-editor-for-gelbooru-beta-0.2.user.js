@@ -60,8 +60,10 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
     if (myTagsAddTag.match("|")) {
         var myTagsAddTags = myTagsAddTag.split("|");
+        var myTagsAddTagsRegex = new RegExp(myTagsAddTag[0], "g");
     } else {
         var myTagsAddTags = myTagsAddTag;
+        var myTagsAddTagsRegex = new RegExp(myTagsAddTag, "g");
     }
     if (typeof(myTagsAddTags) == "object") {
         for (i = 0; i < myTagsAddTags.length; i++) {
@@ -98,6 +100,12 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     }
 }
 
-window.addEventListener("load", function() {
-    window.close();
-});
+var i = 0;
+while (i === 0) {
+    if (document.getElementById("tag-sidebar").match(myTagsAddTagsRegex)) {
+        window.close();
+    }
+    window.addEventListener("load", function() {
+        i = 1;
+    });
+}
