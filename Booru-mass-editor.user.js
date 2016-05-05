@@ -3,14 +3,18 @@
 // @description   Quickly edit images on older versions of Gelbooru
 // @version       5
 // @author        usernam
-// @include       http://*.booru.org/index.php?page=post&s=view&id=*
-// @include       http://safebooru.org/index.php?page=post&s=view&id=*
-// @include       http://xbooru.com/index.php?page=post&s=view&id=*
-// @include       http://rule34.xxx/index.php?page=post&s=view&id=*
+// @include       http://*.booru.org/index.php*
+// @include       http://safebooru.org/index.php*
+// @include       http://xbooru.com/index.php*
+// @include       http://rule34.xxx/index.php*
 // @grant         none
 // @noframes
 // ==/UserScript==
 
+// *********************** //
+// Individual image pages: //
+// *********************** //
+if (window.location.href.match("&id=") && !(window.location.href.match("rule34.xxx"))) {
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -640,8 +644,211 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
     document.cookie = "tags=" + escape(document.getElementById("MyTagsEdit").value) + ";";
     location.reload();
 });
-
 // todo: "tag_(c)" should color as a copyright
+}
+
+// ********************************************* //
+// Individual image pages for Gelbooru beta 0.2: //
+// ********************************************* //
+if (window.location.href.match("&id=") && window.location.href.match("rule34.xxx")) {
+//document.getElementById("edit_form").innerHTML =
+//    document.getElementById("edit_form").innerHTML.replace(/ value="Save changes" /g, " id='SubmitButton' value='Save changes' ");
+document.getElementById("edit_form").style.display = "block";
+document.getElementsByName("submit")[0].style.width = "403px";
+document.getElementsByName("submit")[0].style.height = "100px";
+document.getElementsByName("submit")[0].style.fontSize = "20pt";
+document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
+
+function addTags(tagToAdd) {
+    var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
+    var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
+    var addTagMatchCase3 = new RegExp(" " + tagToAdd + "$", "gi");
+    if (!(document.getElementById("tags").value.match(addTagMatchCase1) ||
+    document.getElementById("tags").value.match(addTagMatchCase2) ||
+    document.getElementById("tags").value.match(addTagMatchCase3))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
+    }
+}
+
+function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
+    var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
+    var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
+    var replaceTagMatchCase3 = new RegExp(" " + tagToReplace + "$", "gi");
+    if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
+    }
+    if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
+    }
+    if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+    }
+}
+
+if (document.getElementById("tags").value.match(" ")) {
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+    document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
+    document.getElementById("tags").value.match(/ /g).length >= 10) {
+        replaceTags("tagme", " ", "", "");
+    }
+} else {
+//  11.2  Add it (based on ("#my-tags")):
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+    document.getElementById("tags").value.match(/ /g).length <=
+    Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
+    }
+}
+
+if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
+    var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
+    if (myTagsAddTag.match("|")) {
+        var myTagsAddTags = myTagsAddTag.split("|");
+    } else {
+        var myTagsAddTags = myTagsAddTag;
+    }
+    if (typeof(myTagsAddTags) == "object") {
+        for (i = 0; i < myTagsAddTags.length; i++) {
+            addTags(myTagsAddTags[i]);
+        }
+    } else {
+        addTags(myTagsAddTags);
+    }
+}
+
+if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
+    var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+    var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
+    var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
+    replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+}
+
+function htmlDecode(input){
+    var e = document.createElement('span');
+    e.innerHTML = input;
+    return e.childNodes[0].nodeValue;
+}
+
+function simulateClickSubmit(element)
+{
+    var oEvent = document.createEvent('MouseEvents');
+    oEvent.initMouseEvent("click", true, true, document.defaultView,
+    0, 0, 0, 0, 0, false, false, false, false, 0, element);
+    element.dispatchEvent(oEvent);
+}
+if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
+    if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
+        simulateClickSubmit(document.getElementById("SubmitButton"));
+    }
+}
+
+window.addEventListener("load", function() {
+    window.close();
+});
+}
+
+// ******************* //
+// Post list improver: //
+// ******************* //
+  if (window.location.href.match("post&s=list")) {
+for (i = 0; i < document.getElementsByTagName("a").length; i++) {
+    // fix "'":
+    if (document.getElementsByTagName("a")[i].href.match("%26%23039%3B")) {
+        document.getElementsByTagName("a")[i].href =
+            document.getElementsByTagName("a")[i].href.replace(/%26%23039%3B/g, "%27");
+    }
+    // fix '"':
+    if (document.getElementsByTagName("a")[i].href.match("%26quot%3B")) {
+        document.getElementsByTagName("a")[i].href =
+            document.getElementsByTagName("a")[i].href.replace(/%26quot%3B/g, "%22");
+    }
+    // hide advert
+    if (document.getElementsByTagName("a")[i].href.match("https://www.patreon.com/booru")) {
+        document.getElementsByTagName("a")[i].style.display = "none";
+    }
+}
+// Compact view:
+// Thumbnails currently have 1em between them, the best aesthetics but not the best utility:
+// for (i = 0; i < document.getElementsByClassName("thumb").length; i++) {
+//      document.getElementsByClassName("thumb")[i].style.height = "160px";
+//     document.getElementsByClassName("thumb")[i].style.width = "160px";
+// }
+
+var userID = document.cookie.replace(/user_id=/, "").replace(/; pass_hash.*/, "");
+if (!(window.location.href.match("http://rule34.xxx"))) {
+    document.getElementsByTagName("h2")[0].style.display = "inline";
+    document.getElementsByTagName("h2")[0].innerHTML += "&emsp;";
+    document.getElementsByTagName("li")[1].style.border = "1px dotted";
+    document.getElementsByTagName("a")[2].style.margin = "8px";
+    document.getElementById("long-notice").style.border = "1px dotted";
+    document.getElementById("long-notice").style.position = "relative";
+    document.getElementById("long-notice").style.top = "-10px";
+    document.getElementById("long-notice").style.height = "25px";
+    document.getElementById("long-notice").innerHTML =
+        "<span style='position:relative;top:3px;'><big>&ensp;<a href='help/posts.php'>Search help</a>&emsp;" +
+        "<a href='index.php?page=account-options'>Account options</a>&emsp;" +
+        "<a href='index.php?page=post&s=add'>Upload</a></big></span>";
+    document.getElementById("footer").style.display = "none";
+} else {
+    document.getElementById("bottom").style.display = "none";
+    document.getElementById("top").style.display = "none";
+}
+
+// Applies to all but the search box:
+document.body.addEventListener("keydown", function(e) {
+    var pagePid = (document.location.href.match("&pid=")) ? true : false;
+    var pageIdBase = document.location.href.replace(/\d+$/g, "");
+    var pageId = Number(document.location.href.match(/\d+$/g));
+    var pageIdNext = pageId + 20;
+    var pageIdPrev = pageId - 20;
+    if (document.activeElement.id !== "tags") {
+        // 68:d = Next page:
+        if (e.keyCode == 68 && document.getElementsByTagName("img").length == 20) {
+            if (pagePid) {
+                document.location.href = pageIdBase + pageIdNext;
+            } else {
+                document.location.href = pageIdBase + "&pid=20";
+            }
+        // 65:a - Previous page:
+        } else if (e.keyCode == 65 && pagePid && pageId !== 0) {
+            document.location.href = pageIdBase + pageIdPrev;
+        // 82:r - Go to random post:
+        } else if (e.keyCode == 82) {
+            document.location.href = document.location.href
+                .replace(/index\.php.*/g, "index.php?page=post&s=random");
+        // Vertically scrolling by 1em per (Google Chrome does 2.1 per) movement:
+        // 87:w - Scroll up:
+        } else if (e.keyCode == 87) {
+            window.scrollBy(0, -16);
+        // 83:s - Scroll down:
+        } else if (e.keyCode == 83) {
+            window.scrollBy(0, 16);
+        // 81:q - Search:
+        } else if (e.keyCode == 81) {
+            e.preventDefault();
+            document.getElementById("tags").focus();
+        }
+    }
+});
+
+var pageNum = Number(document.getElementsByTagName("b")[0].innerHTML);
+//if (window.innerWidth >= 1223 && window.innerWidth <= 1336) {
+//    if (pageNum)
+//    document.getElementById("paginator").innerHTML = "";
+//}
+//document.getElementById("paginator").innerHTML = "";
+
+// todo: pagination links should span the width. 5 image rows: 30 links; 3: 10; etc.
+
+document.getElementsByTagName("br")[6].parentNode.removeChild(document.getElementsByTagName("br")[6]);
+}
+
+// ********************* //
+// Tag history improver: //
+// ********************* //
+//if (window.location.href.match("page=history&type=tag_history&id=")) {
+// I tried adding it here but it did not work
+//}
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
