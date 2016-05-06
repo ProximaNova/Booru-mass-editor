@@ -847,7 +847,14 @@ document.getElementsByTagName("br")[6].parentNode.removeChild(document.getElemen
 // Tag history improver: //
 // ********************* //
 //if (window.location.href.match("page=history&type=tag_history&id=")) {
-// I tried adding it here but it did not work
+// I tried adding it here but it did not work; it works as a seperate userscript.
+//}
+
+// ******************** //
+// Alias list improver: //
+// ******************** //
+//if (window.location.href.match("?page=alias")) {
+// I tried adding it here but it did not work; it works as a seperate userscript.
 //}
 
 // --------------------------------------------------------------------
