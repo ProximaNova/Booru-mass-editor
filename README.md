@@ -46,19 +46,7 @@ For newer versions of Gelbooru:
 * Get the form to display automatically instead of having to click "Edit" to unhide it
 * Autotag on page load for missing tag implications (see: http://danbooru.donmai.us/tag_implications)
 * Other stuff: this script is not finished
-
-## Issues
-
-### Issues with this script on Gelbooru Beta 0.2 &rarr; `&id=` pages ([source](https://github.com/ProximaNova/Booru-mass-editor/commits/master)):
-
-* b22dbe69a2311655624a1f76c43658a959c90605
-* 2384dd00dfaf81aa39eb3a7396a7d1f2ee54fb59
-* 1ee7c78534c1de7a525aaad2f603ed46bd668c2f
-
-### Issues then notes with the post list improver
-* https://github.com/ProximaNova/Booru-Augmentation-Project/commit/1e2b865901fc6c8588d70e24c9bb47fae2bb90a8
-* https://github.com/ProximaNova/Booru-Augmentation-Project/commit/9b759151b9a3b2abb179dfe08a8e59aeaf3522ee
-* https://github.com/ProximaNova/Booru-Augmentation-Project/commit/addbdf98b1184fc348ebf1719e126483d62b9f65
+* Regular expression replacements and removals at `&id=`
 
 ## See also
 Seedmanc's userscripts:
