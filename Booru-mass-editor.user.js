@@ -11,6 +11,10 @@
 // @noframes
 // ==/UserScript==
 
+// if (!(/expires=/.test(document.cookie))) {
+       document.cookie = "expires=Thu, 01 Jan 2999 00:00:00 UTC";
+// }
+
 // *********************** //
 // Individual image pages: //
 // *********************** //
