@@ -18,7 +18,7 @@ It is not really a problem that this script only works on older versions of Gelb
 
 ## Editing upgrades
 
-Add these tags at the ID page or Account > Options > My Tags (no one or more of the same tag(s) should be in "My Tags"):
+Add these tags at the ID page or at Account > Options > My Tags (no one or more of the same tag(s) should be in "My Tags", user `&#44;` for commas in "My Tags"):
 * To change the rating add: `r:s;r;` (changes the rating to `safe`)
 * To replace tags add: `re:bad_tag1_>_good_tag1|re:bt1_>_bt1|re:bt2_>_gt2;re;` or `re:bad_tag_>_good_tag;re;` (only replaces one tag)
 * To add tags add: `add:x|y|z;add;` (adds tags `x`, `y`, and `z`) or `add:x;add;` (only adds `x`)
