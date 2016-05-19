@@ -769,6 +769,8 @@ for (i = 0; i < document.getElementsByTagName("a").length; i++) {
     // hide advert
     if (document.getElementsByTagName("a")[i].href.match("https://www.patreon.com/booru")) {
         document.getElementsByTagName("a")[i].style.display = "none";
+    } else if (document.getElementsByTagName("a")[i].href.match("//rule34.xxx/z/stamina.jpg")) {
+        document.getElementsByTagName("a")[i].style.display = "none";
     }
 }
 // Compact view:
