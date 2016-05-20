@@ -722,9 +722,18 @@ if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
 
 if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
-    var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
-    var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
-    replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+    if (myTagsReplaceTag.match(/\|/g)) {
+        var myTagsReplaceTags = myTagsReplaceTag.split("|");
+        for (i = 0; i < myTagsReplaceTags.length; i++) {
+            var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
+            var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
+            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+        }
+    } else {
+        var myTagsReplaceTag1 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/_>_.*/g, "");
+        var myTagsReplaceTag2 = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/.*_>_/g, "").replace(/;re;.*/g, "");
+        replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+    }
 }
 
 function htmlDecode(input){
