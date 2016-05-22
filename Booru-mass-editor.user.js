@@ -658,7 +658,8 @@ if (window.location.href.match("&id=") && window.location.href.match("rule34.xxx
 //document.getElementById("edit_form").innerHTML =
 //    document.getElementById("edit_form").innerHTML.replace(/ value="Save changes" /g, " id='SubmitButton' value='Save changes' ");
 document.getElementById("edit_form").style.display = "block";
-if (document.getElementById("source").value == "--- !ruby/object:File {}    ") {
+if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
+document.getElementById("source").value == "--- !ruby/object:File {}") {
     document.getElementById("source").value = "";
 }
 document.getElementsByName("submit")[0].style.width = "403px";
