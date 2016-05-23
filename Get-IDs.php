@@ -4,7 +4,7 @@ $to_crawl = "*/index.php?page=post&s=list&tags=*";
 
 function get_links($url) {
     $input = @file_get_contents($url);
-    $regex = "<a\s[^>]*href=(\"??)index([^\" >]*?)\\1[^>]*>(.*)<\/a>";
+    $regex = "<a[^>]*href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
     preg_match_all("/$regex/siU", $input, $matches);
 
     echo "<pre>";
