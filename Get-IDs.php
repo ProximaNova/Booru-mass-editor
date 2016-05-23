@@ -4,15 +4,15 @@
 a { text-decoration: none; }
 </style>
 
-<form action="<?php basename($_SERVER['SCRIPT_FILENAME']); ?>" method="post">
-    URL: <input type="text" name="BooruURL" size="100" placeholder="http://" value="<?php $booru_URL ?>" /><br />
-    Pages to display: <input type="text" name="MaxPages" size="6" placeholder="#" value="<?php $max_pages ?>" /><br />
-    <input type="submit" name="submit" value="Crawl" />
+<form action="<?php basename($_SERVER['SCRIPT_FILENAME']); ?>" method="get">
+    URL: <input type="text" name="url" size="100" placeholder="http://" value="<?php $booru_URL ?>" /><br />
+    Pages to display: <input type="text" name="pids" size="6" placeholder="#" value="<?php $max_pages ?>" /><br />
+    <input type="submit" value="Crawl" />
 </form>
 
 <?php
-$max_pages = $_POST['MaxPages'];
-$booru_URL = $_POST['BooruURL'];
+$max_pages = $_GET['pids'];
+$booru_URL = $_GET['url'];
 $booru_URL_domain = preg_replace('/(http:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $booru_URL);
 
 function get_links($url_domain, $url, $page_number) {
