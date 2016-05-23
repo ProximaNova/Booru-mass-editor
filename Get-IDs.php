@@ -1,3 +1,5 @@
+<title>Crawl boorus for ID links</title>
+
 <style>
 a { text-decoration: none; }
 </style>
