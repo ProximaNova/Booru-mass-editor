@@ -5,14 +5,16 @@ a { text-decoration: none; }
 </style>
 
 <form action="<?php basename($_SERVER['SCRIPT_FILENAME']); ?>" method="get">
-    URL: <input type="text" name="url" size="100" placeholder="http://" value="<?php $booru_URL ?>" /><br />
-    Pages to display: <input type="text" name="pids" size="6" placeholder="#" value="<?php $max_pages ?>" /><br />
-    <input type="submit" value="Crawl" />
+    URL: <input type="text" name="url" size="100" placeholder="http://"
+                value="<?php echo isset($_GET['url']) ? $_GET['url'] : ''; ?>" />
+<br />Pages to display: <input type="text" name="pids" size="6" placeholder="#"
+                               value="<?php echo isset($_GET['pids']) ? $_GET['pids'] : ''; ?>" />
+<br /><input type="submit" value="Crawl" />
 </form>
 
 <?php
-$max_pages = $_GET['pids'];
-$booru_URL = $_GET['url'];
+$max_pages = isset($_GET['pids']) ? $_GET['pids'] : '';
+$booru_URL = isset($_GET['url']) ? $_GET['url'] : '';
 $booru_URL_domain = preg_replace('/(http:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $booru_URL);
 
 function get_links($url_domain, $url, $page_number) {
@@ -33,7 +35,9 @@ function get_links($url_domain, $url, $page_number) {
     echo "<pre>";
     echo str_replace('Array',
                      'Page #' . $page_number . ":",
-                     str_replace(array('[',']','(',')'),'',str_replace(' => ','. ',print_r($matches2,true))));
+                     str_replace(array('[',']','(',')'),
+                                 '',
+                                 str_replace(' => ','. ',print_r($matches2,true))));
     echo "</pre>";
 }
 
