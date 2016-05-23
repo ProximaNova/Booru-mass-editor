@@ -5,8 +5,8 @@ a { text-decoration: none; }
 </style>
 
 <form action="<?php basename($_SERVER['SCRIPT_FILENAME']); ?>" method="post">
-    URL: <input type="text" name="BooruURL" size="100" /><br />
-    Pages to display: <input type="text" name="MaxPages" size="6" /><br />
+    URL: <input type="text" name="BooruURL" size="100" placeholder="http://" value="<?php $booru_URL ?>" /><br />
+    Pages to display: <input type="text" name="MaxPages" size="6" placeholder="#" value="<?php $max_pages ?>" /><br />
     <input type="submit" name="submit" value="Crawl" />
 </form>
 
@@ -20,15 +20,20 @@ function get_links($url_domain, $url, $page_number) {
     $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
     preg_match_all("/$regex/siU", $input, $matches);
 
+    $matches2 = array();
     for ($i = 0; $i < count($matches[2]); $i++) {
-        $matches[2][$i] = '<a href="http://' . $url_domain . '/index.php?page=post&s=view&id=' .
-        $matches[2][$i] . '">post #' . $matches[2][$i] . '</a>';
+        $matches2[$i + 1] = $matches[2][$i];
+    }
+
+    for ($i = 1; $i < 43; $i++) {
+        $matches2[$i] = '<a href="http://' . $url_domain . '/index.php?page=post&s=view&id=' .
+        $matches2[$i] . '">post #' . $matches2[$i] . '</a>';
     }
 
     echo "<pre>";
     echo str_replace('Array',
                      'Page #' . $page_number . ":",
-                     str_replace(array('(',')'),'',print_r($matches[2],true)));
+                     str_replace(array('[',']','(',')'),'',str_replace(' => ','. ',print_r($matches2,true))));
     echo "</pre>";
 }
 
@@ -36,5 +41,4 @@ for ($i = 0; $i < 42 * $max_pages; $i += 42) {
     $to_crawl = $booru_URL . "&pid=" . $i;
     get_links($booru_URL_domain, $to_crawl, ($i / 42) + 1);
 }
-
 ?>
