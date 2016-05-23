@@ -658,14 +658,17 @@ if (window.location.href.match("&id=") && window.location.href.match("rule34.xxx
 //document.getElementById("edit_form").innerHTML =
 //    document.getElementById("edit_form").innerHTML.replace(/ value="Save changes" /g, " id='SubmitButton' value='Save changes' ");
 document.getElementById("edit_form").style.display = "block";
-if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
-document.getElementById("source").value == "--- !ruby/object:File {}") {
+if (document.getElementById("source").match(/^--- !ruby\/object:File \{\}\s*$/g)) {
     document.getElementById("source").value = "";
 }
 document.getElementsByName("submit")[0].style.width = "403px";
 document.getElementsByName("submit")[0].style.height = "100px";
 document.getElementsByName("submit")[0].style.fontSize = "20pt";
 document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
+
+if (document.getElementsByClassName("tag-type-character").length == 0) {
+    document.body = document.body.replace(/<div>\n.*\nfunction iCame(.*\n){8}/g, "")
+}
 
 function addTags(tagToAdd) {
     var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
