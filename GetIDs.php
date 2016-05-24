@@ -5,16 +5,29 @@ a { text-decoration: none; }
 </style>
 
 <form action="<?php basename($_SERVER['SCRIPT_FILENAME']); ?>" method="get">
-    URL: <input type="text" name="url" size="100" placeholder="http://"
-                value="<?php echo isset($_GET['url']) ? $_GET['url'] : ''; ?>" />
+    URL: <input type="text" id="url" size="100" placeholder="http://"
+                value="<?php echo isset($_GET['domain']) ? 'http://' . $_GET['domain'] .
+                       '/index.php?page=post&s=list&tags=' . $_GET['tags'] : ''; ?>" />
+<input type="text" name="domain" id="domain" value="" style="display:none;" />
+<input type="text" name="tags" id="tags" value="" style="display:none;"	 />
 <br />Pages to display: <input type="text" name="pids" size="6" placeholder="#"
                                value="<?php echo isset($_GET['pids']) ? $_GET['pids'] : ''; ?>" />
-<br /><input type="submit" value="Crawl" />
+<br /><input type="submit" id="submit" value="Crawl" />
 </form>
+
+<script>
+document.getElementById("submit").addEventListener("click", function() {
+    document.getElementById("domain").value =
+        document.getElementById("url").value.replace(/http:\/\//g, "").replace(/\/.*/g, "");
+    document.getElementById("tags").value =
+        document.getElementById("url").value.replace(/http:.*&tags=/g, "");
+});
+</script>
 
 <?php
 $max_pages = isset($_GET['pids']) ? $_GET['pids'] : '';
-$booru_URL = isset($_GET['url']) ? $_GET['url'] : '';
+$booru_URL = isset($_GET['domain']) ? 'http://' . $_GET['domain'] .
+                                      '/index.php?page=post&s=list&tags=' . $_GET['tags'] : '';
 $booru_URL_domain = preg_replace('/(http:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $booru_URL);
 
 function get_links($url_domain, $url, $page_number) {
