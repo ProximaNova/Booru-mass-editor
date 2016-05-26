@@ -40,7 +40,7 @@ function get_links($url_domain, $url, $page_number) {
         $matches2[$i + 1] = $matches[2][$i];
     }
 
-    for ($i = 1; $i < 43; $i++) {
+    for ($i = 1; $i < count($matches2) + 1; $i++) {
         $matches2[$i] = '<a href="http://' . $url_domain . '/index.php?page=post&s=view&id=' .
         $matches2[$i] . '">post #' . $matches2[$i] . '</a>';
     }
