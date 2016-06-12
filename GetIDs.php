@@ -33,9 +33,12 @@
 <script>
 document.getElementById("submit").addEventListener("click", function() {
     document.getElementById("domain").value =
-        document.getElementById("url").value.replace(/http:\/\//g, "").replace(/\/.*/g, "");
+        document.getElementById("url").value.replace(/http:\/\//g, "")
+                                            .replace(/\/.*/g, "");
     document.getElementById("tags").value =
-        document.getElementById("url").value.replace(/http:.*&tags=/g, "").replace(/\+/g, " ");
+        document.getElementById("url").value.replace(/http:.*&tags=/g, "")
+                                            .replace(/\+/g, " ")
+                                            .replace(/&pid=\d+/g, "");
 });
 </script>
 
