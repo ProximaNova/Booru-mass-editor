@@ -368,11 +368,10 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
     }
 }
-
 function implyTags(tagImplyFrom, tagImplyTo) {
     var implyFromMatchCases =
         new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
-    if (!(document.getElementById("tags").value.match(implyFromMatchCases))) {
+    if (document.getElementById("tags").value.match(implyFromMatchCases)) {
         addTags(tagImplyTo);
     }
 }
@@ -687,17 +686,14 @@ document.getElementsByName("submit")[0].style.height = "100px";
 document.getElementsByName("submit")[0].style.fontSize = "20pt";
 document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
 
-if (document.getElementsByClassName("tag-type-character").length == 0) {
-    document.body = document.body.replace(/<div>\n.*\nfunction iCame(.*\n){8}/g, "")
-}
+//if (document.getElementsByClassName("tag-type-character").length == 0) {
+//    document.body = document.body.replace(/<div>\n.*\nfunction iCame(.*\n){8}/g, "")
+//}
 
 function addTags(tagToAdd) {
-    var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
-    var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
-    var addTagMatchCase3 = new RegExp(" " + tagToAdd + "$", "gi");
-    if (!(document.getElementById("tags").value.match(addTagMatchCase1) ||
-    document.getElementById("tags").value.match(addTagMatchCase2) ||
-    document.getElementById("tags").value.match(addTagMatchCase3))) {
+    var addTagMatchCases = new RegExp(" " + tagToAdd + " ", "gi");
+        new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
+    if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
     }
 }
@@ -714,6 +710,14 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     }
     if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+    }
+}
+
+function implyTags(tagImplyFrom, tagImplyTo) {
+    var implyFromMatchCases =
+        new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
+    if (document.getElementById("tags").value.match(implyFromMatchCases)) {
+        addTags(tagImplyTo);
     }
 }
 
@@ -764,6 +768,22 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
     }
 }
 
+if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
+    var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+    if (myTagsImplyTag.match(/\|/g)) {
+        var myTagsImplyTags = myTagsImplyTag.split("|");
+        for (i = 0; i < myTagsImplyTags.length; i++) {
+            var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
+            var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
+            implyTags(myTagsImplyTag1, myTagsImplyTag2);
+        }
+    } else {
+        var myTagsImplyTag1 = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/_>_.*/g, "");
+        var myTagsImplyTag2 = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/.*_>_/g, "").replace(/;im;.*/g, "");
+        implyTags(myTagsImplyTag1, myTagsImplyTag2);
+    }
+}
+
 function htmlDecode(input){
     var e = document.createElement('span');
     e.innerHTML = input;
@@ -791,7 +811,7 @@ window.addEventListener("load", function() {
 // ******************* //
 // Post list improver: //
 // ******************* //
-  if (window.location.href.match("post&s=list")) {
+if (window.location.href.match("post&s=list")) {
 for (i = 0; i < document.getElementsByTagName("a").length; i++) {
     // fix "'":
     if (document.getElementsByTagName("a")[i].href.match("%26%23039%3B")) {
@@ -813,9 +833,10 @@ for (i = 0; i < document.getElementsByTagName("a").length; i++) {
 // Compact view:
 // Thumbnails currently have 1em between them, the best aesthetics but not the best utility:
 // for (i = 0; i < document.getElementsByClassName("thumb").length; i++) {
-//      document.getElementsByClassName("thumb")[i].style.height = "160px";
+//     document.getElementsByClassName("thumb")[i].style.height = "160px";
 //     document.getElementsByClassName("thumb")[i].style.width = "160px";
 // }
+// document.getElementById("paginator").style.marginTop = "9em";
 
 var userID = document.cookie.replace(/user_id=/, "").replace(/; pass_hash.*/, "");
 if (!(window.location.href.match("http://rule34.xxx"))) {
