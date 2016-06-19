@@ -24,6 +24,7 @@ Add these tags at the ID page or at Account > Options > My Tags (no one or more 
 * To add tags add: `add:x|y|z;add;` (adds tags `x`, `y`, and `z`) or `add:x;add;` (only adds `x`)
 * To remove tags add: `rm:x|y|z;rm;` (removes tags `x`, `y`, and `z`) or `rm:x;rm;` (only removes `x`)
 * To add the "tagme" tag if an image has less than a certain amount of tags add: `tagmeif:lt#;endif;` where `#` is, examples: `tagmeif:lt5;endif;` and `tagmeif:lt10;endif;`
+* To implicate tags use: `im:particular_>_general;im;` or `im:all_>_tag|implications_>_are|based_>_on|inductive_>_reasoning;im;` here is 268 pages of implications: http://danbooru.donmai.us/tag_implications
 * To submit the aforementioned changes when the page loads add: `op:onload;op;`; this bullet point is why this script is called a "mass editor": careful using this one. DO NOT add aliased tags because it will submit the form a bunch of times which results in duplicate tag history revisions. (For the script's functionality with a newer version, if Firefox, go to about:config to change `dom.allow_scripts_to_close_windows` to true so get it to work as it does on Google Chrome.)
 
 ## Post list improvements
@@ -44,7 +45,6 @@ Add these tags at the ID page or at Account > Options > My Tags (no one or more 
 ## Future updates:
 For newer versions of Gelbooru:
 * Get the form to display automatically instead of having to click "Edit" to unhide it
-* Autotag on page load for missing tag implications (see: http://danbooru.donmai.us/tag_implications)
 * Other stuff: this script is not finished
 * Regular expression replacements and removals at `&id=`
 
