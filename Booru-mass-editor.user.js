@@ -348,7 +348,7 @@ document.getElementById("source").value == "Booru mass uploader") {
 
 //  10.0  Functions for adding and replacing tags:
 function addTags(tagToAdd) {
-    var addTagMatchCases = new RegExp(" " + tagToAdd + " ", "gi");
+    var addTagMatchCases =
         new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
     if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
@@ -678,7 +678,8 @@ if (window.location.href.match("&id=") && window.location.href.match("rule34.xxx
 //document.getElementById("edit_form").innerHTML =
 //    document.getElementById("edit_form").innerHTML.replace(/ value="Save changes" /g, " id='SubmitButton' value='Save changes' ");
 document.getElementById("edit_form").style.display = "block";
-if (document.getElementById("source").match(/^--- !ruby\/object:File \{\}\s*$/g)) {
+if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
+document.getElementById("source").value == "--- !ruby/object:File {}") {
     document.getElementById("source").value = "";
 }
 document.getElementsByName("submit")[0].style.width = "403px";
@@ -691,7 +692,7 @@ document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
 //}
 
 function addTags(tagToAdd) {
-    var addTagMatchCases = new RegExp(" " + tagToAdd + " ", "gi");
+    var addTagMatchCases =
         new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
     if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
