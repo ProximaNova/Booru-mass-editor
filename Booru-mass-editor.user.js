@@ -348,12 +348,9 @@ document.getElementById("source").value == "Booru mass uploader") {
 
 //  10.0  Functions for adding and replacing tags:
 function addTags(tagToAdd) {
-    var addTagMatchCase1 = new RegExp(" " + tagToAdd + " ", "gi");
-    var addTagMatchCase2 = new RegExp("^" + tagToAdd + " ", "gi");
-    var addTagMatchCase3 = new RegExp(" " + tagToAdd + "$", "gi");
-    if (!(document.getElementById("tags").value.match(addTagMatchCase1) ||
-    document.getElementById("tags").value.match(addTagMatchCase2) ||
-    document.getElementById("tags").value.match(addTagMatchCase3))) {
+    var addTagMatchCases = new RegExp(" " + tagToAdd + " ", "gi");
+        new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
+    if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
         document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
     }
 }
@@ -369,6 +366,14 @@ function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
     }
     if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
         document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+    }
+}
+
+function implyTags(tagImplyFrom, tagImplyTo) {
+    var implyFromMatchCases =
+        new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
+    if (!(document.getElementById("tags").value.match(implyFromMatchCases))) {
+        addTags(tagImplyTo);
     }
 }
 
@@ -499,6 +504,22 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
 } else {
     var myTagsRming = false;
     var myTagsRmTagInfo = "";
+}
+// 13.4 Imply tags:
+if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
+    var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+    if (myTagsImplyTag.match(/\|/g)) {
+        var myTagsImplyTags = myTagsImplyTag.split("|");
+        for (i = 0; i < myTagsImplyTags.length; i++) {
+            var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
+            var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
+            implyTags(myTagsImplyTag1, myTagsImplyTag2);
+        }
+    } else {
+        var myTagsImplyTag1 = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/_>_.*/g, "");
+        var myTagsImplyTag2 = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/.*_>_/g, "").replace(/;im;.*/g, "");
+        implyTags(myTagsImplyTag1, myTagsImplyTag2);
+    }
 }
 
 //  14.0  Move filename tags:
