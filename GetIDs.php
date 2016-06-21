@@ -28,7 +28,9 @@
                                                  ; ?>" />
 <!-- </URL-parameters> -->
 <br /><input type="submit" id="submit" value="Crawl" />
-<!--<input type="button" value="Open links" onclick="open_urls()" />-->
+<button type="button" onclick="open_urls()">
+    Open links <small><small><small>(doesn't work with the "load tabs on selection" addon<!--[1]-->)</small></small></small>
+</button>
 </form>
 
 <script>
@@ -42,8 +44,6 @@ document.getElementById("submit").addEventListener("click", function() {
                                             .replace(/&pid=\d+/g, "");
 });
 
-/*
-// Although the following code block works I am not including it for certain reasons:[1]
 function open_urls() {
     var urls = [], links = document.links;
     // Getting array of URLs
@@ -56,7 +56,6 @@ function open_urls() {
     }
 }
 // 1. See https://addons.mozilla.org/en-US/firefox/addon/load-tab-on-select/reviews/803154/
-*/
 </script>
 
 <?php
