@@ -43,7 +43,7 @@ document.getElementById("submit").addEventListener("click", function() {
 });
 
 /*
-// Although the following code block works I am not including it for certain reasons:
+// Although the following code block works I am not including it for certain reasons:[1]
 function open_urls() {
     var urls = [], links = document.links;
 	// Getting array of URLs
@@ -55,8 +55,7 @@ function open_urls() {
         window.open(urls[i],"_blank");
     }
 }
-// This diff: thanks to https://www.youtube.com/watch?v=TVH1dTj34Ys and http://www.stackoverflow.com/questions/3871358/
-// noinclude, long: http://www.stackoverflow.com/questions/3871358/get-all-the-href-attributes-of-a-web-site
+// 1. See https://addons.mozilla.org/en-US/firefox/addon/load-tab-on-select/reviews/803154/
 */
 </script>
 
