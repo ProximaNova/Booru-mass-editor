@@ -46,12 +46,12 @@ document.getElementById("submit").addEventListener("click", function() {
 // Although the following code block works I am not including it for certain reasons:[1]
 function open_urls() {
     var urls = [], links = document.links;
-	// Getting array of URLs
+    // Getting array of URLs
     for (i = 0; i < links.length; i++) {
-		urls.push(links[i].href);
-	}
-	// Opening URLs in new tabs
-	for (i = 0; i < urls.length; i++) {
+        urls.push(links[i].href);
+    }
+    // Opening URLs in new tabs
+    for (i = 0; i < urls.length; i++) {
         window.open(urls[i],"_blank");
     }
 }
