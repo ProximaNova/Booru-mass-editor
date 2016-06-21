@@ -28,6 +28,7 @@
                                                  ; ?>" />
 <!-- </URL-parameters> -->
 <br /><input type="submit" id="submit" value="Crawl" />
+<!--<input type="button" value="Open links" onclick="open_urls()" />-->
 </form>
 
 <script>
@@ -40,6 +41,23 @@ document.getElementById("submit").addEventListener("click", function() {
                                             .replace(/\+/g, " ")
                                             .replace(/&pid=\d+/g, "");
 });
+
+/*
+// Although the following code block works I am not including it for certain reasons:
+function open_urls() {
+    var urls = [], links = document.links;
+	// Getting array of URLs
+    for (i = 0; i < links.length; i++) {
+		urls.push(links[i].href);
+	}
+	// Opening URLs in new tabs
+	for (i = 0; i < urls.length; i++) {
+        window.open(urls[i],"_blank");
+    }
+}
+// This diff: thanks to https://www.youtube.com/watch?v=TVH1dTj34Ys and http://www.stackoverflow.com/questions/3871358/
+// noinclude, long: http://www.stackoverflow.com/questions/3871358/get-all-the-href-attributes-of-a-web-site
+*/
 </script>
 
 <?php
