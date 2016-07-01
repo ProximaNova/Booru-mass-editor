@@ -93,7 +93,10 @@ metadataHeader.innerHTML = "Metadata";
 document.getElementById("tag_list").insertBefore(metadataHeader, document.getElementById("tag_list").childNodes[0]);
 if (document.getElementById("tags").value.match(" ")) {
     var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "' style='color:#006ffa' " +
-                         "onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">history</a>)</small>";
+                         "onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">history</a> | " +
+                         "<a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
+                         "' style='color:#006ffa' onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = " +
+                         "'#006ffa'\">uniqueness</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
             var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagHistoryLink;
@@ -122,28 +125,31 @@ document.getElementById("navbar").innerHTML.match("Booru.org Imageboard Network<
     var tagListq = 10;
 }
 if (document.getElementById("tags").value.match(" ")) {
-    for (i = 10; i < document.getElementById("tags").value.match(/ /g).length + 12; i++) {
+    for (i = 12; i < document.getElementById("tags").value.match(/ /g).length + 14; i++) {
 //  3.3  Color artist, character, and copyright tags:
-        if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
-            document.getElementsByTagName("a")[i].style.color = "#A00";
-            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
-            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A00'");
-        } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
-            document.getElementsByTagName("a")[i].style.color = "#0A0";
-            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
-            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#0A0'");
-        } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
-            document.getElementsByTagName("a")[i].style.color = "#A0A";
-            document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
-            document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A0A'");
+        if (!(document.getElementsByTagName("a")[i].href
+        .match(/(_\((artist|character|copyright)\)\+|\+.*_\((artist|character|copyright)\)$)/g))) {
+            if (document.getElementsByTagName("a")[i].href.match(/_\(artist\)/g)) {
+                document.getElementsByTagName("a")[i].style.color = "#A00";
+                document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
+                document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A00'");
+            } else if (document.getElementsByTagName("a")[i].href.match(/_\(character\)/g)) {
+                document.getElementsByTagName("a")[i].style.color = "#0A0";
+                document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
+                document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#0A0'");
+            } else if (document.getElementsByTagName("a")[i].href.match(/_\(copyright\)/g)) {
+                document.getElementsByTagName("a")[i].style.color = "#A0A";
+                document.getElementsByTagName("a")[i].setAttribute("onmouseover", "this.style.color = '#9093ff'");
+                document.getElementsByTagName("a")[i].setAttribute("onmouseout", "this.style.color = '#A0A'");
+            }
         }
 //  3.4  If the tag is only on one image then "1" will be colored red:
-        if (document.getElementsByTagName("li")[i].innerHTML.match(/<\/a> 1<\/span>/g)) {
-            document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+        if (document.getElementsByTagName("li")[i - 2].innerHTML.match(/<\/a> 1<\/span>/g)) {
+            document.getElementsByTagName("li")[i - 2].innerHTML = document.getElementsByTagName("li")[i - 2].innerHTML
             .replace(/<\/a> 1<\/span>/g, "</a> <span style='color:red;'>1</span></span>");
         }
 //  3.5  Non breaking space between "? tag" and "#":
-        document.getElementsByTagName("li")[i].innerHTML = document.getElementsByTagName("li")[i].innerHTML
+        document.getElementsByTagName("li")[i - 2].innerHTML = document.getElementsByTagName("li")[i - 2].innerHTML
         .replace(/<\/a> /g, "</a>&nbsp;");
     }
 //  3.6  "?" - intended to link to a tag wiki, now links to a Google search of the tag (it is also appropriately colored):
@@ -804,9 +810,11 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     }
 }
 
+
 window.addEventListener("load", function() {
     window.close();
 });
+//*/
 }
 
 // ******************* //
