@@ -680,9 +680,30 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // ********************************************* //
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
+
+if (document.getElementById("tags").value.match(" ")) {
+    var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
+                         "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
+                         "'#000099'\">uniqueness</a>)</small>";
+    if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
+        if (document.getElementById("tags").value.match(/ /g).length > 4) {
+            var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagUniqueLink;
+        } else {
+            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length + tagUniqueLink;
+        }
+    } else {
+        if (document.getElementById("tags").value.match(/ /g).length > 3) {
+            var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
+            var numberOfTags = "Tags <small>(" + numberOfTagsTemp + tagUniqueLink;
+        } else {
+            var numberOfTagsTemp = Number(document.getElementById("tags").value.match(/ /g).length) + 1;
+            var numberOfTags = "Tags <small style='color:red'>(" + numberOfTagsTemp + tagUniqueLink;
+        }
+    }
+    document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
+}
+
 if (window.location.href.match("&id=") && window.location.href.match("rule34.xxx")) {
-//document.getElementById("edit_form").innerHTML =
-//    document.getElementById("edit_form").innerHTML.replace(/ value="Save changes" /g, " id='SubmitButton' value='Save changes' ");
 document.getElementById("edit_form").style.display = "block";
 if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
 document.getElementById("source").value == "--- !ruby/object:File {}") {
@@ -693,9 +714,12 @@ document.getElementsByName("submit")[0].style.height = "100px";
 document.getElementsByName("submit")[0].style.fontSize = "20pt";
 document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
 
-//if (document.getElementsByClassName("tag-type-character").length == 0) {
-//    document.body = document.body.replace(/<div>\n.*\nfunction iCame(.*\n){8}/g, "")
-//}
+if (document.getElementsByClassName("tag-type-character").length == 0) {
+    //alert("derp!");
+    document.getElementsByClassName("sidebar")[0].innerHTML =
+        document.getElementsByClassName("sidebar")[0].innerHTML
+        .replace(/<div(.*\n){2}function iCame\(c\)(.*\n){6}<li>.*alt="I came!".*\n.*<\/div>/g, "")
+}
 
 function addTags(tagToAdd) {
     var addTagMatchCases =
@@ -810,7 +834,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     }
 }
 
-
+/*
 window.addEventListener("load", function() {
     window.close();
 });
