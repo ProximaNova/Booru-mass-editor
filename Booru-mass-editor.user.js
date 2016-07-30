@@ -680,7 +680,6 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // ********************************************* //
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
-
 if (document.getElementById("tags").value.match(" ")) {
     var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
                          "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
@@ -815,30 +814,30 @@ if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
     }
 }
 
-function htmlDecode(input){
-    var e = document.createElement('span');
-    e.innerHTML = input;
-    return e.childNodes[0].nodeValue;
-}
-
-function simulateClickSubmit(element)
-{
-    var oEvent = document.createEvent('MouseEvents');
-    oEvent.initMouseEvent("click", true, true, document.defaultView,
-    0, 0, 0, 0, 0, false, false, false, false, 0, element);
-    element.dispatchEvent(oEvent);
-}
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-    if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
-        simulateClickSubmit(document.getElementById("SubmitButton"));
+    function htmlDecode(input){
+        var e = document.createElement('span');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
     }
+    
+    function simulateClickSubmit(element)
+    {
+        var oEvent = document.createEvent('MouseEvents');
+        oEvent.initMouseEvent("click", true, true, document.defaultView,
+        0, 0, 0, 0, 0, false, false, false, false, 0, element);
+        element.dispatchEvent(oEvent);
+    }
+    if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
+        if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
+            simulateClickSubmit(document.getElementById("SubmitButton"));
+        }
+    }
+    
+    window.addEventListener("load", function() {
+        window.close();
+    });
 }
-
-/*
-window.addEventListener("load", function() {
-    window.close();
-});
-//*/
 }
 
 // ******************* //
