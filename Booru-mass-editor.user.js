@@ -22,7 +22,9 @@ if (window.location.href.match("&id=") && !(window.location.href.match("rule34.x
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
+var IDnextx2 = IDnext + 1;
 var IDprev = Number(ID) - 1;
+var IDprevx2 = IDprev - 1;
 var booruName = document.getElementsByTagName("h2")[0].textContent;
 var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
@@ -262,7 +264,8 @@ document.body.innerHTML
 //  5.2  Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 .replace(/          Id.*<br>/g, "<u>ID</u>: " + ID + " (<a href='index.php?page=post&s=view&id=" + IDnext +
-         "'>next</a>/<a href='index.php?page=post&s=view&id=" + IDprev + "'>previous</a>)" +
+         "'>next</a>(<a href='index.php?page=post&s=view&id=" + IDnextx2 + "'>x2</a>) / <a href='index.php?page=post&s=view&id=" + IDprev +
+         "'>previous</a>" + "(<a href='index.php?page=post&s=view&id=" + IDprevx2 + "'>x2</a>))" +
          "<br><u>File format:</u> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
@@ -680,7 +683,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // ********************************************* //
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
-if (document.getElementById("tags").value.match(" ")) {
+if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
     var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
                          "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
                          "'#000099'\">uniqueness</a>)</small>";
@@ -833,11 +836,10 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
             simulateClickSubmit(document.getElementById("SubmitButton"));
         }
     }
-    
     window.addEventListener("load", function() {
         window.close();
     });
-}
+} else {document.getElementById("tags").value = document.getElementById("tags").value + " ";}
 }
 
 // ******************* //
