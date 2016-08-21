@@ -23,8 +23,10 @@ if (window.location.href.match("&id=") && !(window.location.href.match("rule34.x
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
 var IDnextx2 = IDnext + 1;
+var IDnextx3 = IDnext + 2;
 var IDprev = Number(ID) - 1;
 var IDprevx2 = IDprev - 1;
+var IDprevx3 = IDprev - 2;
 var booruName = document.getElementsByTagName("h2")[0].textContent;
 var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
 var sidebar = document.getElementById("tag_list").innerHTML;
@@ -263,9 +265,11 @@ document.body.innerHTML
 .replace(/          Source:  <br>/g, "")
 //  5.2  Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
-.replace(/          Id.*<br>/g, "<u>ID</u>: " + ID + " (<a href='index.php?page=post&s=view&id=" + IDnext +
-         "'>next</a>(<a href='index.php?page=post&s=view&id=" + IDnextx2 + "'>x2</a>) / <a href='index.php?page=post&s=view&id=" + IDprev +
-         "'>previous</a>" + "(<a href='index.php?page=post&s=view&id=" + IDprevx2 + "'>x2</a>))" +
+.replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
+         "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
+         "'>-2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDprev + "'>-1</a>&#8198;|&#8198;" + ID + 
+         "&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnext + "'>+1</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" +
+         IDnextx2 + "'>+2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnextx3 + "'><small>+3</small></a>" +
          "<br><u>File format:</u> " + imageSrcExt + "<br>")
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
