@@ -28,9 +28,7 @@
                                                  ; ?>" />
 <!-- </URL-parameters> -->
 <br /><input type="submit" id="submit" value="Crawl" />
-<button type="button" onclick="open_urls()">
-    Open links <small><small><small>(doesn't work with the "load tabs on selection" addon<!--[1]-->)</small></small></small>
-</button>
+<!--<input type="button" value="Open links" onclick="open_urls()" />-->
 </form>
 
 <script>
@@ -44,6 +42,8 @@ document.getElementById("submit").addEventListener("click", function() {
                                             .replace(/&pid=\d+/g, "");
 });
 
+/*
+// Although the following code block works I am not including it for certain reasons:[1]
 function open_urls() {
     var urls = [], links = document.links;
     // Getting array of URLs
@@ -56,6 +56,7 @@ function open_urls() {
     }
 }
 // 1. See https://addons.mozilla.org/en-US/firefox/addon/load-tab-on-select/reviews/803154/
+*/
 </script>
 
 <?php
@@ -66,7 +67,11 @@ $booru_URL_domain = preg_replace('/(http:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $bo
 
 function get_links($url_domain, $url, $page_number) {
     $input = @file_get_contents($url);
-    $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
+    if ($url_domain == "rule34.xxx") {
+        $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
+    } else {
+        $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\">(.*)<\/a>";
+    }
     preg_match_all("/$regex/siU", $input, $matches);
 
     // Links on pages aren't always 42: getting 42 or less # for next loop
@@ -93,13 +98,15 @@ function get_links($url_domain, $url, $page_number) {
     }
 }
 
-for ($i = 0; $i < 42 * $max_pages; $i += 42) {
-    $to_crawl = $booru_URL . "&pid=" . $i;
-//    if ($i % 840 == 0) {
-//        sleep(100);
-//        get_links($booru_URL_domain, $to_crawl, ($i / 42) + 1);    
-//    } else {
+if ($booru_URL_domain == "rule34.xxx") {
+    for ($i = 0; $i < 42 * $max_pages; $i += 42) {
+        $to_crawl = $booru_URL . "&pid=" . $i;
         get_links($booru_URL_domain, $to_crawl, ($i / 42) + 1);
-//    }
+    }
+} else {
+    for ($i = 0; $i < 20 * $max_pages; $i += 20) {
+        $to_crawl = $booru_URL . "&pid=" . $i;
+        get_links($booru_URL_domain, $to_crawl, ($i / 20) + 1);
+    }
 }
 ?>
