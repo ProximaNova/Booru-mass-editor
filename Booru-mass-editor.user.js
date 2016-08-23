@@ -612,6 +612,12 @@ window.addEventListener("load", function(e) {
 });
 
 //  19.0  Mass edit tags: submission of changes a second or less after the page loads (based on ("#my-tags")):
+
+function htmlDecode(input){
+    var e = document.createElement('span');
+    e.innerHTML = input;
+    return e.childNodes[0].nodeValue;
+}
 function simulateClickSubmit(element)
 {
     var oEvent = document.createEvent('MouseEvents');
@@ -623,7 +629,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> " +
                                   "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
                                   "operation(s) on page load</li>";
-    if (document.getElementById("tags").innerHTML + " " !== document.getElementById("tags").value) {
+    if (htmlDecode(document.getElementById("tags").innerHTML) + " " !== document.getElementById("tags").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
     }
 } else {
