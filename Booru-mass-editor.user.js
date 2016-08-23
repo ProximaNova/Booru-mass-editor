@@ -632,6 +632,11 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     if (htmlDecode(document.getElementById("tags").innerHTML) + " " !== document.getElementById("tags").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
     }
+    if (document.getElementById("my-tags").textContent.match(/close:(1|yes);close;/g)) {
+        window.addEventListener("load", function() {
+            window.close();
+        });
+    }
 } else {
     var myTagsSubmitOnLoadInfo = "";
 }
