@@ -1,3 +1,5 @@
+<html>
+<body>
 <title>Crawl boorus for ID links</title>
 
 <style> a { text-decoration: none; } </style>
@@ -111,12 +113,52 @@ if ($booru_URL_domain == "rule34.xxx") {
 }
 ?>
 
-Links:<br>
-<textarea style="width: 650px; height: 150px;" id="URLs"></textarea>
+// <thanks to="https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip/">
+<table>
+    <tr><td>Text to Save:</td></tr>
+    <tr>
+        <td colspan="3">
+            <textarea id="inputTextToSave" cols="80" rows="10"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>Filename to Save As:</td>
+        <td><input id="inputFileNameToSaveAs" value="BooruLinks.txt"></input></td>
+        <td><button onclick="saveTextAsFile()">Save Text to File</button></td>
+    </tr>
+</table>
+ 
 <script>
 var rawLinks = [];
 for (i = 0; i < document.getElementsByTagName('a').length; i++) {
     rawLinks[i] = document.getElementsByTagName('a')[i].href.toString();
 }
-document.getElementById('URLs').value = rawLinks.join("\n");
+document.getElementById("inputTextToSave").value = rawLinks.join("\n");
+
+function saveTextAsFile()
+{
+    var textToSave = document.getElementById("inputTextToSave").value;
+    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+ 
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+ 
+    downloadLink.click();
+}
+ 
+function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
 </script>
+// </thanks>
+
+</body>
+</html>
