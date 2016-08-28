@@ -42,8 +42,6 @@ document.getElementById("submit").addEventListener("click", function() {
                                             .replace(/&pid=\d+/g, "");
 });
 
-var rawLinks = '';
-
 /*
 // Although the following code block works I am not including it for certain reasons:[1]
 function open_urls() {
@@ -97,11 +95,6 @@ function get_links($url_domain, $url, $page_number) {
                                      '',
                                      str_replace(' => ','. ',print_r($matches2,true))));
         echo "</pre>";
-        $sss = implode(",", $matches2);
-        echo "<script>" .
-             "rawLinks += '$sss'.replace(/<a href=\"/g, '')" .
-             ".replace(/\">post #\d+<\/a>/g, '');" .
-             "</script>";
     }
 }
 
@@ -116,7 +109,14 @@ if ($booru_URL_domain == "rule34.xxx") {
         get_links($booru_URL_domain, $to_crawl, ($i / 20) + 1);
     }
 }
-
-echo "<textarea id='URLs'></textarea>" .
-     "<script>document.getElementById('URLs').innerHTML = rawLinks;</script>";
 ?>
+
+Links:<br>
+<textarea style="width: 650px; height: 150px;" id="URLs"></textarea>
+<script>
+var rawLinks = [];
+for (i = 0; i < document.getElementsByTagName('a').length; i++) {
+    rawLinks[i] = document.getElementsByTagName('a')[i].href.toString();
+}
+document.getElementById('URLs').value = rawLinks.join("\n");
+</script>
