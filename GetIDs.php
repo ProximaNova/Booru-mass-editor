@@ -62,6 +62,8 @@ function open_urls() {
 </script>
 
 <?php
+set_time_limit(999);
+
 $max_pages = isset($_GET['pids']) ? $_GET['pids'] : '';
 $booru_URL = isset($_GET['domain']) ? 'http://' . $_GET['domain'] .
                                       '/index.php?page=post&s=list&tags=' . $_GET['tags'] : '';
@@ -113,7 +115,6 @@ if ($booru_URL_domain == "rule34.xxx") {
 }
 ?>
 
-// <thanks to="https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip/">
 <table>
     <tr><td>Text to Save:</td></tr>
     <tr>
@@ -158,7 +159,5 @@ function destroyClickedElement(event)
     document.body.removeChild(event.target);
 }
 </script>
-// </thanks>
-
 </body>
 </html>
