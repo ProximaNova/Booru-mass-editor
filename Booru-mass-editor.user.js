@@ -957,6 +957,75 @@ document.getElementsByTagName("br")[6].parentNode.removeChild(document.getElemen
 }
 
 // ********************* //
+// Upload page improver: //
+// ********************* //
+if (window.location.href.match("&s=add")) {
+    // Better mass upload link:
+    document.body.innerHTML =
+        document.body.innerHTML.replace(/You can mass-upload large number of pictures with just one click/g,
+                                        "You can mass-upload large number of pictures with a few clicks");
+    for (i = 0; i < document.getElementsByTagName("a").length; i++) {
+        if (document.getElementsByTagName("a")[i].href.match("http://ibsearch.i-forge.net/mass-upload/")) {
+            document.getElementsByTagName("a")[i].href = "https://github.com/Seedmanc/Booru-mass-uploader";
+        }
+    }
+    
+    // Make the "Source", "Title", and "Tags" text boxes wider:
+    for(i=1;i<4;i++){document.getElementsByTagName("input")[i].style.width = "41em";}
+    // ^ Maybe the should be a textarea, but if it is then it is hard for enter to submit.
+
+    // Enlarge the radio buttons:
+    for(i=4;i<7;i++){document.getElementsByTagName("input")[i].style.width = "2em";
+                     document.getElementsByTagName("input")[i].style.height = "2em";}
+
+    // Enlarge the "upload" button (this may be to big for some users):
+    document.getElementsByTagName("input")[7].style.width = "9em";
+    document.getElementsByTagName("input")[7].style.height = "3em";
+    document.getElementsByTagName("input")[7].style.fontSize = "40px";
+
+    // My Tags fixes:
+    document.getElementsByTagName("tr")[5].innerHTML =
+        document.getElementsByTagName("tr")[5].innerHTML
+        .replace(/(tagmeif:.+;endif; |im:.+;im; |op:.+;op; |close:.+;close; )/g, "")
+
+    document.getElementsByTagName("center")[0].style.display = "none";
+
+// Original CSS:
+// @-moz-document /* Set booru URLs that this CSS applies to, e.g.:
+// */   url("http://1-2-3.booru.org/index.php?page=post&s=add"), /*
+// */    url("http://meme.booru.org/index.php?page=post&s=add"), /*
+// */      url("http://rb.booru.org/index.php?page=post&s=add"), /*
+// */ url("http://redpill.booru.org/index.php?page=post&s=add"), /*
+// */    url("http://tech.booru.org/index.php?page=post&s=add"), /*
+// */   url("http://vidya.booru.org/index.php?page=post&s=add") {
+//     
+//     /* Make the "Source", "Title", and "Tags" text boxes wider: */
+//     input[type="text"] {
+//         width: 41em;
+//     }
+//     /* Enlarge the radio buttons: */
+//     input[type="radio"] {
+//         width: 2em;
+//         height: 2em;
+//     }
+//     /* Enlarge the "upload" button (this may be to big for some users): */
+//     input[type="submit"] {
+//         width: 9em;
+//         height: 3em;
+//         font-size: 40px;
+//     }
+//     /* Hide unnecessary content:
+//     li #3- = only display "My Account" and "Posts" on the navigation bar
+//     ul     = hides the second unordered list, i.e., the "mass-upload" information
+//     tr #6  = My Tags
+//     center = advertisments */
+//     li:nth-child(n+3), ul, tr:nth-child(6), center {
+//         display: none;
+//     }
+// }
+}
+
+// ********************* //
 // Tag history improver: //
 // ********************* //
 //if (window.location.href.match("page=history&type=tag_history&id=")) {
