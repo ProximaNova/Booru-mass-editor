@@ -989,40 +989,15 @@ if (window.location.href.match("&s=add")) {
         .replace(/(tagmeif:.+;endif; |im:.+;im; |op:.+;op; |close:.+;close; )/g, "")
 
     document.getElementsByTagName("center")[0].style.display = "none";
-
-// Original CSS:
-// @-moz-document /* Set booru URLs that this CSS applies to, e.g.:
-// */   url("http://1-2-3.booru.org/index.php?page=post&s=add"), /*
-// */    url("http://meme.booru.org/index.php?page=post&s=add"), /*
-// */      url("http://rb.booru.org/index.php?page=post&s=add"), /*
-// */ url("http://redpill.booru.org/index.php?page=post&s=add"), /*
-// */    url("http://tech.booru.org/index.php?page=post&s=add"), /*
-// */   url("http://vidya.booru.org/index.php?page=post&s=add") {
-//     
-//     /* Make the "Source", "Title", and "Tags" text boxes wider: */
-//     input[type="text"] {
-//         width: 41em;
-//     }
-//     /* Enlarge the radio buttons: */
-//     input[type="radio"] {
-//         width: 2em;
-//         height: 2em;
-//     }
-//     /* Enlarge the "upload" button (this may be to big for some users): */
-//     input[type="submit"] {
-//         width: 9em;
-//         height: 3em;
-//         font-size: 40px;
-//     }
-//     /* Hide unnecessary content:
-//     li #3- = only display "My Account" and "Posts" on the navigation bar
-//     ul     = hides the second unordered list, i.e., the "mass-upload" information
-//     tr #6  = My Tags
-//     center = advertisments */
-//     li:nth-child(n+3), ul, tr:nth-child(6), center {
-//         display: none;
-//     }
-// }
+    
+    // Doesn't work (also: ulp:1;ulp; (for parent info in tags)):
+    /*document.getElementsByTagName("input")[7].addEventListener("click", function() {
+        if (document.getElementsByTagName("tr")[5].innerHTML.match("uls:1;uls;")) {
+            document.getElementsByTagName("input")[2].value =
+                document.getElementsByTagName("input")[2].value +
+                document.getElementsByTagName("input")[0].value;
+        }
+    });*/
 }
 
 // ********************* //
