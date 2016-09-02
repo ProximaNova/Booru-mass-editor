@@ -698,6 +698,8 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // ********************************************* //
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
+if (window.location.href.match("&id=")
+&& (window.location.href.match("rule34.xxx") || window.location.href.match("xbooru.com"))) {
 if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
     var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
                          "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
@@ -720,7 +722,6 @@ if (document.getElementById("tags").value.match(" ") && document.getElementsByTa
     document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
 }
 
-if (window.location.href.match("&id=") && window.location.href.match("rule34.xxx")) {
 document.getElementById("edit_form").style.display = "block";
 if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
 document.getElementById("source").value == "--- !ruby/object:File {}") {
@@ -732,7 +733,6 @@ document.getElementsByName("submit")[0].style.fontSize = "20pt";
 document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
 
 if (document.getElementsByClassName("tag-type-character").length == 0) {
-    //alert("derp!");
     document.getElementsByClassName("sidebar")[0].innerHTML =
         document.getElementsByClassName("sidebar")[0].innerHTML
         .replace(/<div(.*\n){2}function iCame\(c\)(.*\n){6}<li>.*alt="I came!".*\n.*<\/div>/g, "")
