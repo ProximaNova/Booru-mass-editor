@@ -861,6 +861,13 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
 // Post list improver: //
 // ******************* //
 if (window.location.href.match("post&s=list")) {
+    // impove title:
+    if (!window.location.href.match("rule34.xxx")) {
+        document.getElementsByTagName("title")[0].innerHTML =
+            document.getElementsByTagName("h2")[0].textContent + " / " +
+            document.getElementById("tags").value;
+    }
+
 for (i = 0; i < document.getElementsByTagName("a").length; i++) {
     // fix "'":
     if (document.getElementsByTagName("a")[i].href.match("%26%23039%3B")) {
