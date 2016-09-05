@@ -7,6 +7,7 @@
 // @include       http://safebooru.org/index.php*
 // @include       http://xbooru.com/index.php*
 // @include       http://rule34.xxx/index.php*
+// @include       http://anime-pictures.net/*
 // @grant         none
 // @noframes
 // ==/UserScript==
@@ -1020,6 +1021,12 @@ if (window.location.href.match("&s=add")) {
 //if (window.location.href.match("?page=alias")) {
 // I tried adding it here but it did not work; it works as a seperate userscript.
 //}
+
+if (window.location.href.match("anime-pictures.net")) {
+    document.getElementById("post_tags").innerHTML =
+        document.getElementById("post_tags").innerHTML
+        .replace(/(<span>.+<\/span>|<span>\n\s+\d+K?\n\s+<\/span>|light erotic)/g, "").replace(/ /g, "_");
+}
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
