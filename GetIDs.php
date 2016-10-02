@@ -71,7 +71,9 @@ $booru_URL_domain = preg_replace('/(http:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $bo
 
 function get_links($url_domain, $url, $page_number) {
     $input = @file_get_contents($url);
-    if ($url_domain == "rule34.xxx") {
+    if ($url_domain == "rule34.xxx"
+    || $url_domain == "xbooru.com"
+    || $url_domain == "gelbooru.com") {
         $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
     } else {
         $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\">(.*)<\/a>";
@@ -102,7 +104,7 @@ function get_links($url_domain, $url, $page_number) {
     }
 }
 
-if ($booru_URL_domain == "rule34.xxx") {
+if ($booru_URL_domain == "rule34.xxx" || $booru_URL_domain == "xbooru.com") {
     for ($i = 0; $i < 42 * $max_pages; $i += 42) {
         $to_crawl = $booru_URL . "&pid=" . $i;
         get_links($booru_URL_domain, $to_crawl, ($i / 42) + 1);
@@ -159,5 +161,6 @@ function destroyClickedElement(event)
     document.body.removeChild(event.target);
 }
 </script>
+ 
 </body>
 </html>
