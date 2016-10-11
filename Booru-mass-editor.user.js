@@ -22,7 +22,8 @@
 // *********************** //
 // Individual image pages: //
 // *********************** //
-if (window.location.href.match("&id=") && !(window.location.href.match("rule34.xxx"))) {
+if (window.location.href.match("&id=") &&
+!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us)/))) {
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -717,7 +718,8 @@ if (document.getElementById("tags").value.match(" ") && document.getElementsByTa
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
             var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagUniqueLink;
         } else {
-            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length + tagUniqueLink;
+            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length +
+            tagUniqueLink;
         }
     } else {
         if (document.getElementById("tags").value.match(/ /g).length > 3) {
@@ -874,10 +876,6 @@ if (window.location.href.match("page=post&s=list&tags=all") && window.location.h
     setTimeout(function(){ window.close(); }, 14000);
 }
 
-//if (window.location.href.match("&id=") && window.location.href.match("bboy.booru.org")) {
-//document.getElementById("tags").value = document.getElementById("tags").value.replace(/sample_/g, "lowres_version http://rule34.xxx/index.php?page=post&s=list&md5=")
-//}
-
 // Mass add one tag to Danbooru
 if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
     // Somehow fails: document.getElementById("edit").style.display = "block";
@@ -909,7 +907,8 @@ if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/dan
         element.dispatchEvent(oEvent);
     }
     
-    if (htmlDecode(document.getElementById("post_tag_string").innerHTML) !== document.getElementById("post_tag_string").value) {
+    if (htmlDecode(document.getElementById("post_tag_string").innerHTML) !==
+    document.getElementById("post_tag_string").value) {
         simulateClickSubmit(document.getElementById("SubmitButton"));
     }
 
