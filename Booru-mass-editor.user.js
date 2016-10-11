@@ -5,9 +5,12 @@
 // @author        usernam
 // @include       http://*.booru.org/index.php*
 // @include       http://safebooru.org/index.php*
-// @include       http://xbooru.com/index.php*
 // @include       http://rule34.xxx/index.php*
 // @include       http://anime-pictures.net/*
+// @include       http://xbooru.com/index.php*
+// @include       http://bboy.booru.org/index.php*
+// @include       http://gelbooru.com/index.php*
+// @include       http://danbooru.donmai.us/*
 // @grant         none
 // @noframes
 // ==/UserScript==
@@ -20,6 +23,7 @@
 // Individual image pages: //
 // *********************** //
 if (window.location.href.match("&id=") && !(window.location.href.match("rule34.xxx"))) {
+document.getElementById("edit_form").style.display = "block";
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -700,7 +704,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
 if (window.location.href.match("&id=")
-&& (window.location.href.match("rule34.xxx") || window.location.href.match("xbooru.com"))) {
+&& (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com)/))) {
 if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
     var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
                          "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
@@ -852,10 +856,62 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
             simulateClickSubmit(document.getElementById("SubmitButton"));
         }
     }
+    if (window.location.href.match("gelbooru.com")) {
+        setTimeout(function(){ window.close(); }, 14000); //Math.floor((Math.random() * 80000) + 20000)
+    } else if (window.location.href.match(/(xbooru.com|rule34.xxx)/)) {
+        window.addEventListener("load", function() {
+            window.close();
+        });
+    }
+} else {document.getElementById("tags").value = document.getElementById("tags").value + " ";}
+}
+
+if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com")) {
+    setTimeout(function(){ window.close(); }, 14000);
+}
+
+//if (window.location.href.match("&id=") && window.location.href.match("bboy.booru.org")) {
+//document.getElementById("tags").value = document.getElementById("tags").value.replace(/sample_/g, "lowres_version http://rule34.xxx/index.php?page=post&s=list&md5=")
+//}
+
+// Mass add one tag to Danbooru
+if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
+    // Somehow fails: document.getElementById("edit").style.display = "block";
+    
+    var MyTags = document.cookie.replace(/.*favorite_tags=/g, "").replace(/;.*/g, "");
+    
+    var check = new RegExp(MyTags, 'g');
+    
+    if (!(document.getElementById("post_tag_string").value.match(check))) {
+        document.getElementById("post_tag_string").value = document.getElementById("post_tag_string").value + MyTags + " ";
+    }
+
+    document.getElementsByTagName("input")[46].setAttribute("id", "SubmitButton");
+    document.getElementById("SubmitButton").style.width = "403px";
+    document.getElementById("SubmitButton").style.height = "100px";
+    document.getElementById("SubmitButton").style.fontSize = "20pt";
+
+    function htmlDecode(input){
+        var e = document.createElement('span');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
+    
+    function simulateClickSubmit(element)
+    {
+        var oEvent = document.createEvent('MouseEvents');
+        oEvent.initMouseEvent("click", true, true, document.defaultView,
+        0, 0, 0, 0, 0, false, false, false, false, 0, element);
+        element.dispatchEvent(oEvent);
+    }
+    
+    if (htmlDecode(document.getElementById("post_tag_string").innerHTML) !== document.getElementById("post_tag_string").value) {
+        simulateClickSubmit(document.getElementById("SubmitButton"));
+    }
+
     window.addEventListener("load", function() {
         window.close();
     });
-} else {document.getElementById("tags").value = document.getElementById("tags").value + " ";}
 }
 
 // ******************* //
