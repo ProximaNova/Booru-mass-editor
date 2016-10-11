@@ -23,7 +23,6 @@
 // Individual image pages: //
 // *********************** //
 if (window.location.href.match("&id=") && !(window.location.href.match("rule34.xxx"))) {
-document.getElementById("edit_form").style.display = "block";
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -41,13 +40,17 @@ var imageSrcThumb = document.getElementById("image").src.replace(/img\.booru\.or
                     .replace(/\/\/images\//g, "/thumbnails//")
                     .replace(/\/\/\d+\//g, "//" + imageSrcOneDir + "/thumbnail_");
 var imageSrcExt = imageSrc.replace(/^.*\./g, "").toUpperCase().replace(/JPEG/g, "JPG");
-var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16, sidebar.lastIndexOf(" <br>\n          Source: "));
+var imageSizeWandH = sidebar.substring(sidebar.lastIndexOf("          Size: ") + 16,
+				       sidebar.lastIndexOf(" <br>\n          Source: "));
 var imageSizeWidth = Number(imageSizeWandH.replace(/x\d+/g, ""));
 var imageSizeHeight = Number(imageSizeWandH.replace(/\d+x/g, ""));
-var userName = escape(sidebar.substring(sidebar.lastIndexOf("          By: ") + 14, sidebar.lastIndexOf(" <br>\n          Size:")));
+var userName = escape(sidebar.substring(sidebar.lastIndexOf("          By: ") + 14,
+					sidebar.lastIndexOf(" <br>\n          Size:")));
 var userCheckAnon = (userName !== 'Anonymous') ? "account_profile&amp;uname=" : "post&s=list&tags=user%3A";
-var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18, sidebar.lastIndexOf("          Posted: ") + 28);
-var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29, sidebar.lastIndexOf(" <br>\n          By: "));
+var timeYMD = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 18,
+				sidebar.lastIndexOf("          Posted: ") + 28);
+var timeSpecific = sidebar.substring(sidebar.lastIndexOf("          Posted: ") + 29,
+				     sidebar.lastIndexOf(" <br>\n          By: "));
 var parentID = document.getElementsByName("parent")[0].value;
 
 document.getElementsByTagName("h2")[0].style.display = "inline";
@@ -102,15 +105,16 @@ metadataHeader.innerHTML = "Metadata";
 document.getElementById("tag_list").insertBefore(metadataHeader, document.getElementById("tag_list").childNodes[0]);
 if (document.getElementById("tags").value.match(" ")) {
     var tagHistoryLink = " | <a href='index.php?page=history&amp;type=tag_history&amp;id=" + ID + "' style='color:#006ffa' " +
-                         "onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">history</a> | " +
-                         "<a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
-                         "' style='color:#006ffa' onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = " +
-                         "'#006ffa'\">uniqueness</a>)</small>";
+	                 "onmouseover=\"this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">history<" +
+	                 "/a> | <a href='index.php?page=post&s=list&tags=" +
+	                 document.getElementById("tags").value.replace(/ /g, "+") + "' style='color:#006ffa' onmouseover=\"" +
+	                 "this.style.color = '#33cfff'\" onmouseout=\"this.style.color = '#006ffa'\">uniqueness</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
             var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagHistoryLink;
         } else {
-            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length + tagHistoryLink;
+            var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length +
+		               tagHistoryLink;
         }
     } else {
         if (document.getElementById("tags").value.match(/ /g).length > 3) {
