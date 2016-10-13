@@ -711,12 +711,14 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com)/))) {
 if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
-    var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" + document.getElementById("tags").value.replace(/ /g, "+") +
+    var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
+	                 document.getElementById("tags").value.replace(/ /g, "+") +
                          "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
                          "'#000099'\">uniqueness</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
         if (document.getElementById("tags").value.match(/ /g).length > 4) {
-            var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length + tagUniqueLink;
+            var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length +
+            tagUniqueLink;
         } else {
             var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length +
             tagUniqueLink;
@@ -920,7 +922,8 @@ if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/dan
 // ******************* //
 // Post list improver: //
 // ******************* //
-if (window.location.href.match("post&s=list")) {
+if (window.location.href.match("post&s=list") &&
+!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us)/))) {
     // impove title:
     if (!window.location.href.match("rule34.xxx")) {
         document.getElementsByTagName("title")[0].innerHTML =
