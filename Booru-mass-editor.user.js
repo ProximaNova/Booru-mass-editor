@@ -460,7 +460,8 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
                 } else {
                     var twoReplacements = "";
                 }
-                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" + myTagsReplaceTagsRights[i] + "</code> " + twoReplacements;
+                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
+			                myTagsReplaceTagsRights[i] + "</code> " + twoReplacements;
             } else {
                 if (i < myTagsReplaceTagsLefts.length - 2) {
                     var gtTwoReplacements = ",<br>";
@@ -469,7 +470,8 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
                 } else {
                     var gtTwoReplacements = "";
                 }
-                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" + myTagsReplaceTagsRights[i] + "</code>" + gtTwoReplacements;
+                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
+			                myTagsReplaceTagsRights[i] + "</code>" + gtTwoReplacements;
             }
         }
         myTagsReplaceTagInfo += "</li>";
@@ -477,7 +479,8 @@ if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
         var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
         var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
         replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-        var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" + myTagsReplaceTag2 + "</code></li>";
+        var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" +
+	                           myTagsReplaceTag2 + "</code></li>";
     }
 } else {
     var myTagsReplacing = false;
@@ -712,7 +715,7 @@ if (window.location.href.match("&id=")
 && (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com)/))) {
 if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
     var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
-	                 document.getElementById("tags").value.replace(/ /g, "+") +
+                         document.getElementById("tags").value.replace(/ /g, "+") +
                          "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
                          "'#000099'\">uniqueness</a>)</small>";
     if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
