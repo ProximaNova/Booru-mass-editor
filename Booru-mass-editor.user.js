@@ -11,6 +11,7 @@
 // @include       http://bboy.booru.org/index.php*
 // @include       http://gelbooru.com/index.php*
 // @include       http://danbooru.donmai.us/*
+// @include       http://furry.booru.org/index.php*
 // @grant         none
 // @noframes
 // ==/UserScript==
@@ -23,7 +24,7 @@
 // Individual image pages: //
 // *********************** //
 if (window.location.href.match("&id=") &&
-!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us)/))) {
+!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org)/))) {
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -712,7 +713,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
 if (window.location.href.match("&id=")
-&& (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com)/))) {
+&& (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/))) {
 if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
     var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
                          document.getElementById("tags").value.replace(/ /g, "+") +
@@ -869,7 +870,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     }
     if (window.location.href.match("gelbooru.com")) {
         setTimeout(function(){ window.close(); }, 14000); //Math.floor((Math.random() * 80000) + 20000)
-    } else if (window.location.href.match(/(xbooru.com|rule34.xxx)/)) {
+    } else if (window.location.href.match(/(xbooru.com|rule34.xxx|furry.booru.org)/)) {
         window.addEventListener("load", function() {
             window.close();
         });
@@ -926,7 +927,7 @@ if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/dan
 // Post list improver: //
 // ******************* //
 if (window.location.href.match("post&s=list") &&
-!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us)/))) {
+!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org)/))) {
     // impove title:
     if (!window.location.href.match("rule34.xxx")) {
         document.getElementsByTagName("title")[0].innerHTML =
