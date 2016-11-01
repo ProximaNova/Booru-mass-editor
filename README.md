@@ -1,12 +1,12 @@
 # Booru mass editor
-Use this script to quickly edit individual images at websites runing older versions of Gelbooru. It imporves the interface at `index.php?page=post&s=view&id=#`.
+Use this script to quickly edit individual images at websites running Gelbooru software. It imporves the interface at `index.php?page=post&s=view&id=#`.
 
 Functionality (it works best on Firefox):
 * It works the best on Gelbooru Beta 0.1.11: what most hostnames (*.example.com) on booru.org use.
-* It sort of works on Gelbooru Beta 0.2.
-* It doesn't work at all on Gelbooru Beta 0.2.0 or Gelbooru Beta 0.2.5.
+* It now works on Gelbooru Beta 0.2 (more featuers planned to be added).
+* It now on Gelbooru Beta 0.2.0 or Gelbooru Beta 0.2.5 (more featuers planned to be added).
 
-It is not really a problem that this script only works on older versions of Gelbooru:
+<s>It is not really a problem that this script only works on older versions of Gelbooru:</s>
 * Gelbooru version Beta 0.1.11"
  * Users could post images with no tags resulting in the images having the "tagme" tag
  * Many boorus have vast image dumps with no tags (for example, 80% images at [meme.booru.org](http://meme.booru.org/index.php?page=forum&s=list) have no tags (out of 30,000 images total))
@@ -22,7 +22,7 @@ Add these tags at the ID page or at Account > Options > My Tags (no one or more 
 * To change the rating add: `r:s;r;` (changes the rating to `safe`)
 * To replace tags add: `re:bad_tag1_>_good_tag1|re:bt1_>_bt1|re:bt2_>_gt2;re;` or `re:bad_tag_>_good_tag;re;` (only replaces one tag)
 * To add tags add: `add:x|y|z;add;` (adds tags `x`, `y`, and `z`) or `add:x;add;` (only adds `x`)
-* To remove tags add: `rm:x|y|z;rm;` (removes tags `x`, `y`, and `z`) or `rm:x;rm;` (only removes `x`)
+* To remove tags add: `re:x_>_|y_>_|z_>_;re;` (removes tags `x`, `y`, and `z`) or `re:x_>_;re;` (only removes `x`)
 * To add the "tagme" tag if an image has less than a certain amount of tags add: `tagmeif:lt#;endif;` where `#` is, examples: `tagmeif:lt5;endif;` and `tagmeif:lt10;endif;`
 * To implicate tags use: `im:particular_>_general;im;` or `im:all_>_tag|implications_>_are|based_>_on|inductive_>_reasoning;im;` here is 268 pages of implications: http://danbooru.donmai.us/tag_implications
 * To submit the aforementioned changes when the page loads add: `op:onload;op;`; this bullet point is why this script is called a "mass editor": careful using this one. DO NOT add aliased tags because it will submit the form a bunch of times which results in duplicate tag history revisions. (For the script's functionality with a newer version, if Firefox, go to about:config to change `dom.allow_scripts_to_close_windows` to true so get it to work as it does on Google Chrome.)
