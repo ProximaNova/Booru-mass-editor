@@ -764,6 +764,10 @@ function addTags(tagToAdd) {
 }
 
 function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
+    /// DOESNT F ING WORK: x_(artist) -> x
+    //var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\(").replace(/\)/g, "\)") + " ", "gi");
+    //var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\(").replace(/\)/g, "\)") + " ", "gi");
+    //var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\(").replace(/\)/g, "\)") + "$", "gi");
     var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
     var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
     var replaceTagMatchCase3 = new RegExp(" " + tagToReplace + "$", "gi");
@@ -881,6 +885,10 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
 if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com")) {
     setTimeout(function(){ window.close(); }, 14000);
 }
+//if (window.location.href.match(/id=\d+/) && window.location.href.match("gelbooru.com")) {
+//    setTimeout(function(){ window.close(); }, 14000);
+//}
+// To add: deconfuse transparent background and white background of image by changeing HTML background of page.
 
 // Mass add one tag to Danbooru
 if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
