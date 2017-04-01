@@ -9,7 +9,7 @@
 // @include       http://anime-pictures.net/*
 // @include       http://xbooru.com/index.php*
 // @include       http://bboy.booru.org/index.php*
-// @include       http://gelbooru.com/index.php*
+// @include       https://gelbooru.com/index.php*
 // @include       http://danbooru.donmai.us/*
 // @include       http://furry.booru.org/index.php*
 // @grant         none
