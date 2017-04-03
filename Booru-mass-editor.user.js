@@ -9,9 +9,10 @@
 // @include       http://anime-pictures.net/*
 // @include       http://xbooru.com/index.php*
 // @include       http://bboy.booru.org/index.php*
-// @include       https://gelbooru.com/index.php*
+// @include       http://gelbooru.com/index.php*
 // @include       http://danbooru.donmai.us/*
 // @include       http://furry.booru.org/index.php*
+// @include       https://chan.sankakucomplex.com/*
 // @grant         none
 // @noframes
 // ==/UserScript==
@@ -748,6 +749,9 @@ document.getElementsByName("submit")[0].style.width = "403px";
 document.getElementsByName("submit")[0].style.height = "100px";
 document.getElementsByName("submit")[0].style.fontSize = "20pt";
 document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
+// To add: deconfuse transparent background and white background of image by changeing HTML background of page.
+   // document.body.style.background = "url('http://img.booru.org/artwork//images/1/8a151c03d675a5e82058394dff7c482b299c18bc.gif?14694')";
+   // replace <a href="index.php?page=tags&amp;s=merge&amp;post_id=\d+">Tag Merge</a> with check background ----^
 
 if (document.getElementsByClassName("tag-type-character").length == 0) {
     document.getElementsByClassName("sidebar")[0].innerHTML =
@@ -885,10 +889,6 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
 if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com")) {
     setTimeout(function(){ window.close(); }, 14000);
 }
-//if (window.location.href.match(/id=\d+/) && window.location.href.match("gelbooru.com")) {
-//    setTimeout(function(){ window.close(); }, 14000);
-//}
-// To add: deconfuse transparent background and white background of image by changeing HTML background of page.
 
 // Mass add one tag to Danbooru
 if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
@@ -1101,6 +1101,10 @@ if (window.location.href.match("anime-pictures.net")) {
         document.getElementById("post_tags").innerHTML
         .replace(/(<span>.+<\/span>|<span>\n\s+\d+K?\n\s+<\/span>|light erotic)/g, "").replace(/ /g, "_");
 }
+
+//if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
+        
+//}
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
