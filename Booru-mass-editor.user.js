@@ -745,13 +745,26 @@ if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
 document.getElementById("source").value == "--- !ruby/object:File {}") {
     document.getElementById("source").value = "";
 }
+
+document.body.style.background = "white";
+document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML
+    .replace(/<a href="index.php.*>Tag Merge<\/a>/g, "<a href='#' id='BgC'>Background check</a>");
+document.getElementById("BgC").addEventListener("click", backgc);
+function backgc() {
+    if (document.body.style.background == "white none repeat scroll 0% 0%" ||
+        document.body.style.background == "rgb(232, 244, 248) none repeat scroll 0% 0%") {
+        document.body.style.background =
+        "url('http://img.booru.org/artwork//images/1/8a151c03d675a5e82058394dff7c482b299c18bc.gif?14694')";
+    } else if (document.body.style.background == 
+               'transparent url("http://img.booru.org/artwork//images/1/8a151c03d675a5e8205839' +
+               '4dff7c482b299c18bc.gif?14694") repeat scroll 0% 0%') {
+        document.body.style.background = "#E8F4F8";
+    }
+}
 document.getElementsByName("submit")[0].style.width = "403px";
 document.getElementsByName("submit")[0].style.height = "100px";
 document.getElementsByName("submit")[0].style.fontSize = "20pt";
 document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
-// To add: deconfuse transparent background and white background of image by changeing HTML background of page.
-   // document.body.style.background = "url('http://img.booru.org/artwork//images/1/8a151c03d675a5e82058394dff7c482b299c18bc.gif?14694')";
-   // replace <a href="index.php?page=tags&amp;s=merge&amp;post_id=\d+">Tag Merge</a> with check background ----^
 
 if (document.getElementsByClassName("tag-type-character").length == 0) {
     document.getElementsByClassName("sidebar")[0].innerHTML =
@@ -890,7 +903,7 @@ if (window.location.href.match("page=post&s=list&tags=all") && window.location.h
     setTimeout(function(){ window.close(); }, 14000);
 }
 
-// Mass add one tag to Danbooru
+// Mass add one tag to Danbooru (big fail if no favorite_tags cookie value)
 if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
     // Somehow fails: document.getElementById("edit").style.display = "block";
     
