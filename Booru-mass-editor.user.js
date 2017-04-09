@@ -1112,12 +1112,22 @@ if (window.location.href.match("&s=add")) {
 if (window.location.href.match("anime-pictures.net")) {
     document.getElementById("post_tags").innerHTML =
         document.getElementById("post_tags").innerHTML
-        .replace(/(<span>.+<\/span>|<span>\n\s+\d+K?\n\s+<\/span>|light erotic)/g, "").replace(/ /g, "_");
+        .replace(/(<span>.+<\/span>|<span>\n\s+\d+K?\n\s+<\/span>|light erotic)/g, "")
+        .replace(/ /g, "_");
 }
 
-//if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
-        
-//}
+if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
+    var blTags = decodeURIComponent(document.cookie.replace(/expires=.+blacklisted_tags=/g, "")
+                                                   .replace(/; locale=.*/g, ""));
+    if (blTags.match(/src:.+;src;/g)) {
+        var shitSrc = blTags.replace(/.*src:/g, "").replace(/_>_.*/g, "");
+        var goodSrc = blTags.replace(/.*_>_/g, "").replace(/;src;.*/g, "");
+        document.getElementById("post_source").value =
+            document.getElementById("post_source").value.replace(shitSrc, goodSrc);
+    }
+    document.getElementById("post_tags").innerHTML =
+        document.getElementById("post_tags").innerHTML + " ";
+}
 
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
