@@ -1116,17 +1116,82 @@ if (window.location.href.match("anime-pictures.net")) {
         .replace(/ /g, "_");
 }
 
+// ******************************************* //
+// Individual image pages for Sankaku Channel: //
+// ******************************************* //
 if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
     var blTags = decodeURIComponent(document.cookie.replace(/expires=.+blacklisted_tags=/g, "")
                                                    .replace(/; locale=.*/g, ""));
+    
     if (blTags.match(/src:.+;src;/g)) {
-        var shitSrc = blTags.replace(/.*src:/g, "").replace(/_>_.*/g, "");
-        var goodSrc = blTags.replace(/.*_>_/g, "").replace(/;src;.*/g, "");
+        var srcConv = blTags.replace(/.*src:/g, "").replace(/;src;.*/g, "");
+        var shitSrc = srcConv.replace(/_>_.*/g, "");
+        var goodSrc = srcConv.replace(/.*_>_/g, "");
         document.getElementById("post_source").value =
             document.getElementById("post_source").value.replace(shitSrc, goodSrc);
+        
     }
+
     document.getElementById("post_tags").innerHTML =
         document.getElementById("post_tags").innerHTML + " ";
+    document.getElementsByTagName("input")[3].setAttribute("id", "SubmitButton");
+    
+    if (blTags.match(/im:.+;im;/g)) {
+        var myTagsImplyTag = blTags.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+        if (myTagsImplyTag.match(/\|/g)) {
+            var myTagsImplyTags = myTagsImplyTag.split("|");
+            for (i = 0; i < myTagsImplyTags.length; i++) {
+                var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
+                var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
+                implyTags(myTagsImplyTag1, myTagsImplyTag2);
+            }
+        } else {
+            var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
+            var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
+            implyTags(myTagsImplyTag1, myTagsImplyTag2);
+        }
+    }
+
+    if (blTags.match(/op:onload;op;/g)) {
+        function htmlDecode(input) {
+            var e = document.createElement('span');
+            e.innerHTML = input;
+            return e.childNodes[0].nodeValue;
+        }
+        
+        function simulateClickSubmit(element)
+        {
+            var oEvent = document.createEvent('MouseEvents');
+            oEvent.initMouseEvent("click", true, true, document.defaultView,
+            0, 0, 0, 0, 0, false, false, false, false, 0, element);
+            element.dispatchEvent(oEvent);
+        }
+        if (blTags.match(/op:onload;op;/g)) {
+            if (htmlDecode(document.getElementById("post_tags").innerHTML)
+            !== document.getElementById("post_tags").value) {
+                simulateClickSubmit(document.getElementById("SubmitButton"));
+            }
+        }
+        window.addEventListener("load", function() {
+            window.close();
+        });
+    }
+
+    function addTags(tagToAdd) {
+        var addTagMatchCases =
+            new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
+        if (!(document.getElementById("post_tags").value.match(addTagMatchCases))) {
+            document.getElementById("post_tags").value = document.getElementById("post_tags").value + " " + tagToAdd + " ";
+        }
+    }
+    
+    function implyTags(tagImplyFrom, tagImplyTo) {
+        var implyFromMatchCases =
+            new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
+        if (document.getElementById("post_tags").value.match(implyFromMatchCases)) {
+            addTags(tagImplyTo);
+        }
+    }
 }
 
 // --------------------------------------------------------------------
