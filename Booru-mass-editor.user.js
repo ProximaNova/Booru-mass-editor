@@ -907,19 +907,14 @@ if (window.location.href.match("page=post&s=list&tags=all") && window.location.h
 // ************************************ //
 // Individual image pages for Danbooru: //
 // ************************************ //
-// Mass add one tag to Danbooru (big fail if no favorite_tags cookie value)
+// Mass add one tag to Danbooru:
 if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
     // Somehow fails: document.getElementById("edit").style.display = "block";
     
     var MyTags = document.cookie.replace(/.*favorite_tags=/g, "").replace(/;.*/g, "");
-    
     var check = new RegExp(MyTags, 'g');
     
-    if (!(document.getElementById("post_tag_string").value.match(check))) {
-        document.getElementById("post_tag_string").value = document.getElementById("post_tag_string").value + MyTags + " ";
-    }
-
-    document.getElementsByTagName("input")[46].setAttribute("id", "SubmitButton");
+    document.getElementsByTagName("input")[48].setAttribute("id", "SubmitButton");
     document.getElementById("SubmitButton").style.width = "403px";
     document.getElementById("SubmitButton").style.height = "100px";
     document.getElementById("SubmitButton").style.fontSize = "20pt";
@@ -930,22 +925,28 @@ if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/dan
         return e.childNodes[0].nodeValue;
     }
     
-    function simulateClickSubmit(element)
-    {
-        var oEvent = document.createEvent('MouseEvents');
-        oEvent.initMouseEvent("click", true, true, document.defaultView,
-        0, 0, 0, 0, 0, false, false, false, false, 0, element);
-        element.dispatchEvent(oEvent);
+    if (!(MyTags.match(","))) {
+        if (!(document.getElementById("post_tag_string").value.match(check))) {
+            document.getElementById("post_tag_string").value = document.getElementById("post_tag_string").value + MyTags + " ";
+        }
+        
+        function simulateClickSubmit(element)
+        {
+            var oEvent = document.createEvent('MouseEvents');
+            oEvent.initMouseEvent("click", true, true, document.defaultView,
+            0, 0, 0, 0, 0, false, false, false, false, 0, element);
+            element.dispatchEvent(oEvent);
+        }
+        
+        if (htmlDecode(document.getElementById("post_tag_string").innerHTML) !==
+        document.getElementById("post_tag_string").value) {
+            simulateClickSubmit(document.getElementById("SubmitButton"));
+        }
+        
+        window.addEventListener("load", function() {
+            window.close();
+        });
     }
-    
-    if (htmlDecode(document.getElementById("post_tag_string").innerHTML) !==
-    document.getElementById("post_tag_string").value) {
-        simulateClickSubmit(document.getElementById("SubmitButton"));
-    }
-
-    window.addEventListener("load", function() {
-        window.close();
-    });
 }
 
 // ******************* //
@@ -1123,6 +1124,9 @@ if (window.location.href.match("anime-pictures.net")) {
 // ******************************************* //
 // Individual image pages for Sankaku Channel: //
 // ******************************************* //
+// Need 15 second cool-down found in Gelbooru section to prevent errors:
+  // "Bad gateway" or
+  // "429 Too many requests - please slow down..."
 if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
     var blTags = decodeURIComponent(document.cookie.replace(/expires=.+blacklisted_tags=/g, "")
                                                    .replace(/; locale=.*/g, ""));
