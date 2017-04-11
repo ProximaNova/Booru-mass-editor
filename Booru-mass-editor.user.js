@@ -13,6 +13,7 @@
 // @include       http://danbooru.donmai.us/*
 // @include       http://furry.booru.org/index.php*
 // @include       https://chan.sankakucomplex.com/*
+// @include       http://tbib.org/*
 // @grant         none
 // @noframes
 // ==/UserScript==
@@ -25,7 +26,7 @@
 // Individual image pages: //
 // *********************** //
 if (window.location.href.match("&id=") &&
-!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org)/))) {
+!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -903,6 +904,9 @@ if (window.location.href.match("page=post&s=list&tags=all") && window.location.h
     setTimeout(function(){ window.close(); }, 14000);
 }
 
+// ************************************ //
+// Individual image pages for Danbooru: //
+// ************************************ //
 // Mass add one tag to Danbooru (big fail if no favorite_tags cookie value)
 if (window.location.href.match(/posts\/\d+/g) && window.location.href.match(/danbooru\.donmai\.us/g)) {
     // Somehow fails: document.getElementById("edit").style.display = "block";
@@ -1194,13 +1198,20 @@ if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
     }
 }
 
+// ***************************************************** //
+// Individual image pages for The Big ImageBoard (TBIB): //
+// ***************************************************** //
+if (window.location.href.match(/tbib.org.index.php.page.post.s.view.id./)) {
+    document.getElementById("edit_form").style.display = "block";
+}
+
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
 // --------------------------------------------------------------------
 
 // Part 2:
 // From: http://www.arantius.com/misc/greasemonkey/linkify-plus.user.js
-// This should works on the whole booru but only works on the &id part:
+// This should work in the entire booru but only works in the &id part:
 // ==UserScript==
 // @name        Linkify Plus
 // @version     3.2
