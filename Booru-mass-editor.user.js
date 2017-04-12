@@ -891,7 +891,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
         }
     }
     if (window.location.href.match("gelbooru.com")) {
-        setTimeout(function(){ window.close(); }, 14000); //Math.floor((Math.random() * 80000) + 20000)
+        setTimeout(function(){ window.close(); }, 14000);
     } else if (window.location.href.match(/(xbooru.com|rule34.xxx|furry.booru.org)/)) {
         window.addEventListener("load", function() {
             window.close();
@@ -1180,8 +1180,9 @@ if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
                 simulateClickSubmit(document.getElementById("SubmitButton"));
             }
         }
+        
         window.addEventListener("load", function() {
-            window.close();
+            setTimeout(function(){ window.close(); }, 14000);
         });
     }
 
@@ -1207,6 +1208,9 @@ if (window.location.href.match("chan.sankakucomplex.com/post/show/")) {
 // ***************************************************** //
 if (window.location.href.match(/tbib.org.index.php.page.post.s.view.id./)) {
     document.getElementById("edit_form").style.display = "block";
+    
+    //todo: add links to hidden pages (pages not hidden at other Gelbooru-style boorus)
+    //todo: add re:;re; op:;op; im:;im; add:;add; and other stuff
 }
 
 // --------------------------------------------------------------------
