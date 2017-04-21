@@ -785,13 +785,10 @@ if (window.location.href.match("&id=")
     }
     
     function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
-        /// DOESNT F ING WORK: x_(artist) -> x
-        //var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\(").replace(/\)/g, "\)") + " ", "gi");
-        //var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\(").replace(/\)/g, "\)") + " ", "gi");
-        //var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\(").replace(/\)/g, "\)") + "$", "gi");
-        var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
-        var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
-        var replaceTagMatchCase3 = new RegExp(" " + tagToReplace + "$", "gi");
+        // Now works: x_(artist) -> x
+        var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
+        var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
+        var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + "$", "gi");
         if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
             document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
         }
