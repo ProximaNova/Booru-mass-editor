@@ -9,7 +9,7 @@
 // @include       http://anime-pictures.net/*
 // @include       http://xbooru.com/index.php*
 // @include       http://bboy.booru.org/index.php*
-// @include       http://gelbooru.com/index.php*
+// @include       https://gelbooru.com/index.php*
 // @include       http://danbooru.donmai.us/*
 // @include       http://furry.booru.org/index.php*
 // @include       https://chan.sankakucomplex.com/*
@@ -717,6 +717,18 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
+    if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/)) {
+        var imageSrc = document.getElementById("image").src
+        var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+        var imageSrcThumb = document.getElementById("image").src
+                    .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
+                    .replace(/\.jpeg/g, ".jpg");
+
+        document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML
+            .replace(/http...iqdb.org..url.http...img.xbooru.com.thumbnails.*thumbnail_.*" rel/g,
+                         "http://iqdb.org/?url=" + imageSrcThumb + "\" rel");
+    }
+        
     if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
         var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
                              document.getElementById("tags").value.replace(/ /g, "+") +
