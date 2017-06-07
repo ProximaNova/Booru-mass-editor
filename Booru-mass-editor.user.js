@@ -722,7 +722,7 @@ if (window.location.href.match("&id=")
         var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
         var imageSrcThumb = document.getElementById("image").src
                     .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
-                    .replace(/\.jpeg/g, ".jpg");
+                    .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
 
         document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML
             .replace(/http...iqdb.org..url.http...img.xbooru.com.thumbnails.*thumbnail_.*" rel/g,
