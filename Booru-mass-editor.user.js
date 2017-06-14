@@ -728,7 +728,7 @@ if (window.location.href.match("&id=")
             .replace(/http...iqdb.org..url.http...img.xbooru.com.thumbnails.*thumbnail_.*" rel/g,
                          "http://iqdb.org/?url=" + imageSrcThumb + "\" rel");
     }
-        
+
     if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
         var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
                              document.getElementById("tags").value.replace(/ /g, "+") +
@@ -912,10 +912,9 @@ if (window.location.href.match("&id=")
     } else {
         document.getElementById("tags").value = document.getElementById("tags").value + " ";
     }
-    
-    if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com")) {
-        setTimeout(function(){ window.close(); }, 14000);
-    }
+}
+if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com")) {
+    setTimeout(function(){ window.close(); }, 14000);
 }
 
 // ************************************ //
