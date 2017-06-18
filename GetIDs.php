@@ -65,17 +65,33 @@ function open_urls() {
 set_time_limit(999);
 
 $max_pages = isset($_GET['pids']) ? $_GET['pids'] : '';
-$booru_URL = isset($_GET['domain']) ? 'http://' . $_GET['domain'] .
-                                      '/index.php?page=post&s=list&tags=' . $_GET['tags'] : '';
-$booru_URL_domain = preg_replace('/(http:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $booru_URL);
+if (isset($_GET['domain']))
+{
+    if (strcmp("gelbooru",$_GET['domain']) == 0)
+    {
+        $booru_URL =
+            'https://' . $_GET['domain'] . '/index.php?page=post&s=list&tags=' . $_GET['tags'];
+    }
+    else
+    {
+        $booru_URL =
+            'http://' . $_GET['domain'] . '/index.php?page=post&s=list&tags=' . $_GET['tags'];
+    }
+}
+else
+{
+    $booru_URL = '';
+}
+$booru_URL_domain = preg_replace('/(https?:\/\/)([^\/]*)(.*&tags=.*)/i', '$2', $booru_URL);
 
 function get_links($url_domain, $url, $page_number) {
     $input = @file_get_contents($url);
     if ($url_domain == "rule34.xxx"
     || $url_domain == "xbooru.com"
-    || $url_domain == "gelbooru.com"
     || $url_domain == "furry.booru.org") {
         $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
+    } else if ($url_domain == "gelbooru.com") {
+        $regex = "<a [^>]* href=(\"??)..gelbooru.*==.*\?(\d+)\" alt.*(.*)<\/a>";
     } else {
         $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\">(.*)<\/a>";
     }
