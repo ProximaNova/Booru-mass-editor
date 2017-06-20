@@ -91,7 +91,7 @@ function get_links($url_domain, $url, $page_number) {
     || $url_domain == "furry.booru.org") {
         $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\" >(.*)<\/a>";
     } else if ($url_domain == "gelbooru.com") {
-        $regex = "<a [^>]* href=(\"??)..gelbooru.*==.*\?(\d+)\" alt.*(.*)<\/a>";
+        $regex = "<a [^>]* href=(\"??)..gelbooru.com.re.*=?=?\" ><img src=.*\?(\d+)\" alt.*(.*)<\/a>";
     } else {
         $regex = "<a [^>]* href=(\"??)index.php.page.post&amp;s=view&amp;id=([^\" >]*?)\">(.*)<\/a>";
     }
