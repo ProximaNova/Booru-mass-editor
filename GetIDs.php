@@ -122,7 +122,7 @@ function get_links($url_domain, $url, $page_number) {
 }
 
 if ($booru_URL_domain == "rule34.xxx" || $booru_URL_domain == "xbooru.com"
-|| $booru_URL_domain == "furry.booru.org") {
+|| $booru_URL_domain == "furry.booru.org" || $booru_URL_domain == "gelbooru.com") {
     for ($i = 0; $i < 42 * $max_pages; $i += 42) {
         $to_crawl = $booru_URL . "&pid=" . $i;
         get_links($booru_URL_domain, $to_crawl, ($i / 42) + 1);
