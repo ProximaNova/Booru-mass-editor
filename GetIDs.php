@@ -1,6 +1,13 @@
 <html>
 <body>
-<title>Crawl boorus for ID links</title>
+<title>Crawl boorus for ID links<?php echo isset($_GET['domain'])
+                                  ? 
+                                      ' - ' . $_GET['domain'] .
+                                      '--' .
+                                      str_replace(" ", "+", $_GET['tags'])
+                                  :
+                                      ''
+                                  ; ?></title>
 
 <style> a { text-decoration: none; } </style>
 
