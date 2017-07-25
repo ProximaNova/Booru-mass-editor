@@ -762,7 +762,7 @@ if (window.location.href.match("&id=")
     
     if (window.location.href.match(/gelbooru\.com/)) {
         document.body.style.background = "white";
-        document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML
+        document.getElementById("tag-list").innerHTML = document.getElementById("tag-list").innerHTML
             .replace(/<a href="index.php.*>Tag Merge<\/a>/g, "<a href='#' id='BgC'>Background check</a>");
         document.getElementById("BgC").addEventListener("click", backgc);
         function backgc() {
@@ -782,7 +782,8 @@ if (window.location.href.match("&id=")
     document.getElementsByName("submit")[0].style.fontSize = "20pt";
     document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
     
-    if (document.getElementsByClassName("tag-type-character").length == 0) {
+    if (document.getElementsByClassName("tag-type-character").length == 0
+    && (window.location.href.match(/(rule34.xxx|xbooru.com)/))) {
         document.getElementsByClassName("sidebar")[0].innerHTML =
             document.getElementsByClassName("sidebar")[0].innerHTML
             .replace(/<div(.*\n){2}function iCame\(c\)(.*\n){6}<li>.*alt="I came!".*\n.*<\/div>/g, "")
@@ -903,7 +904,7 @@ if (window.location.href.match("&id=")
             }
         }
         if (window.location.href.match("gelbooru.com")) {
-            setTimeout(function(){ window.close(); }, 14000);
+            setTimeout(function(){ window.close(); }, 13000);
         } else if (window.location.href.match(/(xbooru.com|rule34.xxx|furry.booru.org)/)) {
             window.addEventListener("load", function() {
                 window.close();
