@@ -12,7 +12,7 @@
 <style> a { text-decoration: none; } </style>
 
 <form action="<?php basename($_SERVER['SCRIPT_FILENAME']); ?>" method="get">
-    URL: <input type="text" id="url" size="100" placeholder="http://"
+    URL: <input autofocus type="text" id="url" size="100" placeholder="http://"
                 value="<?php echo isset($_GET['domain'])
                                   ? 
                                       'http://' . $_GET['domain'] .
