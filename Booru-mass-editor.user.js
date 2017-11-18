@@ -776,6 +776,16 @@ if (window.location.href.match("&id=")
                 document.body.style.background = "#E8F4F8";
             }
         }
+        //<thanks to="https://stackoverflow.com/questions/995168/textarea-to-resize-based-on-content-length">
+        var events =
+          "var ta = document.getElementById('tags');\
+          ta.addEventListener('keyup', function textAreaSize() {\
+              ta.style.height = '1px';\
+              ta.style.height = (25+ta.scrollHeight)+'px';\
+          });";
+        events += events.replace(/keyup/g, "load").replace(/ta.add/g, "window.add");
+        eval(events);
+        //</thanks>
     }
     document.getElementsByName("submit")[0].style.width = "403px";
     document.getElementsByName("submit")[0].style.height = "100px";
