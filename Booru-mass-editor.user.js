@@ -7,7 +7,7 @@
 // @include       http://safebooru.org/index.php*
 // @include       http://rule34.xxx/index.php*
 // @include       http://anime-pictures.net/*
-// @include       http://xbooru.com/index.php*
+// @include       https://xbooru.com/index.php*
 // @include       http://bboy.booru.org/index.php*
 // @include       https://gelbooru.com/index.php*
 // @include       http://danbooru.donmai.us/*
