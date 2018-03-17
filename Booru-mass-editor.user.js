@@ -14,6 +14,7 @@
 // @include       http://furry.booru.org/index.php*
 // @include       https://chan.sankakucomplex.com/*
 // @include       http://tbib.org/*
+// @include       https://realbooru.com/*
 // @grant         none
 // @noframes
 // ==/UserScript==
@@ -26,7 +27,7 @@
 // Individual image pages: //
 // *********************** //
 if (window.location.href.match("&id=") &&
-!(window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
+!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -715,7 +716,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 // Individual image pages for Gelbooru beta 0.2: //
 // ********************************************* //
 if (window.location.href.match("&id=")
-&& (window.location.href.match(/(rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
+&& (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
     if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/)) {
         var imageSrc = document.getElementById("image").src
