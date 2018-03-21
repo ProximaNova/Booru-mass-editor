@@ -23,9 +23,50 @@
        document.cookie = "expires=Thu, 01 Jan 2999 00:00:00 UTC";
 // }
 
-// *********************** //
-// Individual image pages: //
-// *********************** //
+// *************************************************** //
+// Common Gelbooru functions - Individual image pages: //
+// *************************************************** //
+if ((window.location.href.match("&id=")
+&&
+!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/)))
+||
+(window.location.href.match("&id=")
+&&
+(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))) {
+    function addTags(tagToAdd) {
+        var addTagMatchCases =
+            new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
+        if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
+            document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
+        }
+    }
+    function implyTags(tagImplyFrom, tagImplyTo) {
+        var implyFromMatchCases =
+            new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
+        if (document.getElementById("tags").value.match(implyFromMatchCases)) {
+            addTags(tagImplyTo);
+        }
+    }
+    function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
+        // Now works: x_(artist) -> x
+        var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
+        var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
+        var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + "$", "gi");
+        if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
+        }
+        if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
+        }
+        if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+        }
+    }
+}
+
+// ************************************** //
+// Old Gelbooru - Individual image pages: //
+// ************************************** //
 if (window.location.href.match("&id=") &&
 !(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
 // Part 1:
@@ -371,36 +412,6 @@ document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upl
 document.getElementById("source").value == "http://i-forge.net/imageboards/mass-upload" ||
 document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
-}
-
-//  10.0  Functions for adding and replacing tags:
-function addTags(tagToAdd) {
-    var addTagMatchCases =
-        new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
-    if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
-    }
-}
-function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
-    var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
-    var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
-    var replaceTagMatchCase3 = new RegExp(" " + tagToReplace + "$", "gi");
-    if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
-    }
-    if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
-    }
-    if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
-        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
-    }
-}
-function implyTags(tagImplyFrom, tagImplyTo) {
-    var implyFromMatchCases =
-        new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
-    if (document.getElementById("tags").value.match(implyFromMatchCases)) {
-        addTags(tagImplyTo);
-    }
 }
 
 //  11.0  Dealing with the "tagme" tag:
@@ -796,38 +807,6 @@ if (window.location.href.match("&id=")
         document.getElementsByClassName("sidebar")[0].innerHTML =
             document.getElementsByClassName("sidebar")[0].innerHTML
             .replace(/<div(.*\n){2}function iCame\(c\)(.*\n){6}<li>.*alt="I came!".*\n.*<\/div>/g, "")
-    }
-    
-    function addTags(tagToAdd) {
-        var addTagMatchCases =
-            new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
-        if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
-            document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
-        }
-    }
-    
-    function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
-        // Now works: x_(artist) -> x
-        var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
-        var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
-        var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + "$", "gi");
-        if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
-        }
-        if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
-        }
-        if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
-        }
-    }
-    
-    function implyTags(tagImplyFrom, tagImplyTo) {
-        var implyFromMatchCases =
-            new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
-        if (document.getElementById("tags").value.match(implyFromMatchCases)) {
-            addTags(tagImplyTo);
-        }
     }
     
     if (document.getElementById("tags").value.match(" ")) {
