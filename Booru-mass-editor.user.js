@@ -77,6 +77,18 @@ if ((window.location.href.match("&id=")
             implyTags(myTagsImplyTag1, myTagsImplyTag2);
         }
     }
+    function htmlDecode(input){
+        var e = document.createElement('span');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
+    function simulateClickSubmit(element)
+    {
+        var oEvent = document.createEvent('MouseEvents');
+        oEvent.initMouseEvent("click", true, true, document.defaultView,
+        0, 0, 0, 0, 0, false, false, false, false, 0, element);
+        element.dispatchEvent(oEvent);
+    }
 }
 
 // ************************************** //
@@ -639,19 +651,6 @@ window.addEventListener("load", function(e) {
 });
 
 //  19.0  Mass edit tags: submission of changes a second or less after the page loads (based on ("#my-tags")):
-
-function htmlDecode(input){
-    var e = document.createElement('span');
-    e.innerHTML = input;
-    return e.childNodes[0].nodeValue;
-}
-function simulateClickSubmit(element)
-{
-    var oEvent = document.createEvent('MouseEvents');
-    oEvent.initMouseEvent("click", true, true, document.defaultView,
-    0, 0, 0, 0, 0, false, false, false, false, 0, element);
-    element.dispatchEvent(oEvent);
-}
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> " +
                                   "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
@@ -855,20 +854,7 @@ if (window.location.href.match("&id=")
         }
     }
     
-    if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-        function htmlDecode(input){
-            var e = document.createElement('span');
-            e.innerHTML = input;
-            return e.childNodes[0].nodeValue;
-        }
-        
-        function simulateClickSubmit(element)
-        {
-            var oEvent = document.createEvent('MouseEvents');
-            oEvent.initMouseEvent("click", true, true, document.defaultView,
-            0, 0, 0, 0, 0, false, false, false, false, 0, element);
-            element.dispatchEvent(oEvent);
-        }
+    if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) { 
         if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
             if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
                 simulateClickSubmit(document.getElementById("SubmitButton"));
