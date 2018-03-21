@@ -62,6 +62,21 @@ if ((window.location.href.match("&id=")
             document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
         }
     }
+    if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
+        var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+        if (myTagsImplyTag.match(/\|/g)) {
+            var myTagsImplyTags = myTagsImplyTag.split("|");
+            for (i = 0; i < myTagsImplyTags.length; i++) {
+                var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
+                var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
+                implyTags(myTagsImplyTag1, myTagsImplyTag2);
+            }
+        } else {
+            var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
+            var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
+            implyTags(myTagsImplyTag1, myTagsImplyTag2);
+        }
+    }
 }
 
 // ************************************** //
@@ -545,22 +560,6 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
     var myTagsRming = false;
     var myTagsRmTagInfo = "";
 }
-// 13.4 Imply tags:
-if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
-    var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
-    if (myTagsImplyTag.match(/\|/g)) {
-        var myTagsImplyTags = myTagsImplyTag.split("|");
-        for (i = 0; i < myTagsImplyTags.length; i++) {
-            var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
-            var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
-            implyTags(myTagsImplyTag1, myTagsImplyTag2);
-        }
-    } else {
-        var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
-        var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
-        implyTags(myTagsImplyTag1, myTagsImplyTag2);
-    }
-}
 
 //  14.0  Move filename tags:
 if (document.getElementById("tags").value.match(/[^ ]+\.(jpe?g|png|gif)/g) &&
@@ -853,22 +852,6 @@ if (window.location.href.match("&id=")
             var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
             var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
             replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-        }
-    }
-    
-    if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
-        var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
-        if (myTagsImplyTag.match(/\|/g)) {
-            var myTagsImplyTags = myTagsImplyTag.split("|");
-            for (i = 0; i < myTagsImplyTags.length; i++) {
-                var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
-                var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
-                implyTags(myTagsImplyTag1, myTagsImplyTag2);
-            }
-        } else {
-            var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
-            var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
-            implyTags(myTagsImplyTag1, myTagsImplyTag2);
         }
     }
     
