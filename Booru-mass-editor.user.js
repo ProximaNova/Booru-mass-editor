@@ -33,6 +33,11 @@ if ((window.location.href.match("&id=")
 (window.location.href.match("&id=")
 &&
 (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))) {
+  
+    if (window.location.href.match("&id=") &&
+    !(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/)))
+        { var old = true; } else { var old = false; }
+
     function addTags(tagToAdd) {
         var addTagMatchCases =
             new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
@@ -62,6 +67,18 @@ if ((window.location.href.match("&id=")
             document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
         }
     }
+    function htmlDecode(input){
+        var e = document.createElement('span');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
+    function simulateClickSubmit(element)
+    {
+        var oEvent = document.createEvent('MouseEvents');
+        oEvent.initMouseEvent("click", true, true, document.defaultView,
+        0, 0, 0, 0, 0, false, false, false, false, 0, element);
+        element.dispatchEvent(oEvent);
+    }
     if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
         var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
         if (myTagsImplyTag.match(/\|/g)) {
@@ -77,18 +94,57 @@ if ((window.location.href.match("&id=")
             implyTags(myTagsImplyTag1, myTagsImplyTag2);
         }
     }
-    function htmlDecode(input){
-        var e = document.createElement('span');
-        e.innerHTML = input;
-        return e.childNodes[0].nodeValue;
+    
+    //  13.1  Replace tags (doesn't work very well with parentheses in the "My Tags"):
+    if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
+        if(old){var myTagsReplacing = true;}
+        var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+        if (myTagsReplaceTag.match(/\|/g)) {
+            var myTagsReplaceTags = myTagsReplaceTag.split("|");
+            if(old){var myTagsReplaceTagsLefts = [];
+            var myTagsReplaceTagsRights = [];}
+            for (i = 0; i < myTagsReplaceTags.length; i++) {
+                var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
+                var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
+                replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+                if(old){myTagsReplaceTagsLefts[i]  = myTagsReplaceTag1;
+                myTagsReplaceTagsRights[i] = myTagsReplaceTag2;}
+            }
+            if(old){var myTagsReplaceTagInfo = "<li><u>Replacing tags:</u><br>";
+            for (i = 0; i < myTagsReplaceTagsLefts.length; i++) {
+                if (myTagsReplaceTagsLefts.length == 2) {
+                    if (i == 0) {
+                        var twoReplacements = "and<br>";
+                    } else {
+                        var twoReplacements = "";
+                    }
+                    myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
+    			                myTagsReplaceTagsRights[i] + "</code> " + twoReplacements;
+                } else {
+                    if (i < myTagsReplaceTagsLefts.length - 2) {
+                        var gtTwoReplacements = ",<br>";
+                    } else if (i < myTagsReplaceTagsLefts.length - 1) {
+                        var gtTwoReplacements = ", and<br>";
+                    } else {
+                        var gtTwoReplacements = "";
+                    }
+                    myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
+    			                myTagsReplaceTagsRights[i] + "</code>" + gtTwoReplacements;
+                }
+            }
+            myTagsReplaceTagInfo += "</li>";}
+        } else {
+            var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
+            var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
+            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+            if(old){var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" +
+    	                           myTagsReplaceTag2 + "</code></li>";}
+        }
+    } else {
+        if(old){var myTagsReplacing = false;
+        var myTagsReplaceTagInfo = "";}
     }
-    function simulateClickSubmit(element)
-    {
-        var oEvent = document.createEvent('MouseEvents');
-        oEvent.initMouseEvent("click", true, true, document.defaultView,
-        0, 0, 0, 0, 0, false, false, false, false, 0, element);
-        element.dispatchEvent(oEvent);
-    }
+  
     //  Dealing with the "tagme" tag:
     //  Remove it if there is 10 other tags:
     if (document.getElementById("tags").value.match(" ")) {
@@ -478,55 +534,6 @@ if (imageSizeWidth == imageSizeHeight) {
 }
 
 //  13.0  TAGGING OPERATIONS (based on ("#my-tags")):
-//  13.1  Replace tags (doesn't work very well with parentheses in the "My Tags"):
-if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
-    var myTagsReplacing = true;
-    var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
-    if (myTagsReplaceTag.match(/\|/g)) {
-        var myTagsReplaceTags = myTagsReplaceTag.split("|");
-        var myTagsReplaceTagsLefts = [];
-        var myTagsReplaceTagsRights = [];
-        for (i = 0; i < myTagsReplaceTags.length; i++) {
-            var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
-            var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
-            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-            myTagsReplaceTagsLefts[i]  = myTagsReplaceTag1;
-            myTagsReplaceTagsRights[i] = myTagsReplaceTag2;
-        }
-        var myTagsReplaceTagInfo = "<li><u>Replacing tags:</u><br>";
-        for (i = 0; i < myTagsReplaceTagsLefts.length; i++) {
-            if (myTagsReplaceTagsLefts.length == 2) {
-                if (i == 0) {
-                    var twoReplacements = "and<br>";
-                } else {
-                    var twoReplacements = "";
-                }
-                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
-			                myTagsReplaceTagsRights[i] + "</code> " + twoReplacements;
-            } else {
-                if (i < myTagsReplaceTagsLefts.length - 2) {
-                    var gtTwoReplacements = ",<br>";
-                } else if (i < myTagsReplaceTagsLefts.length - 1) {
-                    var gtTwoReplacements = ", and<br>";
-                } else {
-                    var gtTwoReplacements = "";
-                }
-                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
-			                myTagsReplaceTagsRights[i] + "</code>" + gtTwoReplacements;
-            }
-        }
-        myTagsReplaceTagInfo += "</li>";
-    } else {
-        var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
-        var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
-        replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-        var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" +
-	                           myTagsReplaceTag2 + "</code></li>";
-    }
-} else {
-    var myTagsReplacing = false;
-    var myTagsReplaceTagInfo = "";
-}
 //  13.2  Add tags:
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAdding = true;
@@ -819,22 +826,6 @@ if (window.location.href.match("&id=")
             }
         } else {
             addTags(myTagsAddTags);
-        }
-    }
-    
-    if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
-        var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
-        if (myTagsReplaceTag.match(/\|/g)) {
-            var myTagsReplaceTags = myTagsReplaceTag.split("|");
-            for (i = 0; i < myTagsReplaceTags.length; i++) {
-                var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
-                var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
-                replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-            }
-        } else {
-            var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
-            var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
-            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
         }
     }
     
