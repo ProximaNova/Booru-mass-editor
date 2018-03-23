@@ -89,6 +89,22 @@ if ((window.location.href.match("&id=")
         0, 0, 0, 0, 0, false, false, false, false, 0, element);
         element.dispatchEvent(oEvent);
     }
+    //  Dealing with the "tagme" tag:
+    //  Remove it if there is 10 other tags:
+    if (document.getElementById("tags").value.match(" ")) {
+        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+        document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
+        document.getElementById("tags").value.match(/ /g).length >= 10) {
+            replaceTags("tagme", " ", "", "");
+        }
+    } else {
+    //  Add it (based on ("#my-tags")):
+        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+        document.getElementById("tags").value.match(/ /g).length <=
+        Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+            document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
+        }
+    }
 }
 
 // ************************************** //
@@ -441,23 +457,6 @@ document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
 
-//  11.0  Dealing with the "tagme" tag:
-//  11.1  Remove it if there is 10 other tags:
-if (document.getElementById("tags").value.match(" ")) {
-    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
-    document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
-    document.getElementById("tags").value.match(/ /g).length >= 10) {
-        replaceTags("tagme", " ", "", "");
-    }
-} else {
-//  11.2  Add it (based on ("#my-tags")):
-    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
-    document.getElementById("tags").value.match(/ /g).length <=
-    Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
-        document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
-    }
-}
-
 //  12.0  Add resolution tags:
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
     addTags("lowres");
@@ -805,21 +804,6 @@ if (window.location.href.match("&id=")
         document.getElementsByClassName("sidebar")[0].innerHTML =
             document.getElementsByClassName("sidebar")[0].innerHTML
             .replace(/<div(.*\n){2}function iCame\(c\)(.*\n){6}<li>.*alt="I came!".*\n.*<\/div>/g, "")
-    }
-    
-    if (document.getElementById("tags").value.match(" ")) {
-        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
-        document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
-        document.getElementById("tags").value.match(/ /g).length >= 10) {
-            replaceTags("tagme", " ", "", "");
-        }
-    } else {
-    //  11.2  Add it (based on ("#my-tags")):
-        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
-        document.getElementById("tags").value.match(/ /g).length <=
-        Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
-            document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
-        }
     }
     
     if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
