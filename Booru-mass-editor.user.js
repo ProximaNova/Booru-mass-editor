@@ -208,32 +208,40 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 //  2.0  Top notifications of parent/child and "resized":
-//  2.1  Display parent if viewing child and not "resized":
-if (parentID !== "" && imageSizeWidth < 800) {
-    document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
-    "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID +
-    "'><b>parent post</b></a>.</div><br><br>" +
-    document.getElementById("post-view").innerHTML;
+if ((parentID !== "" && (imageSizeWidth > 800 || imageSizeWidth < 800)) ||
+(parentID == "" && imageSizeWidth > 800)) {
+    var newItem = document.createElement("div");
+    newItem.style.background = "#f0f0f0";
+    newItem.style.padding = "10px";
+    newItem.style.textAlign = "center";
+    newItem.style.border = "3px solid #dadada";
+    newItem.style.marginBottom = "32px";
+    if ((parentID !== "" || parentID == "") && imageSizeWidth > 800) {
+        if (document.getElementById("post-view").innerHTML.match("<b>child posts</b>")) {
+            newItem.style.marginBottom = "16px";
+        }
+        newItem.innerHTML = "This image has been \"resized\"; however, if you copy or " +
+        "save it then it will be the full sized version. Click to expand and contract.";
+    }
+    if (parentID !== "" && imageSizeWidth < 800) {
+        newItem.innerHTML = "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" +
+        parentID + "'><b>parent post</b></a>.";
+    }
+    var list = document.getElementById("content");
+    list.insertBefore(newItem, list.childNodes[0]);
+    if (parentID !== "" && imageSizeWidth > 800) {
+        var newItem2 = document.createElement("div");
+        newItem2.style.background = "#f0f0f0";
+        newItem2.style.padding = "10px";
+        newItem2.style.textAlign = "center";
+        newItem2.style.border = "3px solid #dadada";
+        newItem2.style.marginBottom = "16px";
+        newItem2.innerHTML = "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" +
+        parentID + "'><b>parent post</b></a>.";
+        var list = document.getElementById("content");
+        list.insertBefore(newItem2, list.childNodes[0]);
+    }
 }
-//  2.2  Display parent if viewing child and "resized":
-else if (parentID !== "" && imageSizeWidth > 800) {
-    document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
-    "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID +
-    "'><b>parent post</b></a>.</div><br><div style='background: #f0f0f0; padding: 10px; text-align: " +
-    "center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or " +
-    "save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
-    document.getElementById("post-view").innerHTML;
-}
-//  2.3  Display "resized" when viewing parent:
-//else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
-//    document.getElementById("post-view").innerHTML =
-//    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
-//    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
-//    "version. Click to expand and contract.</div><br>" +
-//    document.getElementById("post-view").innerHTML;
-//}
 //  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
     var newItem = document.createElement("div");
