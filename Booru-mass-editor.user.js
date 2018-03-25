@@ -236,11 +236,18 @@ else if (parentID !== "" && imageSizeWidth > 800) {
 //}
 //  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
-    document.getElementById("post-view").innerHTML =
-    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
-    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
-    "version. Click to expand and contract.</div><br><br>" +
-    document.getElementById("post-view").innerHTML;
+    var newItem = document.createElement("div");
+    newItem.style.background = "#f0f0f0";
+    newItem.style.padding = "10px";
+    newItem.style.textAlign = "center";
+    newItem.style.border = "3px solid #dadada";
+    //32 px = 2 <br> (inspect element <br> then computer then scroll down to see line-height)
+    newItem.style.marginBottom = "32px";
+    newItem.appendChild(document.createTextNode("This image has been \"resized\"; however, if you copy " +
+                                                "or save it then it will be the full sized version. Cli" +
+                                                "ck to expand and contract."));
+    var list = document.getElementById("content");
+    list.insertBefore(newItem, list.childNodes[0]);
 }
 
 //  3.0  Improving $("#tag_list"):
