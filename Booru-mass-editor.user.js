@@ -416,11 +416,19 @@ function refreshMyTags(sep) {
     document.getElementById("my-tags").innerHTML = myTagsNew;
 }
 
+var c = document.getElementById("post-view").childNodes;
+for (i=c.length;i!=0;i--)
+{
+    if (i >= (c.length - 13) && i <= (c.length - 4))
+    {
+        var toDel = document.getElementById("post-view");
+        toDel.removeChild(toDel.childNodes[i]);
+    }
+}
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Removing:
-.replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
 .replace(/Parent<br>/g, "")
