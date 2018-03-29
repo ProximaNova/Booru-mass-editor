@@ -418,7 +418,7 @@ function refreshMyTags(sep) {
 
 var dnc = document.getElementById("note-container");
 dnc.removeChild(dnc.childNodes[4]);
-
+//
 var pvc = document.getElementById("post-view").childNodes;
 for (i=pvc.length;i!=0;i--)
 {
@@ -428,6 +428,14 @@ for (i=pvc.length;i!=0;i--)
         toDel.removeChild(toDel.childNodes[i]);
     }
 }
+//
+var isb = document.getElementsByTagName("input")[14]
+isb.setAttribute("id", "SubmitButton");
+isb.style.position = "relative";
+isb.style.top = "-80px";
+isb.style.width = "403px";
+isb.style.height = "100px";
+isb.style.fontSize = "20pt";
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
@@ -438,7 +446,6 @@ document.body.innerHTML
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
-.replace(/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g, "")
 .replace(/>Next Post</g, "><")
 .replace(/My Tags<br>/g, "<br>")
 .replace(/          Posted: .* <br>/g, "")
@@ -471,8 +478,6 @@ document.body.innerHTML
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/Previous Post<br>/g, "<br>")
-.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:" +
-         "403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " +
          "name='parent'")
