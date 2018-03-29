@@ -416,10 +416,13 @@ function refreshMyTags(sep) {
     document.getElementById("my-tags").innerHTML = myTagsNew;
 }
 
-var c = document.getElementById("post-view").childNodes;
-for (i=c.length;i!=0;i--)
+var dnc = document.getElementById("note-container");
+dnc.removeChild(dnc.childNodes[4]);
+
+var pvc = document.getElementById("post-view").childNodes;
+for (i=pvc.length;i!=0;i--)
 {
-    if (i >= (c.length - 13) && i <= (c.length - 4))
+    if (i >= (pvc.length - 13) && i <= (pvc.length - 4))
     {
         var toDel = document.getElementById("post-view");
         toDel.removeChild(toDel.childNodes[i]);
@@ -465,7 +468,6 @@ document.body.innerHTML
          "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
          "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
          "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
-.replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/Previous Post<br>/g, "<br>")
