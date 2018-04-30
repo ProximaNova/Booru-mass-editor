@@ -23,149 +23,9 @@
        document.cookie = "expires=Thu, 01 Jan 2999 00:00:00 UTC";
 // }
 
-// *************************************************** //
-// Common Gelbooru functions - Individual image pages: //
-// *************************************************** //
-if ((window.location.href.match("&id=")
-&&
-!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/)))
-||
-(window.location.href.match("&id=")
-&&
-(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))) {
-  
-    if (window.location.href.match("&id=") &&
-    !(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/)))
-        { var old = true; } else { var old = false; }
-
-    function addTags(tagToAdd) {
-        var addTagMatchCases =
-            new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
-        if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
-            document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
-        }
-    }
-    function implyTags(tagImplyFrom, tagImplyTo) {
-        var implyFromMatchCases =
-            new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
-        if (document.getElementById("tags").value.match(implyFromMatchCases)) {
-            addTags(tagImplyTo);
-        }
-    }
-    function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
-        // Now works: x_(artist) -> x
-        var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
-        var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
-        var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + "$", "gi");
-        if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
-        }
-        if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
-        }
-        if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
-            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
-        }
-    }
-    function htmlDecode(input){
-        var e = document.createElement('span');
-        e.innerHTML = input;
-        return e.childNodes[0].nodeValue;
-    }
-    function simulateClickSubmit(element)
-    {
-        var oEvent = document.createEvent('MouseEvents');
-        oEvent.initMouseEvent("click", true, true, document.defaultView,
-        0, 0, 0, 0, 0, false, false, false, false, 0, element);
-        element.dispatchEvent(oEvent);
-    }
-    if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
-        var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
-        if (myTagsImplyTag.match(/\|/g)) {
-            var myTagsImplyTags = myTagsImplyTag.split("|");
-            for (i = 0; i < myTagsImplyTags.length; i++) {
-                var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
-                var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
-                implyTags(myTagsImplyTag1, myTagsImplyTag2);
-            }
-        } else {
-            var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
-            var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
-            implyTags(myTagsImplyTag1, myTagsImplyTag2);
-        }
-    }
-    
-    //  13.1  Replace tags (doesn't work very well with parentheses in the "My Tags"):
-    if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
-        if(old){var myTagsReplacing = true;}
-        var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
-        if (myTagsReplaceTag.match(/\|/g)) {
-            var myTagsReplaceTags = myTagsReplaceTag.split("|");
-            if(old){var myTagsReplaceTagsLefts = [];
-            var myTagsReplaceTagsRights = [];}
-            for (i = 0; i < myTagsReplaceTags.length; i++) {
-                var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
-                var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
-                replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-                if(old){myTagsReplaceTagsLefts[i]  = myTagsReplaceTag1;
-                myTagsReplaceTagsRights[i] = myTagsReplaceTag2;}
-            }
-            if(old){var myTagsReplaceTagInfo = "<li><u>Replacing tags:</u><br>";
-            for (i = 0; i < myTagsReplaceTagsLefts.length; i++) {
-                if (myTagsReplaceTagsLefts.length == 2) {
-                    if (i == 0) {
-                        var twoReplacements = "and<br>";
-                    } else {
-                        var twoReplacements = "";
-                    }
-                    myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
-    			                myTagsReplaceTagsRights[i] + "</code> " + twoReplacements;
-                } else {
-                    if (i < myTagsReplaceTagsLefts.length - 2) {
-                        var gtTwoReplacements = ",<br>";
-                    } else if (i < myTagsReplaceTagsLefts.length - 1) {
-                        var gtTwoReplacements = ", and<br>";
-                    } else {
-                        var gtTwoReplacements = "";
-                    }
-                    myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
-    			                myTagsReplaceTagsRights[i] + "</code>" + gtTwoReplacements;
-                }
-            }
-            myTagsReplaceTagInfo += "</li>";}
-        } else {
-            var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
-            var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
-            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
-            if(old){var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" +
-    	                           myTagsReplaceTag2 + "</code></li>";}
-        }
-    } else {
-        if(old){var myTagsReplacing = false;
-        var myTagsReplaceTagInfo = "";}
-    }
-  
-    //  Dealing with the "tagme" tag:
-    //  Remove it if there is 10 other tags:
-    if (document.getElementById("tags").value.match(" ")) {
-        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
-        document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
-        document.getElementById("tags").value.match(/ /g).length >= 10) {
-            replaceTags("tagme", " ", "", "");
-        }
-    } else {
-    //  Add it (based on ("#my-tags")):
-        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
-        document.getElementById("tags").value.match(/ /g).length <=
-        Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
-            document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
-        }
-    }
-}
-
-// ************************************** //
-// Old Gelbooru - Individual image pages: //
-// ************************************** //
+// *********************** //
+// Individual image pages: //
+// *********************** //
 if (window.location.href.match("&id=") &&
 !(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
 // Part 1:
@@ -208,54 +68,39 @@ if (document.getElementById("tags").value.match(" ")) {
 }
 
 //  2.0  Top notifications of parent/child and "resized":
-if ((parentID !== "" && (imageSizeWidth > 800 || imageSizeWidth < 800)) ||
-(parentID == "" && imageSizeWidth > 800)) {
-    var newItem = document.createElement("div");
-    newItem.style.background = "#f0f0f0";
-    newItem.style.padding = "10px";
-    newItem.style.textAlign = "center";
-    newItem.style.border = "3px solid #dadada";
-    newItem.style.marginBottom = "32px";
-    if ((parentID !== "" || parentID == "") && imageSizeWidth > 800) {
-        if (document.getElementById("post-view").innerHTML.match("<b>child posts</b>")) {
-            newItem.style.marginBottom = "16px";
-        }
-        newItem.innerHTML = "This image has been \"resized\"; however, if you copy or " +
-        "save it then it will be the full sized version. Click to expand and contract.";
-    }
-    if (parentID !== "" && imageSizeWidth < 800) {
-        newItem.innerHTML = "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" +
-        parentID + "'><b>parent post</b></a>.";
-    }
-    var list = document.getElementById("content");
-    list.insertBefore(newItem, list.childNodes[0]);
-    if (parentID !== "" && imageSizeWidth > 800) {
-        var newItem2 = document.createElement("div");
-        newItem2.style.background = "#f0f0f0";
-        newItem2.style.padding = "10px";
-        newItem2.style.textAlign = "center";
-        newItem2.style.border = "3px solid #dadada";
-        newItem2.style.marginBottom = "16px";
-        newItem2.innerHTML = "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" +
-        parentID + "'><b>parent post</b></a>.";
-        var list = document.getElementById("content");
-        list.insertBefore(newItem2, list.childNodes[0]);
-    }
+//  2.1  Display parent if viewing child and not "resized":
+if (parentID !== "" && imageSizeWidth < 800) {
+    document.getElementById("post-view").innerHTML =
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID +
+    "'><b>parent post</b></a>.</div><br><br>" +
+    document.getElementById("post-view").innerHTML;
 }
+//  2.2  Display parent if viewing child and "resized":
+else if (parentID !== "" && imageSizeWidth > 800) {
+    document.getElementById("post-view").innerHTML =
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This post has a <a href='index.php?page=post&amp;s=list&amp;tags=parent:" + parentID +
+    "'><b>parent post</b></a>.</div><br><div style='background: #f0f0f0; padding: 10px; text-align: " +
+    "center; border: 3px solid #dadada;'>This image has been \"resized\"; however, if you copy or " +
+    "save it then it will be the full sized version. Click to expand and contract.</div><br><br>" +
+    document.getElementById("post-view").innerHTML;
+}
+//  2.3  Display "resized" when viewing parent:
+//else if (parentID == "" && imageSizeWidth > 800 && document.getElementById("post-view").match("<b>child posts</b>")) {
+//    document.getElementById("post-view").innerHTML =
+//    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+//    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
+//    "version. Click to expand and contract.</div><br>" +
+//    document.getElementById("post-view").innerHTML;
+//}
 //  2.4  Display "resized" if no parent/child:
 else if (parentID == "" && imageSizeWidth > 800) {
-    var newItem = document.createElement("div");
-    newItem.style.background = "#f0f0f0";
-    newItem.style.padding = "10px";
-    newItem.style.textAlign = "center";
-    newItem.style.border = "3px solid #dadada";
-    //32 px = 2 <br> (inspect element <br> then computer then scroll down to see line-height)
-    newItem.style.marginBottom = "32px";
-    newItem.appendChild(document.createTextNode("This image has been \"resized\"; however, if you copy " +
-                                                "or save it then it will be the full sized version. Cli" +
-                                                "ck to expand and contract."));
-    var list = document.getElementById("content");
-    list.insertBefore(newItem, list.childNodes[0]);
+    document.getElementById("post-view").innerHTML =
+    "<div style='background: #f0f0f0; padding: 10px; text-align: center; border: 3px solid #dadada;'>" +
+    "This image has been \"resized\"; however, if you copy or save it then it will be the full sized " +
+    "version. Click to expand and contract.</div><br><br>" +
+    document.getElementById("post-view").innerHTML;
 }
 
 //  3.0  Improving $("#tag_list"):
@@ -416,36 +261,18 @@ function refreshMyTags(sep) {
     document.getElementById("my-tags").innerHTML = myTagsNew;
 }
 
-var dnc = document.getElementById("note-container");
-dnc.removeChild(dnc.childNodes[4]);
-//
-var pvc = document.getElementById("post-view").childNodes;
-for (i=pvc.length;i!=0;i--)
-{
-    if (i >= (pvc.length - 13) && i <= (pvc.length - 4))
-    {
-        var toDel = document.getElementById("post-view");
-        toDel.removeChild(toDel.childNodes[i]);
-    }
-}
-//
-var isb = document.getElementsByTagName("input")[14]
-isb.setAttribute("id", "SubmitButton");
-isb.style.position = "relative";
-isb.style.top = "-80px";
-isb.style.width = "403px";
-isb.style.height = "100px";
-isb.style.fontSize = "20pt";
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Removing:
+.replace(/<b>Score<\/b>.*Report post.<\/a>/g, "")
 .replace(/Source<br>/g, "")
 .replace(/Title<br>/g, "")
 .replace(/Parent<br>/g, "")
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
 .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
+.replace(/Don't like these ads\? Want em removed or want to donate to booru.org\? Check out our Patreon!/g, "")
 .replace(/>Next Post</g, "><")
 .replace(/My Tags<br>/g, "<br>")
 .replace(/          Posted: .* <br>/g, "")
@@ -475,9 +302,12 @@ document.body.innerHTML
          "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
          "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
          "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
+.replace(/<br \/><p id="note-count">/g, "<p id='note-count'>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/Previous Post<br>/g, "<br>")
+.replace(/<input name="submit" value="Save changes" type="submit">/g, "<input id='SubmitButton' style='position:relative;top:-80px;width:" +
+         "403px;height:100px;font-size:20pt;' name='submit' value='Save changes' type='submit'>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " +
          "name='parent'")
@@ -543,6 +373,53 @@ document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
 }
 
+//  10.0  Functions for adding and replacing tags:
+function addTags(tagToAdd) {
+    var addTagMatchCases =
+        new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
+    if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
+    }
+}
+function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
+    var replaceTagMatchCase1 = new RegExp(" " + tagToReplace + " ", "gi");
+    var replaceTagMatchCase2 = new RegExp("^" + tagToReplace + " ", "gi");
+    var replaceTagMatchCase3 = new RegExp(" " + tagToReplace + "$", "gi");
+    if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
+    }
+    if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
+    }
+    if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
+        document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+    }
+}
+function implyTags(tagImplyFrom, tagImplyTo) {
+    var implyFromMatchCases =
+        new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
+    if (document.getElementById("tags").value.match(implyFromMatchCases)) {
+        addTags(tagImplyTo);
+    }
+}
+
+//  11.0  Dealing with the "tagme" tag:
+//  11.1  Remove it if there is 10 other tags:
+if (document.getElementById("tags").value.match(" ")) {
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+    document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
+    document.getElementById("tags").value.match(/ /g).length >= 10) {
+        replaceTags("tagme", " ", "", "");
+    }
+} else {
+//  11.2  Add it (based on ("#my-tags")):
+    if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+    document.getElementById("tags").value.match(/ /g).length <=
+    Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+        document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
+    }
+}
+
 //  12.0  Add resolution tags:
 if (imageSizeWidth <= 500 && imageSizeHeight <= 500 && imageSrcExt !== "GIF") {
     addTags("lowres");
@@ -564,6 +441,55 @@ if (imageSizeWidth == imageSizeHeight) {
 }
 
 //  13.0  TAGGING OPERATIONS (based on ("#my-tags")):
+//  13.1  Replace tags (doesn't work very well with parentheses in the "My Tags"):
+if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
+    var myTagsReplacing = true;
+    var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+    if (myTagsReplaceTag.match(/\|/g)) {
+        var myTagsReplaceTags = myTagsReplaceTag.split("|");
+        var myTagsReplaceTagsLefts = [];
+        var myTagsReplaceTagsRights = [];
+        for (i = 0; i < myTagsReplaceTags.length; i++) {
+            var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
+            var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
+            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+            myTagsReplaceTagsLefts[i]  = myTagsReplaceTag1;
+            myTagsReplaceTagsRights[i] = myTagsReplaceTag2;
+        }
+        var myTagsReplaceTagInfo = "<li><u>Replacing tags:</u><br>";
+        for (i = 0; i < myTagsReplaceTagsLefts.length; i++) {
+            if (myTagsReplaceTagsLefts.length == 2) {
+                if (i == 0) {
+                    var twoReplacements = "and<br>";
+                } else {
+                    var twoReplacements = "";
+                }
+                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
+			                myTagsReplaceTagsRights[i] + "</code> " + twoReplacements;
+            } else {
+                if (i < myTagsReplaceTagsLefts.length - 2) {
+                    var gtTwoReplacements = ",<br>";
+                } else if (i < myTagsReplaceTagsLefts.length - 1) {
+                    var gtTwoReplacements = ", and<br>";
+                } else {
+                    var gtTwoReplacements = "";
+                }
+                myTagsReplaceTagInfo += "<code>" + myTagsReplaceTagsLefts[i] + "</code> &rarr; <code>" +
+			                myTagsReplaceTagsRights[i] + "</code>" + gtTwoReplacements;
+            }
+        }
+        myTagsReplaceTagInfo += "</li>";
+    } else {
+        var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
+        var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
+        replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+        var myTagsReplaceTagInfo = "<li><u>Replacing:</u><br><code>" + myTagsReplaceTag1 + "</code> &rarr; <code>" +
+	                           myTagsReplaceTag2 + "</code></li>";
+    }
+} else {
+    var myTagsReplacing = false;
+    var myTagsReplaceTagInfo = "";
+}
 //  13.2  Add tags:
 if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
     var myTagsAdding = true;
@@ -607,6 +533,22 @@ if (document.getElementById("my-tags").textContent.match(/rm:.*;rm;/g)) {
 } else {
     var myTagsRming = false;
     var myTagsRmTagInfo = "";
+}
+// 13.4 Imply tags:
+if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
+    var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+    if (myTagsImplyTag.match(/\|/g)) {
+        var myTagsImplyTags = myTagsImplyTag.split("|");
+        for (i = 0; i < myTagsImplyTags.length; i++) {
+            var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
+            var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
+            implyTags(myTagsImplyTag1, myTagsImplyTag2);
+        }
+    } else {
+        var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
+        var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
+        implyTags(myTagsImplyTag1, myTagsImplyTag2);
+    }
 }
 
 //  14.0  Move filename tags:
@@ -687,6 +629,19 @@ window.addEventListener("load", function(e) {
 });
 
 //  19.0  Mass edit tags: submission of changes a second or less after the page loads (based on ("#my-tags")):
+
+function htmlDecode(input){
+    var e = document.createElement('span');
+    e.innerHTML = input;
+    return e.childNodes[0].nodeValue;
+}
+function simulateClickSubmit(element)
+{
+    var oEvent = document.createEvent('MouseEvents');
+    oEvent.initMouseEvent("click", true, true, document.defaultView,
+    0, 0, 0, 0, 0, false, false, false, false, 0, element);
+    element.dispatchEvent(oEvent);
+}
 if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
     var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> " +
                                   "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
@@ -763,6 +718,18 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
+    if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/)) {
+        var imageSrc = document.getElementById("image").src
+        var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+        var imageSrcThumb = document.getElementById("image").src
+                    .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
+                    .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
+
+        document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML
+            .replace(/http...iqdb.org..url.http...img.xbooru.com.thumbnails.*thumbnail_.*" rel/g,
+                         "http://iqdb.org/?url=" + imageSrcThumb + "\" rel");
+    }
+
     if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
         var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
                              document.getElementById("tags").value.replace(/ /g, "+") +
@@ -831,6 +798,53 @@ if (window.location.href.match("&id=")
             .replace(/<div(.*\n){2}function iCame\(c\)(.*\n){6}<li>.*alt="I came!".*\n.*<\/div>/g, "")
     }
     
+    function addTags(tagToAdd) {
+        var addTagMatchCases =
+            new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
+        if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
+            document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
+        }
+    }
+    
+    function replaceTags(tagToReplace, mc1to, mc2to, mc3to) {
+        // Now works: x_(artist) -> x
+        var replaceTagMatchCase1 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
+        var replaceTagMatchCase2 = new RegExp("^" + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + " ", "gi");
+        var replaceTagMatchCase3 = new RegExp(" " + tagToReplace.replace(/\(/g, "\\(").replace(/\)/g, "\\)") + "$", "gi");
+        if (document.getElementById("tags").value.match(replaceTagMatchCase1)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase1, mc1to);
+        }
+        if (document.getElementById("tags").value.match(replaceTagMatchCase2)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase2, mc2to);
+        }
+        if (document.getElementById("tags").value.match(replaceTagMatchCase3)) {
+            document.getElementById("tags").value = document.getElementById("tags").value.replace(replaceTagMatchCase3, mc3to);
+        }
+    }
+    
+    function implyTags(tagImplyFrom, tagImplyTo) {
+        var implyFromMatchCases =
+            new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
+        if (document.getElementById("tags").value.match(implyFromMatchCases)) {
+            addTags(tagImplyTo);
+        }
+    }
+    
+    if (document.getElementById("tags").value.match(" ")) {
+        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+        document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
+        document.getElementById("tags").value.match(/ /g).length >= 10) {
+            replaceTags("tagme", " ", "", "");
+        }
+    } else {
+    //  11.2  Add it (based on ("#my-tags")):
+        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+        document.getElementById("tags").value.match(/ /g).length <=
+        Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+            document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
+        }
+    }
+    
     if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
         var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
         if (myTagsAddTag.match("|")) {
@@ -847,7 +861,52 @@ if (window.location.href.match("&id=")
         }
     }
     
-    if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) { 
+    if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
+        var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+        if (myTagsReplaceTag.match(/\|/g)) {
+            var myTagsReplaceTags = myTagsReplaceTag.split("|");
+            for (i = 0; i < myTagsReplaceTags.length; i++) {
+                var myTagsReplaceTag1 = myTagsReplaceTags[i].replace(/_>_.*/g, "");
+                var myTagsReplaceTag2 = myTagsReplaceTags[i].replace(/.*_>_/g, "");
+                replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+            }
+        } else {
+            var myTagsReplaceTag1 = myTagsReplaceTag.replace(/_>_.*/g, "");
+            var myTagsReplaceTag2 = myTagsReplaceTag.replace(/.*_>_/g, "");
+            replaceTags(myTagsReplaceTag1, " " + myTagsReplaceTag2 + " ", myTagsReplaceTag2 + " ", " " + myTagsReplaceTag2);
+        }
+    }
+    
+    if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
+        var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+        if (myTagsImplyTag.match(/\|/g)) {
+            var myTagsImplyTags = myTagsImplyTag.split("|");
+            for (i = 0; i < myTagsImplyTags.length; i++) {
+                var myTagsImplyTag1 = myTagsImplyTags[i].replace(/_>_.*/g, "");
+                var myTagsImplyTag2 = myTagsImplyTags[i].replace(/.*_>_/g, "");
+                implyTags(myTagsImplyTag1, myTagsImplyTag2);
+            }
+        } else {
+            var myTagsImplyTag1 = myTagsImplyTag.replace(/_>_.*/g, "");
+            var myTagsImplyTag2 = myTagsImplyTag.replace(/.*_>_/g, "");
+            implyTags(myTagsImplyTag1, myTagsImplyTag2);
+        }
+    }
+    
+    if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
+        function htmlDecode(input){
+            var e = document.createElement('span');
+            e.innerHTML = input;
+            return e.childNodes[0].nodeValue;
+        }
+        
+        function simulateClickSubmit(element)
+        {
+            var oEvent = document.createEvent('MouseEvents');
+            oEvent.initMouseEvent("click", true, true, document.defaultView,
+            0, 0, 0, 0, 0, false, false, false, false, 0, element);
+            element.dispatchEvent(oEvent);
+        }
         if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
             if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
                 simulateClickSubmit(document.getElementById("SubmitButton"));
