@@ -1,0 +1,8 @@
+// Delete 0 comments statement
+
+let e = document.getElementById('ci');
+e.style.display = "none";
+e.previousSibling.textContent = '';
+e.nextSiblings().forEach(function(node,index) {
+if (index < 3) node.remove();
+});
