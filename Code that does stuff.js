@@ -27,3 +27,18 @@ let commentsLink = document.getElementById('ci');
 commentsLink.nextSiblings().forEach(function(node,index) {
     if (index < 3) node.remove();
 })
+
+
+
+
+try {
+    let commentsLink = document.getElementById('ci');
+//if (commentsLink.innerHTML == "(0 hidden)" && commentsLink.previousSibling.textContent == "0 comment")
+//{
+  commentsLink.style.display = "none";
+  commentsLink.previousSibling.textContent = '';
+//}
+commentsLink.nextSiblings().forEach(function(node,index) {
+    if (index < 3) node.remove();
+})
+} catch(error) { console.log(error); }
