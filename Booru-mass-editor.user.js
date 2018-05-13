@@ -428,7 +428,7 @@ for (i=pvc.length;i!=0;i--)
         toDel.removeChild(toDel.childNodes[i]);
     }
 }
-//
+// format submit button for edit tags
 var isb = document.getElementsByTagName("input")[14]
 isb.setAttribute("id", "SubmitButton");
 isb.style.position = "relative";
@@ -444,10 +444,9 @@ if (commentsLink.innerHTML == " (0 hidden)" && commentsLink.previousSibling.text
     commentsLink.style.display = "none";
     commentsLink.previousSibling.textContent = '';
 }
-commentsLink.nextSiblings().forEach(function(node,index) {
-    if (index < 3) node.remove();
-})
-    alert("This userscript works in Google Chrome but not Mozilla Firefox (all code after this in Firefox does not execute).");
+commentsLink.nextSibling.nextSibling.nextSibling.remove();
+commentsLink.nextSibling.nextSibling.remove();
+commentsLink.nextSibling.remove();
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
