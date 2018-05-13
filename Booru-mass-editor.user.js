@@ -436,6 +436,18 @@ isb.style.top = "-80px";
 isb.style.width = "403px";
 isb.style.height = "100px";
 isb.style.fontSize = "20pt";
+// Delete 0 comments statement
+// = .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
+let commentsLink = document.getElementById('ci');
+if (commentsLink.innerHTML == " (0 hidden)" && commentsLink.previousSibling.textContent == "0 comment")
+{
+    commentsLink.style.display = "none";
+    commentsLink.previousSibling.textContent = '';
+}
+commentsLink.nextSiblings().forEach(function(node,index) {
+    if (index < 3) node.remove();
+})
+    alert("This userscript works in Google Chrome but not Mozilla Firefox (all code after this in Firefox does not execute).");
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
@@ -445,7 +457,6 @@ document.body.innerHTML
 .replace(/Parent<br>/g, "")
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
-.replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
 .replace(/>Next Post</g, "><")
 .replace(/My Tags<br>/g, "<br>")
 .replace(/          Posted: .* <br>/g, "")
