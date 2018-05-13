@@ -428,7 +428,7 @@ for (i=pvc.length;i!=0;i--)
         toDel.removeChild(toDel.childNodes[i]);
     }
 }
-// format submit button for edit tags
+//
 var isb = document.getElementsByTagName("input")[14]
 isb.setAttribute("id", "SubmitButton");
 isb.style.position = "relative";
@@ -441,25 +441,55 @@ isb.style.fontSize = "20pt";
 let commentsLink = document.getElementById('ci');
 if (commentsLink.innerHTML == " (0 hidden)" && commentsLink.previousSibling.textContent == "0 comment")
 {
+    //These could both be removed by using .remove()
     commentsLink.style.display = "none";
     commentsLink.previousSibling.textContent = '';
 }
 commentsLink.nextSibling.nextSibling.nextSibling.remove();
 commentsLink.nextSibling.nextSibling.remove();
 commentsLink.nextSibling.remove();
+// Delete Source<br> = .replace(/Source<br>/g, "")
+document.getElementById('source').previousSibling.previousSibling.previousSibling.remove();
+document.getElementById('source').previousSibling.previousSibling.remove();
+document.getElementById('source').previousSibling.remove();
+// Delete Title<br> = .replace(/Title<br>/g, "")
+document.getElementById('title').previousSibling.previousSibling.previousSibling.remove();
+document.getElementById('title').previousSibling.previousSibling.remove();
+document.getElementById('title').previousSibling.remove();
+// Delete Parent<br> = .replace(/Parent<br>/g, "")
+document.getElementsByName('parent')[0].previousSibling.previousSibling.previousSibling.remove();
+document.getElementsByName('parent')[0].previousSibling.previousSibling.remove();
+document.getElementsByName('parent')[0].previousSibling.remove();
+// Delete Next Post = .replace(/>Next Post</g, "><")
+document.getElementById('next_post').previousSibling.previousSibling.previousSibling.remove();
+// Delete My Tags = .replace(/My Tags<br>/g, "<br>")
+document.getElementById('my-tags').previousSibling.previousSibling.previousSibling.remove();
+// Delete blank source = .replace(/          Source:  <br>/g, "")
+/*if (document.getElementsByTagName('strong')[1]
+.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling
+.nextSibling.textContent == "\n          Source:  ")
+{
+    document.getElementsByTagName('strong')[1]
+    .nextSibling.nextSibling.nextSibling //3
+    .nextSibling.nextSibling.nextSibling //6
+    .nextSibling.nextSibling.nextSibling //9
+    .nextSibling.nextSibling.remove(); //rm 11
+    document.getElementsByTagName('strong')[1]
+    .nextSibling.nextSibling.nextSibling //3
+    .nextSibling.nextSibling.nextSibling //6
+    .nextSibling.nextSibling.nextSibling //9
+    .nextSibling.remove(); //rm 10
+}*/
+
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Removing:
-.replace(/Source<br>/g, "")
-.replace(/Title<br>/g, "")
-.replace(/Parent<br>/g, "")
 .replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g, "")
 .replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
-.replace(/>Next Post</g, "><")
-.replace(/My Tags<br>/g, "<br>")
 .replace(/          Posted: .* <br>/g, "")
-.replace(/          Source:  <br>/g, "")
 //  5.2  Replacing:
 .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 .replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
