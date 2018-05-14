@@ -465,33 +465,51 @@ document.getElementById('next_post').previousSibling.previousSibling.previousSib
 // Delete My Tags = .replace(/My Tags<br>/g, "<br>")
 document.getElementById('my-tags').previousSibling.previousSibling.previousSibling.remove();
 // Delete blank source = .replace(/          Source:  <br>/g, "")
-/*if (document.getElementsByTagName('strong')[1]
-.nextSibling.nextSibling.nextSibling
-.nextSibling.nextSibling.nextSibling
-.nextSibling.nextSibling.nextSibling
-.nextSibling.textContent == "\n          Source:  ")
+if (document.getElementsByTagName('strong')[1]
+.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.textContent == "\n          Source:  ")
 {
     document.getElementsByTagName('strong')[1]
-    .nextSibling.nextSibling.nextSibling //3
-    .nextSibling.nextSibling.nextSibling //6
-    .nextSibling.nextSibling.nextSibling //9
-    .nextSibling.nextSibling.remove(); //rm 11
+    .nextSibling.nextSibling.nextSibling/*3*/.nextSibling.nextSibling.nextSibling//6
+    .nextSibling.nextSibling.nextSibling/*9*/.nextSibling.nextSibling.remove();//rm 11
     document.getElementsByTagName('strong')[1]
-    .nextSibling.nextSibling.nextSibling //3
-    .nextSibling.nextSibling.nextSibling //6
-    .nextSibling.nextSibling.nextSibling //9
-    .nextSibling.remove(); //rm 10
-}*/
+    .nextSibling.nextSibling.nextSibling/*3*/.nextSibling.nextSibling.nextSibling//6
+    .nextSibling.nextSibling.nextSibling/*9*/.nextSibling.remove();//rm 10
+}
+// For moving the upload data text = .replace(/          Posted: .* <br>/g, "")
+//document.getElementsByTagName('strong')[1]
+//.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 4*/
+//document.getElementsByTagName('strong')[1]
+//.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 5*/
+
+//Duplicate info removal =
+//.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
+// "")
+var delete21 = '';
+for (d0 = 21; d0 > 0; d0--)
+{
+    for (d = d0; d > 0; d--)
+    {
+        if (d == d0) delete21 += 'document.getElementById("image")'
+        delete21 += '.nextSibling';
+        if (d == 1) delete21 += '.remove();'; // put <br> or \n at end for readability
+    }
+}
+eval(delete21);
+  
+// IS THE NEXT LINE USELESS?
+// document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
+
+// Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
+document.getElementById("note-container").parentElement.previousSibling.previousSibling
+.previousSibling.previousSibling.style.margin = "0px";
 
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Removing:
-.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g, "")
-.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "")
 .replace(/          Posted: .* <br>/g, "")
 //  5.2  Replacing:
-.replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 .replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
          "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
          "'>-2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDprev + "'>-1</a>&#8198;|&#8198;" + ID + 
