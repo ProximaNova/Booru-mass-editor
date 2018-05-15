@@ -504,18 +504,68 @@ eval(delete21);
 document.getElementById("note-container").parentElement.previousSibling.previousSibling
 .previousSibling.previousSibling.style.margin = "0px";
 
-//  5.0  Replacing:
-document.body.innerHTML =
-document.body.innerHTML
-//  5.1  Removing:
-.replace(/          Posted: .* <br>/g, "")
-//  5.2  Replacing:
+/*
+Neat stuff which is equal to the following
 .replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
          "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
          "'>-2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDprev + "'>-1</a>&#8198;|&#8198;" + ID + 
          "&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnext + "'>+1</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" +
          IDnextx2 + "'>+2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnextx3 + "'><small>+3</small></a>" +
          "<br><u>File format:</u> " + imageSrcExt + "<br>")
+*/
+var betterElement = document.createElement("div");
+betterElement.setAttribute("id", "brAfterID");
+var betterElement1 = document.createElement("u");
+betterElement1.appendChild(document.createTextNode("ID:"));
+betterElement.appendChild(betterElement1);
+betterElement.appendChild(document.createTextNode(" "));
+var betterElement2 = document.createElement("a");
+betterElement2.setAttribute("href", "index.php?page=post&s=view&id=" + IDprevx3);
+var betterElement3 = document.createElement("small");
+betterElement3.appendChild(document.createTextNode("-3"))
+betterElement2.appendChild(betterElement3);
+betterElement.appendChild(betterElement2);
+betterElement.appendChild(document.createTextNode("\u2006|\u2006")); //&#8198; (decimal) = \u2006 (hexadecimal)
+var betterElement4 = document.createElement("a");
+betterElement4.setAttribute("href", "index.php?page=post&s=view&id=" + IDprevx2);
+betterElement4.appendChild(document.createTextNode("-2"));
+betterElement.appendChild(betterElement4);
+betterElement.appendChild(document.createTextNode("\u2006|\u2006"));
+var betterElement5 = document.createElement("a");
+betterElement5.setAttribute("href", "index.php?page=post&s=view&id=" + IDprev);
+betterElement5.appendChild(document.createTextNode("-1"));
+betterElement.appendChild(betterElement5);
+betterElement.appendChild(document.createTextNode("\u2006|\u2006" + ID + "\u2006|\u2006"));
+var betterElement6 = document.createElement("a");
+betterElement6.setAttribute("href", "index.php?page=post&s=view&id=" + IDnext);
+betterElement6.appendChild(document.createTextNode("+1"));
+betterElement.appendChild(betterElement6);
+betterElement.appendChild(document.createTextNode("\u2006|\u2006"));
+var betterElement7 = document.createElement("a");
+betterElement7.setAttribute("href", "index.php?page=post&s=view&id=" + IDnextx2);
+betterElement7.appendChild(document.createTextNode("+2"));
+betterElement.appendChild(betterElement7);
+betterElement.appendChild(document.createTextNode("\u2006|\u2006"));
+var betterElement8 = document.createElement("a");
+betterElement8.setAttribute("href", "index.php?page=post&s=view&id=" + IDnextx3);
+var betterElement9 = document.createElement("small");
+betterElement9.appendChild(document.createTextNode("+3"));
+betterElement8.appendChild(betterElement9);
+betterElement.appendChild(betterElement8);
+betterElement.appendChild(document.createElement("br"));
+var betterElement10 = document.createElement("u");
+betterElement10.appendChild(document.createTextNode("File format:"));
+betterElement.appendChild(betterElement10);
+betterElement.appendChild(document.createTextNode(" " + imageSrcExt));
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.replaceWith(betterElement);
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
+
+//  5.0  Replacing:
+document.body.innerHTML =
+document.body.innerHTML
+//  5.1  Removing:
+.replace(/          Posted: .* <br>/g, "")
+//  5.2  Replacing:
 .replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
 .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
          "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
