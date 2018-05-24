@@ -485,18 +485,29 @@ if (document.getElementsByTagName('strong')[1]
 //Duplicate info removal =
 //.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
 // "")
-var delete21 = '';
-for (d0 = 21; d0 > 0; d0--)
+/*var delete21 = '';
+for (let d0 = 21; d0 > 0; d0--)
 {
-    for (d = d0; d > 0; d--)
+    for (let d = d0; d > 0; d--)
     {
         if (d == d0) delete21 += 'document.getElementById("image")'
         delete21 += '.nextSibling';
         if (d == 1) delete21 += '.remove();'; // put <br> or \n at end for readability
     }
 }
-eval(delete21);
-  
+eval(delete21);*/
+let imageElement = document.getElementById("image");
+for (let i = 0; i < 21; i++)
+{
+    let path;
+    for (let j = 0; j < 21 - i; j++)
+    {
+        if (j === 0) { path = imageElement.nextSibling;}
+        else         { path = path.nextSibling;}
+        if (j===21 - i - 1) { path.remove();}
+    }
+}
+
 // IS THE NEXT LINE USELESS?
 // document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
 
@@ -508,7 +519,7 @@ document.getElementById("note-container").parentElement.previousSibling.previous
 Neat stuff which is equal to the following
 .replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
          "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
-         "'>-2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDprev + "'>-1</a>&#8198;|&#8198;" + ID + 
+         "'>-2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDprev + "'>-1</a>&#8198;|&#8198;" + ID +
          "&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnext + "'>+1</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" +
          IDnextx2 + "'>+2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnextx3 + "'><small>+3</small></a>" +
          "<br><u>File format:</u> " + imageSrcExt + "<br>")
@@ -560,15 +571,35 @@ betterElement.appendChild(document.createTextNode(" " + imageSrcExt));
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.replaceWith(betterElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
 
+// Make uploader and uploaded time better =
+// .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
+// "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+// Numbers may be incorrect after the "Neat stuff which is equal to the following":
+// 6          By: usernam 7<br />
+/*var bettrElement = document.createElement("div");
+bettrElement.setAttribute("id", "brAfterBy");
+var bettrElement1 = document.createElement("u");
+bettrElement1.appendChild(document.createTextNode("Uploader:"));
+bettrElement.appendChild(betterElement1);
+bettrElement.appendChild(document.createTextNode(" "));
+var bettrElement2 = document.createElement("a");
+bettrElement2.setAttribute("href", "index.php?page=" + userCheckAnon + userName);
+bettrElement2.appendChild(document.createTextNode(userName));
+bettrElement.appendChild(bettrElement2);
+var bettrElement3 = document.createElement("br");
+bettrElement.appendChild(bettrElement3);
+bettrElement.appendChild(document.createTextNode("on " + timeYMD + " (" + timeSpecific + ")"));
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.remove();*/
+
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Removing:
 .replace(/          Posted: .* <br>/g, "")
 //  5.2  Replacing:
-.replace(/ \d+:\d+:\d+ <br>\n          By: /g, " (" + timeSpecific + ")<br>          By: ")
-.replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
-         "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 .replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
          imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
