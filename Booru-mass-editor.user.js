@@ -486,6 +486,19 @@ if (document.getElementsByTagName('strong')[1]
 // rr12. Duplicate info removal =
 //.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
 // "")
+// AND
+/* var delete21 = '';
+for (d0 = 21; d0 > 0; d0--)
+{
+    for (d = d0; d > 0; d--)
+    {
+        if (d == d0) delete21 += 'document.getElementById("image")'
+        delete21 += '.nextSibling';
+        if (d == 1) delete21 += '.remove();'; // put <br> or \n at end for readability
+    }
+}
+eval(delete21);
+*/
 // This explanation of the following for loop could be better:
 // let imageElement = #("image"
 let imageElement = document.getElementById("image");
@@ -611,7 +624,6 @@ document.body.innerHTML
          "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/Previous Post<br>/g, "<br>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " +
          "name='parent'")
