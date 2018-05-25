@@ -485,18 +485,10 @@ if (document.getElementsByTagName('strong')[1]
 //Duplicate info removal =
 //.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
 // "")
-/*var delete21 = '';
-for (let d0 = 21; d0 > 0; d0--)
-{
-    for (let d = d0; d > 0; d--)
-    {
-        if (d == d0) delete21 += 'document.getElementById("image")'
-        delete21 += '.nextSibling';
-        if (d == 1) delete21 += '.remove();'; // put <br> or \n at end for readability
-    }
-}
-eval(delete21);*/
-let imageElement = document.getElementById("image");
+// This explanation of the following for loop could be better:
+	
+	let imageElement = #("image"
+	let imageElement = document.getElementById("image");
 for (let i = 0; i < 21; i++)
 {
     let path;
@@ -509,7 +501,7 @@ for (let i = 0; i < 21; i++)
 }
 
 // IS THE NEXT LINE USELESS?
-// document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
+// document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><b>/g, "");
 
 // Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 document.getElementById("note-container").parentElement.previousSibling.previousSibling
