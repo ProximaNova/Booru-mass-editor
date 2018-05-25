@@ -508,6 +508,8 @@ eval(delete21);
 // and .remove(); don't run j=20; 19th ns, 18th ns, 17th ns ... 3ns ---> 18<21; 18++; i=0; 0<21-18; 0++; 1ns; 1<3; 1++; 2ns;
 // 2<3; 3ns; 2ns ---> 19<21; 0<21-19; 0<2; 1ns ---> 20<21; 0<21-20; 0<1; path = #("image").nextSibling; 0===21-20-1 ---> add
 // ".remove()"
+//
+// <thanks to="https://github.com/QuantumCoded/">
 let imageElement = document.getElementById("image");
 for (let i = 0; i < 21; i++)
 {
@@ -519,6 +521,7 @@ for (let i = 0; i < 21; i++)
         if (j===21 - i - 1) { path.remove();}
     }
 }
+//</thanks>
 
 // rr13. IS THE NEXT LINE USELESS?
 // document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
@@ -586,8 +589,6 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
 // rr16. Make uploader and uploaded time better =
 // .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
 // "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
-// Numbers may be incorrect after the "Neat stuff which is equal to the following":
-// 6          By: usernam 7<br />
 var bettrElement = document.createElement("div");
 bettrElement.setAttribute("id", "brAfterBy");
 var bettrElement1 = document.createElement("u");
@@ -602,7 +603,7 @@ var bettrElement3 = document.createElement("br");
 bettrElement.appendChild(bettrElement3);
 bettrElement.appendChild(document.createTextNode("on " + timeYMD + " (" + timeSpecific + ")"));
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
+.nextSibling.nextSibling.replaceWith(bettrElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.remove();
 
