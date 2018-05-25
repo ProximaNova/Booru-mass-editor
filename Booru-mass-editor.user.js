@@ -416,9 +416,10 @@ function refreshMyTags(sep) {
     document.getElementById("my-tags").innerHTML = myTagsNew;
 }
 
+// rr1. remove
 var dnc = document.getElementById("note-container");
 dnc.removeChild(dnc.childNodes[4]);
-//
+// rr2. remove
 var pvc = document.getElementById("post-view").childNodes;
 for (i=pvc.length;i!=0;i--)
 {
@@ -428,7 +429,7 @@ for (i=pvc.length;i!=0;i--)
         toDel.removeChild(toDel.childNodes[i]);
     }
 }
-//
+// rr3.
 var isb = document.getElementsByTagName("input")[14]
 isb.setAttribute("id", "SubmitButton");
 isb.style.position = "relative";
@@ -436,7 +437,7 @@ isb.style.top = "-80px";
 isb.style.width = "403px";
 isb.style.height = "100px";
 isb.style.fontSize = "20pt";
-// Delete 0 comments statement
+// rr4. Delete 0 comments statement
 // = .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
 let commentsLink = document.getElementById('ci');
 if (commentsLink.innerHTML == " (0 hidden)" && commentsLink.previousSibling.textContent == "0 comment")
@@ -448,23 +449,23 @@ if (commentsLink.innerHTML == " (0 hidden)" && commentsLink.previousSibling.text
 commentsLink.nextSibling.nextSibling.nextSibling.remove();
 commentsLink.nextSibling.nextSibling.remove();
 commentsLink.nextSibling.remove();
-// Delete Source<br> = .replace(/Source<br>/g, "")
+// rr5. Delete Source<br> = .replace(/Source<br>/g, "")
 document.getElementById('source').previousSibling.previousSibling.previousSibling.remove();
 document.getElementById('source').previousSibling.previousSibling.remove();
 document.getElementById('source').previousSibling.remove();
-// Delete Title<br> = .replace(/Title<br>/g, "")
+// rr6. Delete Title<br> = .replace(/Title<br>/g, "")
 document.getElementById('title').previousSibling.previousSibling.previousSibling.remove();
 document.getElementById('title').previousSibling.previousSibling.remove();
 document.getElementById('title').previousSibling.remove();
-// Delete Parent<br> = .replace(/Parent<br>/g, "")
+// rr7. Delete Parent<br> = .replace(/Parent<br>/g, "")
 document.getElementsByName('parent')[0].previousSibling.previousSibling.previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.remove();
-// Delete Next Post = .replace(/>Next Post</g, "><")
+// rr8. Delete Next Post = .replace(/>Next Post</g, "><")
 document.getElementById('next_post').previousSibling.previousSibling.previousSibling.remove();
-// Delete My Tags = .replace(/My Tags<br>/g, "<br>")
+// rr9. Delete My Tags = .replace(/My Tags<br>/g, "<br>")
 document.getElementById('my-tags').previousSibling.previousSibling.previousSibling.remove();
-// Delete blank source = .replace(/          Source:  <br>/g, "")
+// rr10. Delete blank source = .replace(/          Source:  <br>/g, "")
 if (document.getElementsByTagName('strong')[1]
 .nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.textContent == "\n          Source:  ")
@@ -476,19 +477,18 @@ if (document.getElementsByTagName('strong')[1]
     .nextSibling.nextSibling.nextSibling/*3*/.nextSibling.nextSibling.nextSibling//6
     .nextSibling.nextSibling.nextSibling/*9*/.nextSibling.remove();//rm 10
 }
-// For moving the upload data text = .replace(/          Posted: .* <br>/g, "")
+// rr11. For moving the upload data text = .replace(/          Posted: .* <br>/g, "")
 //document.getElementsByTagName('strong')[1]
 //.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 4*/
 //document.getElementsByTagName('strong')[1]
 //.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 5*/
 
-//Duplicate info removal =
+// rr12. Duplicate info removal =
 //.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
 // "")
 // This explanation of the following for loop could be better:
-	
-	let imageElement = #("image"
-	let imageElement = document.getElementById("image");
+// let imageElement = #("image"
+let imageElement = document.getElementById("image");
 for (let i = 0; i < 21; i++)
 {
     let path;
@@ -500,14 +500,14 @@ for (let i = 0; i < 21; i++)
     }
 }
 
-// IS THE NEXT LINE USELESS?
-// document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><b>/g, "");
+// rr13. IS THE NEXT LINE USELESS?
+// document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
 
-// Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
+// rr14. Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 document.getElementById("note-container").parentElement.previousSibling.previousSibling
 .previousSibling.previousSibling.style.margin = "0px";
 
-/*
+/* rr15.
 Neat stuff which is equal to the following
 .replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
          "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
@@ -563,7 +563,7 @@ betterElement.appendChild(document.createTextNode(" " + imageSrcExt));
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.replaceWith(betterElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
 
-// Make uploader and uploaded time better =
+// rr16. Make uploader and uploaded time better =
 // .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
 // "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 // Numbers may be incorrect after the "Neat stuff which is equal to the following":
@@ -585,6 +585,9 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.remove();*/
+
+// rr17. remove Previous Post = .replace(/Previous Post<br>/g, "<br>")
+document.getElementById('previous_post').previousSibling.previousSibling.previousSibling.remove();
 
 //  5.0  Replacing:
 document.body.innerHTML =
