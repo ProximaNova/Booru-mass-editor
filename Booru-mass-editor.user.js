@@ -500,7 +500,14 @@ for (d0 = 21; d0 > 0; d0--)
 eval(delete21);
 */
 // This explanation of the following for loop could be better:
-// let imageElement = #("image"
+// let imageElement = #("image"); 0; 0<21; 0++; let path; let j=0; 0<21-0;0++; j===0 is true ---> path = #("image").nextSibling
+// (1st iteration complete); 1<21-0; 1++; j===0 is false ---> path = path.nextSibling (---> #("image").nextSibling.nextSibling)
+// (2nd iteration = done) j=2; 2 < 21; 2++ [adds .nextSibling...] j=3 [adds .nextSibling...] j=19 [16 ".nextSibling"s added,
+// j=0=1ns, j=1=2ns; j=19=20ns] j=20 ---> add 21st ns; j===21-0-1 is true ---> add .remove() to path; 1<21;1++; let path; let j
+// =0; 0<21-1; 0++; path = #("image").nextSibling; j=1; 1<20; 1++; add 2nd ns ... j=18 ---> add 19th ns; j=19 ---> add 20th ns
+// and .remove(); don't run j=20; 19th ns, 18th ns, 17th ns ... 3ns ---> 18<21; 18++; i=0; 0<21-18; 0++; 1ns; 1<3; 1++; 2ns;
+// 2<3; 3ns; 2ns ---> 19<21; 0<21-19; 0<2; 1ns ---> 20<21; 0<21-20; 0<1; path = #("image").nextSibling; 0===21-20-1 ---> add
+// ".remove()"
 let imageElement = document.getElementById("image");
 for (let i = 0; i < 21; i++)
 {
@@ -581,11 +588,11 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
 // "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 // Numbers may be incorrect after the "Neat stuff which is equal to the following":
 // 6          By: usernam 7<br />
-/*var bettrElement = document.createElement("div");
+var bettrElement = document.createElement("div");
 bettrElement.setAttribute("id", "brAfterBy");
 var bettrElement1 = document.createElement("u");
 bettrElement1.appendChild(document.createTextNode("Uploader:"));
-bettrElement.appendChild(betterElement1);
+bettrElement.appendChild(bettrElement1);
 bettrElement.appendChild(document.createTextNode(" "));
 var bettrElement2 = document.createElement("a");
 bettrElement2.setAttribute("href", "index.php?page=" + userCheckAnon + userName);
@@ -597,7 +604,7 @@ bettrElement.appendChild(document.createTextNode("on " + timeYMD + " (" + timeSp
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
-.nextSibling.nextSibling.nextSibling.remove();*/
+.nextSibling.nextSibling.nextSibling.remove();
 
 // rr17. remove Previous Post = .replace(/Previous Post<br>/g, "<br>")
 document.getElementById('previous_post').previousSibling.previousSibling.previousSibling.remove();
