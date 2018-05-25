@@ -461,6 +461,8 @@ document.getElementById('title').previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.previousSibling.previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.remove();
+// rr17. remove Previous Post = .replace(/Previous Post<br>/g, "<br>")
+document.getElementById('previous_post').previousSibling.previousSibling.previousSibling.remove();
 // rr8. Delete Next Post = .replace(/>Next Post</g, "><")
 document.getElementById('next_post').previousSibling.previousSibling.previousSibling.remove();
 // rr9. Delete My Tags = .replace(/My Tags<br>/g, "<br>")
@@ -508,8 +510,6 @@ eval(delete21);
 // and .remove(); don't run j=20; 19th ns, 18th ns, 17th ns ... 3ns ---> 18<21; 18++; i=0; 0<21-18; 0++; 1ns; 1<3; 1++; 2ns;
 // 2<3; 3ns; 2ns ---> 19<21; 0<21-19; 0<2; 1ns ---> 20<21; 0<21-20; 0<1; path = #("image").nextSibling; 0===21-20-1 ---> add
 // ".remove()"
-//
-// <thanks to="https://github.com/QuantumCoded/">
 let imageElement = document.getElementById("image");
 for (let i = 0; i < 21; i++)
 {
@@ -521,7 +521,6 @@ for (let i = 0; i < 21; i++)
         if (j===21 - i - 1) { path.remove();}
     }
 }
-//</thanks>
 
 // rr13. IS THE NEXT LINE USELESS?
 // document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
@@ -607,8 +606,31 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.remove();
 
-// rr17. remove Previous Post = .replace(/Previous Post<br>/g, "<br>")
-document.getElementById('previous_post').previousSibling.previousSibling.previousSibling.remove();
+// Better stuff = .replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
+var bttrElement = document.createElement("span");
+var bttrElement1 = document.createElement("h4");
+bttrElement1.appendChild(document.createTextNode("Actions"));
+bttrElement.appendChild(bttrElement1);
+var bttrElement2 = document.createElement("h5");
+bttrElement2.appendChild(document.createTextNode("Value judgements"));
+bttrElement.appendChild(bttrElement2);
+let theRating = "";
+if (document.getElementsByName("rating")[0].checked === true) theRating = "Explicit";
+if (document.getElementsByName("rating")[1].checked === true) theRating = "Questionable";
+if (document.getElementsByName("rating")[2].checked === true) theRating = "Safe";
+var bttrElement3 = document.createElement("u");
+bttrElement3.appendChild(document.createTextNode("Rating:"));
+bttrElement.appendChild(bttrElement3);
+bttrElement.appendChild(document.createTextNode(" " + theRating));
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bttrElement);
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.remove();
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.remove();
 
 //  5.0  Replacing:
 document.body.innerHTML =
@@ -619,8 +641,6 @@ document.body.innerHTML
 .replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
          imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
-
-.replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
 .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
          " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' " +
          "onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br><a href='#' onclick=\"addFav('23078');post_vote('23078', 'up');" +
