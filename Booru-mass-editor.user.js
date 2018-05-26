@@ -730,20 +730,36 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.remove();
 
-//  5.0  Replacing:
-document.body.innerHTML =
-document.body.innerHTML
-//  5.1  Replacing:
-.replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
-.replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
-.replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
+// name data = .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
+/* name data = 
 .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " +
          "name='parent'")
+*/
+document.getElementsByName("rating")[2].nextSibling.nodeValue = "Safe (\u2190Rating)";
+document.getElementById("title").nextSibling.nodeValue = " (\u2190Title)";
+  
+/* name data =
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>" +
          "</tr><tr><td><br><input style='display: none;' name='next_post'")
-// This should be switched on/off via the tags cookie
-// .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
-;
+*/
+// (#("next_post") is hidden at section 16.1 "Hiding".)
+document.getElementsByName("parent")[0].nextSibling.nodeValue = " (\u2190Parent) (\u2193Source)";
+
+// remove broken stuff = .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
+document.getElementById("pconf").nextSibling.nextSibling.nextSibling.remove();
+document.getElementById("pconf").nextSibling.nextSibling.remove();
+document.getElementById("pconf").nextSibling.remove();
+
+// good stuff = .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
+var whyTho = document.createElement("div");
+whyTho.setAttribute("style", "height:4px;");
+document.getElementsByName("rating")[0].previousSibling.previousSibling.previousSibling.remove();
+document.getElementsByName("rating")[0].previousSibling.previousSibling.replaceWith(whyTho);
+
+//  5.0  Replacing:
+//document.body.innerHTML =
+//document.body.innerHTML.replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus");
+// ^^^ This should be switched on/off via the tags cookie ^^^
 
 // Better word = .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Other</h5>")
 document.getElementsByTagName('strong')[1].nextSibling.remove();
