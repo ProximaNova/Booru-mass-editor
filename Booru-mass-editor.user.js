@@ -585,7 +585,9 @@ betterElement.appendChild(betterElement10);
 betterElement.appendChild(document.createTextNode(" " + imageSrcExt));
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.replaceWith(betterElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
-
+// ^
+// |_.- Could merge -.
+//                   v
 // rr17. Make uploader and uploaded time better =
 // .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
 // "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
@@ -603,17 +605,27 @@ var bettrElement3 = document.createElement("br");
 bettrElement.appendChild(bettrElement3);
 bettrElement.appendChild(document.createTextNode("on " + timeYMD + " (" + timeSpecific + ")"));
 // <Improve size>
-var bettrElement4 = document.createElement("div");
+var bettrElement4 = document.createElement("br");
+bettrElement.appendChild(bettrElement4);
 var bettrElement5 = document.createElement("u");
 bettrElement5.appendChild(document.createTextNode("Size:"));
-bettrElement4.appendChild(bettrElement5);
-bettrElement4.appendChild(document.createTextNode(" " + imageSizeWidth + " "));
+bettrElement.appendChild(bettrElement5);
+bettrElement.appendChild(document.createTextNode(" " + imageSizeWidth + " "));
 var bettrElement6 = document.createElement("b");
 bettrElement6.setAttribute("style", "font-size:7.5pt;position:relative;top:-1px;");
 bettrElement6.appendChild(document.createTextNode("\u00D7"));
-bettrElement4.appendChild(bettrElement6);
-bettrElement4.appendChild(document.createTextNode(" " + imageSizeHeight + " pixels"));
-bettrElement.appendChild(bettrElement4);
+bettrElement.appendChild(bettrElement6);
+bettrElement.appendChild(document.createTextNode(" " + imageSizeHeight + " pixels"));
+// Fix source = .replace(/          Source: /g, "          <u>Source:</u> ")
+var sourceTextNode = document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
+var sourceMinusCrp = sourceTextNode.nodeValue.substr(18); //rm /^          Source: /g
+var bettrElement7 = document.createElement("br");
+bettrElement.appendChild(bettrElement7);
+var bettrElement8 = document.createElement("u");
+bettrElement8.appendChild(document.createTextNode("Source:"));
+bettrElement.appendChild(bettrElement8);
+bettrElement.appendChild(document.createTextNode(" " + sourceMinusCrp.substr(0, sourceMinusCrp.length - 1)));
 // </Improve size>
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
@@ -627,7 +639,10 @@ imageSizeHeight + " pixels<br>")
 */
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
-
+// Fix Source
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
+  
 // rr18. Better stuff = .replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
 // AND
 // .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
@@ -708,21 +723,17 @@ bttrElement15.setAttribute("onclick", "if(confirm('Are you sure you want to dele
 "&removepost=1'; f.submit();}; return false;");
 bttrElement15.appendChild(document.createTextNode("Remove"));
 bttrElement.appendChild(bttrElement15);
-document.getElementsByTagName('strong')[1].nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bttrElement);
-document.getElementsByTagName('strong')[1].nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.remove();
-document.getElementsByTagName('strong')[1].nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.remove();
 
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Replacing:
-.replace(/          Source: /g, "          <u>Source:</u> ")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
