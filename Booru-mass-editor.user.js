@@ -462,13 +462,13 @@ document.getElementById('title').previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.previousSibling.previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.previousSibling.remove();
 document.getElementsByName('parent')[0].previousSibling.remove();
-// rr17. remove Previous Post = .replace(/Previous Post<br>/g, "<br>")
+// rr8. remove Previous Post = .replace(/Previous Post<br>/g, "<br>")
 document.getElementById('previous_post').previousSibling.previousSibling.previousSibling.remove();
-// rr8. Delete Next Post = .replace(/>Next Post</g, "><")
+// rr9. Delete Next Post = .replace(/>Next Post</g, "><")
 document.getElementById('next_post').previousSibling.previousSibling.previousSibling.remove();
-// rr9. Delete My Tags = .replace(/My Tags<br>/g, "<br>")
+// rr10. Delete My Tags = .replace(/My Tags<br>/g, "<br>")
 document.getElementById('my-tags').previousSibling.previousSibling.previousSibling.remove();
-// rr10. Delete blank source = .replace(/          Source:  <br>/g, "")
+// rr11. Delete blank source = .replace(/          Source:  <br>/g, "")
 if (document.getElementsByTagName('strong')[1]
 .nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.textContent == "\n          Source:  ")
@@ -480,13 +480,13 @@ if (document.getElementsByTagName('strong')[1]
     .nextSibling.nextSibling.nextSibling/*3*/.nextSibling.nextSibling.nextSibling//6
     .nextSibling.nextSibling.nextSibling/*9*/.nextSibling.remove();//rm 10
 }
-// rr11. For moving the upload data text = .replace(/          Posted: .* <br>/g, "")
+// rr12. For moving the upload data text = .replace(/          Posted: .* <br>/g, "")
 //document.getElementsByTagName('strong')[1]
 //.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 4*/
 //document.getElementsByTagName('strong')[1]
 //.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 5*/
 
-// rr12. Duplicate info removal =
+// rr13. Duplicate info removal =
 //.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
 // "")
 // AND
@@ -523,14 +523,14 @@ for (let i = 0; i < 21; i++)
     }
 }
 
-// rr13. IS THE NEXT LINE USELESS?
+// rr14. IS THE NEXT LINE USELESS?
 // document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
 
-// rr14. Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
+// rr15. Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 document.getElementById("note-container").parentElement.previousSibling.previousSibling
 .previousSibling.previousSibling.style.margin = "0px";
 
-/* rr15.
+/* rr16.
 Neat stuff which is equal to the following
 .replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
          "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
@@ -586,7 +586,7 @@ betterElement.appendChild(document.createTextNode(" " + imageSrcExt));
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.replaceWith(betterElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
 
-// rr16. Make uploader and uploaded time better =
+// rr17. Make uploader and uploaded time better =
 // .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
 // "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 var bettrElement = document.createElement("div");
@@ -603,11 +603,13 @@ var bettrElement3 = document.createElement("br");
 bettrElement.appendChild(bettrElement3);
 bettrElement.appendChild(document.createTextNode("on " + timeYMD + " (" + timeSpecific + ")"));
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
-.nextSibling.nextSibling.replaceWith(bettrElement);
-document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
-.nextSibling.nextSibling.nextSibling.remove();
+.nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();
+// The following = .replace(/          Posted: .* <br>/g, "")
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.remove();
 
-// Better stuff = .replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
+// rr18. Better stuff = .replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
 // AND
 // .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
 // " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' " +
@@ -687,22 +689,20 @@ bttrElement15.setAttribute("onclick", "if(confirm('Are you sure you want to dele
 "&removepost=1'; f.submit();}; return false;");
 bttrElement15.appendChild(document.createTextNode("Remove"));
 bttrElement.appendChild(bttrElement15);
-document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+document.getElementsByTagName('strong')[1].nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bttrElement);
-document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+document.getElementsByTagName('strong')[1].nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.remove();
-document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
+document.getElementsByTagName('strong')[1].nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.remove();
 
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
-//  5.1  Removing:
-.replace(/          Posted: .* <br>/g, "")
-//  5.2  Replacing:
+//  5.1  Replacing:
 .replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
          imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
