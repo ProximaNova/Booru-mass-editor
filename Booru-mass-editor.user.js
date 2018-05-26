@@ -602,12 +602,31 @@ bettrElement.appendChild(bettrElement2);
 var bettrElement3 = document.createElement("br");
 bettrElement.appendChild(bettrElement3);
 bettrElement.appendChild(document.createTextNode("on " + timeYMD + " (" + timeSpecific + ")"));
+// <Improve size>
+var bettrElement4 = document.createElement("div");
+var bettrElement5 = document.createElement("u");
+bettrElement5.appendChild(document.createTextNode("Size:"));
+bettrElement4.appendChild(bettrElement5);
+bettrElement4.appendChild(document.createTextNode(" " + imageSizeWidth + " "));
+var bettrElement6 = document.createElement("b");
+bettrElement6.setAttribute("style", "font-size:7.5pt;position:relative;top:-1px;");
+bettrElement6.appendChild(document.createTextNode("\u00D7"));
+bettrElement4.appendChild(bettrElement6);
+bettrElement4.appendChild(document.createTextNode(" " + imageSizeHeight + " pixels"));
+bettrElement.appendChild(bettrElement4);
+// </Improve size>
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.replaceWith(bettrElement);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();
 // The following = .replace(/          Posted: .* <br>/g, "")
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.remove();
+/* Improve size =
+.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
+imageSizeHeight + " pixels<br>")
+*/
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();
+document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
 
 // rr18. Better stuff = .replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
 // AND
@@ -690,21 +709,19 @@ bttrElement15.setAttribute("onclick", "if(confirm('Are you sure you want to dele
 bttrElement15.appendChild(document.createTextNode("Remove"));
 bttrElement.appendChild(bttrElement15);
 document.getElementsByTagName('strong')[1].nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bttrElement);
 document.getElementsByTagName('strong')[1].nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.remove();
 document.getElementsByTagName('strong')[1].nextSibling
-.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
+.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.remove();
 
 //  5.0  Replacing:
 document.body.innerHTML =
 document.body.innerHTML
 //  5.1  Replacing:
-.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
-         imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
@@ -713,11 +730,16 @@ document.body.innerHTML
          "name='parent'")
 .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>" +
          "</tr><tr><td><br><input style='display: none;' name='next_post'")
-.replace(/<strong>Statistics<\/strong><br>/g, "<h5>Other</h5>")
 // This should be switched on/off via the tags cookie
 // .replace(/<textarea id="tags"/g, "<textarea id='tags' autofocus")
 ;
 
+// Better word = .replace(/<strong>Statistics<\/strong><br>/g, "<h5>Other</h5>")
+document.getElementsByTagName('strong')[1].nextSibling.remove();
+var bttrWord = document.createElement("h5");
+bttrWord.appendChild(document.createTextNode("Other"));
+document.getElementsByTagName('strong')[1].replaceWith(bttrWord);
+  
 // Improve Search header (h5 ---> h4):
 var headerNew = document.createElement("h4");
 headerNew.appendChild(document.createTextNode("Search"));
