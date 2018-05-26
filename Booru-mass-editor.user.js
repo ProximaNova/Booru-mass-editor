@@ -177,7 +177,8 @@ var IDprev = Number(ID) - 1;
 var IDprevx2 = IDprev - 1;
 var IDprevx3 = IDprev - 2;
 var booruName = document.getElementsByTagName("h2")[0].textContent;
-var score = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
+//var scoreOld = document.getElementById("post-view").innerHTML.match(/<a id="psc">\d+<\/a>/g);
+var score = document.getElementById("psc").innerHTML;
 var sidebar = document.getElementById("tag_list").innerHTML;
 var imageSrc = document.getElementById("image").src;
 var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
@@ -607,7 +608,18 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.remove();
 
 // Better stuff = .replace(/          Rating: /g, "<br><h4>Actions</h4><h5>Value judgements</h5><u>Rating:</u> ")
+// AND
+// .replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
+// " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' " +
+// "onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br><a href='#' onclick=\"addFav('23078');post_vote('23078', 'up');" +
+// "return false;\">Favorite</a><br><a href='" + imageSrc + "' download='" + document.getElementById("tags").value +
+// " " + booruName + "#" + ID + "'>Download</a><br>" +
+// "<a href='#' id='rp" + ID + "' onclick=\"Element.toggle('report_form')\">Report</a><br>" +
+// "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
+// "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
+// "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
 var bttrElement = document.createElement("span");
+bttrElement.setAttribute("id", "brAfterRating");
 var bttrElement1 = document.createElement("h4");
 bttrElement1.appendChild(document.createTextNode("Actions"));
 bttrElement.appendChild(bttrElement1);
@@ -622,6 +634,59 @@ var bttrElement3 = document.createElement("u");
 bttrElement3.appendChild(document.createTextNode("Rating:"));
 bttrElement.appendChild(bttrElement3);
 bttrElement.appendChild(document.createTextNode(" " + theRating));
+var bttrElement4 = document.createElement("br");
+bttrElement.appendChild(bttrElement4);
+var bttrElement4 = document.createElement("u");
+bttrElement4.appendChild(document.createTextNode("Score:"))
+bttrElement.appendChild(bttrElement4);
+bttrElement.appendChild(document.createTextNode(" "));
+var bttrElement5 = document.createElement("a");
+bttrElement5.setAttribute("id", "psc");
+bttrElement5.appendChild(document.createTextNode(score + " (vote: "));
+bttrElement.appendChild(bttrElement5);
+var bttrElement6 = document.createElement("a");
+bttrElement6.setAttribute("href", "#");
+bttrElement6.setAttribute("onclick", "post_vote('" + ID + "', 'up')");
+bttrElement6.appendChild(document.createTextNode("up"));
+bttrElement.appendChild(bttrElement6);
+bttrElement.appendChild(document.createTextNode("/"));
+var bttrElement7 = document.createElement("a");
+bttrElement7.setAttribute("href", "#");
+bttrElement7.setAttribute("onclick", "post_vote('" + ID + "', 'down')");
+bttrElement7.appendChild(document.createTextNode("down"));
+bttrElement.appendChild(bttrElement7);
+bttrElement.appendChild(document.createTextNode(")"));
+var bttrElement8 = document.createElement("br");
+bttrElement.appendChild(bttrElement8);
+var bttrElement9 = document.createElement("a");
+bttrElement9.setAttribute("href", "#");
+bttrElement9.setAttribute("onclick", "addFav('" + ID + "');post_vote('" + ID + "', 'up');return false;");
+bttrElement9.appendChild(document.createTextNode("Favorite"));
+bttrElement.appendChild(bttrElement9);
+var bttrElement10 = document.createElement("br");
+bttrElement.appendChild(bttrElement10);
+var bttrElement11 = document.createElement("a");
+bttrElement11.setAttribute("href", imageSrc);
+bttrElement11.setAttribute("download", document.getElementById("tags").value + " " + booruName + "#" + ID);
+bttrElement11.appendChild(document.createTextNode("Download"));
+bttrElement.appendChild(bttrElement11);
+var bttrElement12 = document.createElement("br");
+bttrElement.appendChild(bttrElement12);
+var bttrElement13 = document.createElement("a");
+bttrElement13.setAttribute("href", "#");
+bttrElement13.setAttribute("id", "rp" + ID);
+bttrElement13.setAttribute("onclick", "Element.toggle('report_form')");
+bttrElement13.appendChild(document.createTextNode("Report"));
+bttrElement.appendChild(bttrElement13);
+var bttrElement14 = document.createElement("br");
+bttrElement.appendChild(bttrElement14);
+var bttrElement15 = document.createElement("a");
+bttrElement15.setAttribute("href", "#");
+bttrElement15.setAttribute("onclick", "if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
+"f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
+"&removepost=1'; f.submit();}; return false;");
+bttrElement15.appendChild(document.createTextNode("Remove"));
+bttrElement.appendChild(bttrElement15);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.nextSibling.nextSibling.replaceWith(bttrElement);
@@ -641,15 +706,6 @@ document.body.innerHTML
 .replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
          imageSizeHeight + " pixels<br>")
 .replace(/          Source: /g, "          <u>Source:</u> ")
-.replace(/          Score: \d+ <br>/g, "          <u>Score:</u> " + score +
-         " (vote: <a href='#' onclick=\"post_vote('" + ID + "', 'up')\">up</a>/<a href='#' " +
-         "onclick=\"post_vote('" + ID + "', 'down')\">down</a>)<br><a href='#' onclick=\"addFav('23078');post_vote('23078', 'up');" +
-         "return false;\">Favorite</a><br><a href='" + imageSrc + "' download='" + document.getElementById("tags").value +
-         " " + booruName + "#" + ID + "'>Download</a><br>" +
-         "<a href='#' id='rp" + ID + "' onclick=\"Element.toggle('report_form')\">Report</a><br>" +
-         "<a href='#' onclick=\"if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
-         "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
-         "&amp;removepost=1'; f.submit();}; return false;\">Remove</a>")
 .replace(/<td>\n.*<br>\n.*<input /g, "<td><div style='height:4px;'></div><input ")
 .replace(/Recent Tags<br>\n.*?\n.*?<\/td>/g, "</td>")
 .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
