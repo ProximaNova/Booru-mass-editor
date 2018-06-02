@@ -167,7 +167,8 @@ if ((window.location.href.match("&id=")
 // Old Gelbooru - Individual image pages: //
 // ************************************** //
 if (window.location.href.match("&id=") &&
-!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
+!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/)))
+{
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -430,7 +431,7 @@ for (i=pvc.length;i!=0;i--)
         toDel.removeChild(toDel.childNodes[i]);
     }
 }
-// rr3.
+// rr3. Increase size, font size, and position of the submit button
 var isb = document.getElementsByTagName("input")[14]
 isb.setAttribute("id", "SubmitButton");
 isb.style.position = "relative";
@@ -439,7 +440,10 @@ isb.style.width = "403px";
 isb.style.height = "100px";
 isb.style.fontSize = "20pt";
 // rr4. Delete 0 comments statement
-// = .replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g, "")
+/* which equals the following
+.replace(/0 comment<a href="#" id="ci" onclick="showHideIgnored\(\d{1,},'ci'\); return false;"> \(0 hidden\)<\/a><br><br><br>/g,
+"")
+*/
 let commentsLink = document.getElementById('ci');
 if (commentsLink.innerHTML == " (0 hidden)" && commentsLink.previousSibling.textContent == "0 comment")
 {
@@ -486,11 +490,12 @@ if (document.getElementsByTagName('strong')[1]
 //document.getElementsByTagName('strong')[1]
 //.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();/*rm 5*/
 
-// rr13. Duplicate info removal =
-//.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
-// "")
-// AND
-/* var delete21 = '';
+// rr13. Duplicate info removal
+/* which equals the following
+.replace(/<br.*Posted on \d.* by  <a href="index.php\?page=account_profile&amp;uname=.*?<\/a>.*\n.*\n.*\n.*\n.*\n.*\n.*\d+">Next<\/a>/g,
+"")
+AND
+var delete21 = '';
 for (d0 = 21; d0 > 0; d0--)
 {
     for (d = d0; d > 0; d--)
@@ -523,8 +528,10 @@ for (let i = 0; i < 21; i++)
     }
 }
 
-// rr14. IS THE NEXT LINE USELESS?
-// document.body.innerHTML = document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
+/* rr14. IS THE NEXT LINE USELESS?
+document.body.innerHTML =
+    document.body.innerHTML.replace(/<a href="index.php\?page=post&amp;s=view&amp;id=\d+"><\/a><br>/g, "");
+*/
 
 // rr15. Spacing change = .replace(/div style="float\: left; margin\: 1em 0"/g, "div style='float: left;'")
 document.getElementById("note-container").parentElement.previousSibling.previousSibling
@@ -532,12 +539,14 @@ document.getElementById("note-container").parentElement.previousSibling.previous
 
 /* rr16.
 Neat stuff which is equal to the following
-.replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 + "'><small>-3</small></a>&#8198;|&#8198;" +
+.replace(/          Id.*<br>/g, "<u>ID</u>: <a href='index.php?page=post&s=view&id=" + IDprevx3 +
+         "'><small>-3</small></a>&#8198;|&#8198;" +
          "<a href='index.php?page=post&s=view&id=" + IDprevx2 +
          "'>-2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDprev + "'>-1</a>&#8198;|&#8198;" + ID +
-         "&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnext + "'>+1</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" +
-         IDnextx2 + "'>+2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnextx3 + "'><small>+3</small></a>" +
-         "<br><u>File format:</u> " + imageSrcExt + "<br>")
+         "&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnext +
+	 "'>+1</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" +
+         IDnextx2 + "'>+2</a>&#8198;|&#8198;<a href='index.php?page=post&s=view&id=" + IDnextx3 +
+	 "'><small>+3</small></a>" + "<br><u>File format:</u> " + imageSrcExt + "<br>")
 */
 var betterElement = document.createElement("div");
 betterElement.setAttribute("id", "brAfterID");
@@ -589,8 +598,8 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.remove();
 // |_.- Could merge -.
 //                   v
 // rr17. Make uploader and uploaded time better =
-// .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon + userName + "'>" + userName +
-// "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
+// .replace(/          By: .*? <br>/g, "          <u>Uploader:</u> <a href='index.php?page=" + userCheckAnon +
+//          userName + "'>" + userName + "</a><br>on " + timeYMD + " (" + timeSpecific + ")" + "<br>")
 var bettrElement = document.createElement("div");
 bettrElement.setAttribute("id", "brAfterBy");
 var bettrElement1 = document.createElement("u");
@@ -633,10 +642,10 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.n
 // The following = .replace(/          Posted: .* <br>/g, "")
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.remove();
-/* Improve size =
-.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth + " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
-imageSizeHeight + " pixels<br>")
-*/
+/// Improve size =
+//.replace(/          Size.*<br>/g, "<u>Size:</u> " + imageSizeWidth +
+//         " <b style='font-size:7.5pt;position:relative;top:-1px;'>&times;</b> " +
+//         imageSizeHeight + " pixels<br>")
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.remove();
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling.nextSibling.remove();
 // Fix Source
@@ -718,9 +727,10 @@ var bttrElement14 = document.createElement("br");
 bttrElement.appendChild(bttrElement14);
 var bttrElement15 = document.createElement("a");
 bttrElement15.setAttribute("href", "#");
-bttrElement15.setAttribute("onclick", "if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
-"f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" + ID +
-"&removepost=1'; f.submit();}; return false;");
+bttrElement15.setAttribute("onclick",
+    "if(confirm('Are you sure you want to delete this post?')){var f = document.createElement('form');" +
+    "f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = './public/remove.php?id=" +
+    ID + "&removepost=1'; f.submit();}; return false;");
 bttrElement15.appendChild(document.createTextNode("Remove"));
 bttrElement.appendChild(bttrElement15);
 document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
@@ -731,17 +741,16 @@ document.getElementsByTagName('strong')[1].nextSibling.nextSibling.nextSibling
 .nextSibling.nextSibling.remove();
 
 // name data = .replace(/type="radio">Safe/g, "type='radio'>Safe (&larr;Rating)")
-/* name data = 
-.replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g, " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " +
-         "name='parent'")
-*/
+// name data = 
+// .replace(/ type="text">\n		<\/td><\/tr><tr><td>\n		<input name="parent"/g,
+//     " type='text'> (&larr;Title)<\/td><\/tr><tr><td><input " + "name='parent'")
 document.getElementsByName("rating")[2].nextSibling.nodeValue = "Safe (\u2190Rating)";
 document.getElementById("title").nextSibling.nodeValue = " (\u2190Title)";
   
-/* name data =
-.replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g, " type='text'> (&larr;Parent) (&darr;Source)</td>" +
-         "</tr><tr><td><br><input style='display: none;' name='next_post'")
-*/
+// name data =
+// .replace(/ type="text">\n		<\/td><\/tr><tr><td><br>\n		<input name="next_post"/g,
+//          " type='text'> (&larr;Parent) (&darr;Source)</td>" +
+//          "</tr><tr><td><br><input style='display: none;' name='next_post'")
 // (#("next_post") is hidden at section 16.1 "Hiding".)
 document.getElementsByName("parent")[0].nextSibling.nodeValue = " (\u2190Parent) (\u2193Source)";
 
@@ -1042,7 +1051,8 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
-    if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
+    if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/")
+    {
         var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
                              document.getElementById("tags").value.replace(/ /g, "+") +
                              "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
@@ -1052,8 +1062,8 @@ if (window.location.href.match("&id=")
                 var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length +
                 tagUniqueLink;
             } else {
-                var numberOfTags = "Tags <small style='color:red'>(" + document.getElementById("tags").value.match(/ /g).length +
-                tagUniqueLink;
+                var numberOfTags = "Tags <small style='color:red'>(" +
+		document.getElementById("tags").value.match(/ /g).length + tagUniqueLink;
             }
         } else {
             if (document.getElementById("tags").value.match(/ /g).length > 3) {
