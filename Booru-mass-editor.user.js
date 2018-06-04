@@ -846,6 +846,7 @@ if (imageSizeWidth >= 10000 && imageSizeHeight >= 10000) {
 }
 if (imageSizeHeight > imageSizeWidth * 3) {
     addTags("tall_image");
+    addTags("long_image");
 }
 if (imageSizeWidth == imageSizeHeight) {
     addTags("1:1_aspect_ratio");
