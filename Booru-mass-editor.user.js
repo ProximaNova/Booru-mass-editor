@@ -3,17 +3,17 @@
 // @description   Quickly edit images on older versions of Gelbooru
 // @version       5
 // @author        usernam
-// @include       http://*.booru.org/index.php*
+// @include       https://*.booru.org/index.php*
 // @include       http://safebooru.org/index.php*
-// @include       http://rule34.xxx/index.php*
-// @include       http://anime-pictures.net/*
+// @include       https://rule34.xxx/index.php*
+// @include       https://anime-pictures.net/*
 // @include       https://xbooru.com/index.php*
-// @include       http://bboy.booru.org/index.php*
+// @include       https://bboy.booru.org/index.php*
 // @include       https://gelbooru.com/index.php*
-// @include       http://danbooru.donmai.us/*
-// @include       http://furry.booru.org/index.php*
+// @include       https://danbooru.donmai.us/*
+// @include       https://furry.booru.org/index.php*
 // @include       https://chan.sankakucomplex.com/*
-// @include       http://tbib.org/*
+// @include       https://tbib.org/*
 // @include       https://realbooru.com/*
 // @grant         none
 // @noframes
