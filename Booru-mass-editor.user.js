@@ -649,7 +649,7 @@ if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
                                   "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
                                   "operation(s) on page load</li>";
     if (htmlDecode(document.getElementById("tags").innerHTML) + " " !== document.getElementById("tags").value) {
-        simulateClickSubmit(document.getElementById("SubmitButton"));
+        simulateClickSubmit(document.getElementsByName("submit")[1]);
     }
     if (document.getElementById("my-tags").textContent.match(/close:(1|yes);close;/g)) {
         window.addEventListener("load", function() {
@@ -720,19 +720,19 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
-    if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/)) {
-        var imageSrc = document.getElementById("image").src
+    if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
+    {
+        var imageSrc = document.getElementById("image").src;
         var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
         var imageSrcThumb = document.getElementById("image").src
                     .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
                     .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
-
-        document.getElementById("post-view").innerHTML = document.getElementById("post-view").innerHTML
-            .replace(/http...iqdb.org..url.http...img.xbooru.com.thumbnails.*thumbnail_.*" rel/g,
-                         "http://iqdb.org/?url=" + imageSrcThumb + "\" rel");
+        var myTagsss = decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, ""))
+	               .replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
     }
 
-    if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/") {
+    if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/")
+    {
         var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
                              document.getElementById("tags").value.replace(/ /g, "+") +
                              "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
@@ -756,10 +756,11 @@ if (window.location.href.match("&id=")
         }
         document.getElementsByTagName("h5")[1].innerHTML = numberOfTags;
     }
-    
+
     document.getElementById("edit_form").style.display = "block";
     if (document.getElementById("source").value == "--- !ruby/object:File {}    " ||
-    document.getElementById("source").value == "--- !ruby/object:File {}") {
+    document.getElementById("source").value == "--- !ruby/object:File {}")
+    {
         document.getElementById("source").value = "";
     }
     
@@ -803,7 +804,8 @@ if (window.location.href.match("&id=")
     function addTags(tagToAdd) {
         var addTagMatchCases =
             new RegExp("(^" + tagToAdd + " | " + tagToAdd + " | " + tagToAdd + "$)", "gi");
-        if (!(document.getElementById("tags").value.match(addTagMatchCases))) {
+        if (!(document.getElementById("tags").value.match(addTagMatchCases)))
+        {
             document.getElementById("tags").value = document.getElementById("tags").value + " " + tagToAdd + " ";
         }
     }
@@ -827,35 +829,39 @@ if (window.location.href.match("&id=")
     function implyTags(tagImplyFrom, tagImplyTo) {
         var implyFromMatchCases =
             new RegExp("(^" + tagImplyFrom + " | " + tagImplyFrom + " | " + tagImplyFrom + "$)", "gi");
-        if (document.getElementById("tags").value.match(implyFromMatchCases)) {
+        if (document.getElementById("tags").value.match(implyFromMatchCases))
+        {
             addTags(tagImplyTo);
         }
     }
     
     if (document.getElementById("tags").value.match(" ")) {
-        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+        if (myTagsss.match(/tagmeif:lt\d+;endif;/g) &&
         document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
         document.getElementById("tags").value.match(/ /g).length >= 10) {
             replaceTags("tagme", " ", "", "");
         }
     } else {
     //  11.2  Add it (based on ("#my-tags")):
-        if (document.getElementById("my-tags").textContent.match(/tagmeif:lt\d+;endif;/g) &&
+        if (myTagsss.match(/tagmeif:lt\d+;endif;/g) &&
         document.getElementById("tags").value.match(/ /g).length <=
-        Number(document.getElementById("my-tags").textContent.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+        Number(myTagsss.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
             document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
         }
     }
-    
-    if (document.getElementById("my-tags").textContent.match(/add:.*;add;/g)) {
-        var myTagsAddTag = document.getElementById("my-tags").textContent.replace(/.*add:/g, "").replace(/;add;.*/g, "");
+
+    if (myTagsss.match(/add:.*;add;/g))
+    {
+        var myTagsAddTag = myTagsss.replace(/.*add:/g, "").replace(/;add;.*/g, "");
         if (myTagsAddTag.match("|")) {
             var myTagsAddTags = myTagsAddTag.split("|");
         } else {
             var myTagsAddTags = myTagsAddTag;
         }
-        if (typeof(myTagsAddTags) == "object") {
-            for (i = 0; i < myTagsAddTags.length; i++) {
+        if (typeof(myTagsAddTags) == "object")
+        {
+            for (i = 0; i < myTagsAddTags.length; i++)
+            {
                 addTags(myTagsAddTags[i]);
             }
         } else {
@@ -863,8 +869,9 @@ if (window.location.href.match("&id=")
         }
     }
     
-    if (document.getElementById("my-tags").textContent.match(/re:.*;re;/g)) {
-        var myTagsReplaceTag = document.getElementById("my-tags").textContent.replace(/.*re:/g, "").replace(/;re;.*/g, "");
+    if (myTagsss.match(/re:.*;re;/g))
+    {
+        var myTagsReplaceTag = myTagsss.replace(/.*re:/g, "").replace(/;re;.*/g, "");
         if (myTagsReplaceTag.match(/\|/g)) {
             var myTagsReplaceTags = myTagsReplaceTag.split("|");
             for (i = 0; i < myTagsReplaceTags.length; i++) {
@@ -879,8 +886,9 @@ if (window.location.href.match("&id=")
         }
     }
     
-    if (document.getElementById("my-tags").textContent.match(/im:.*;im;/g)) {
-        var myTagsImplyTag = document.getElementById("my-tags").textContent.replace(/.*im:/g, "").replace(/;im;.*/g, "");
+    if (myTagsss.match(/im:.*;im;/g))
+    {
+        var myTagsImplyTag = myTagsss.replace(/.*im:/g, "").replace(/;im;.*/g, "");
         if (myTagsImplyTag.match(/\|/g)) {
             var myTagsImplyTags = myTagsImplyTag.split("|");
             for (i = 0; i < myTagsImplyTags.length; i++) {
@@ -895,8 +903,10 @@ if (window.location.href.match("&id=")
         }
     }
     
-    if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-        function htmlDecode(input){
+    if (myTagsss.match(/op:onload;op;/g))
+    {
+        function htmlDecode(input)
+        {
             var e = document.createElement('span');
             e.innerHTML = input;
             return e.childNodes[0].nodeValue;
@@ -909,14 +919,18 @@ if (window.location.href.match("&id=")
             0, 0, 0, 0, 0, false, false, false, false, 0, element);
             element.dispatchEvent(oEvent);
         }
-        if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
-            if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value) {
+        if (myTagsss.match(/op:onload;op;/g))
+        {
+            if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value)
+            {
                 simulateClickSubmit(document.getElementById("SubmitButton"));
             }
         }
-        if (window.location.href.match("gelbooru.com")) {
+        if (window.location.href.match("gelbooru.com"))
+        {
             setTimeout(function(){ window.close(); }, 13000);
-        } else if (window.location.href.match(/(xbooru.com|rule34.xxx|furry.booru.org)/)) {
+        } else if (window.location.href.match(/(xbooru.com|rule34.xxx|furry.booru.org)/))
+        {
             window.addEventListener("load", function() {
                 window.close();
             });
@@ -924,8 +938,10 @@ if (window.location.href.match("&id=")
     } else {
         document.getElementById("tags").value = document.getElementById("tags").value + " ";
     }
+
 }
-if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com")) {
+if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com"))
+{
     setTimeout(function(){ window.close(); }, 14000);
 }
 
