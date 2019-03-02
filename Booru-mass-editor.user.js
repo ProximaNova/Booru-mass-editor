@@ -720,6 +720,13 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
+    function htmlDecode(input)
+    {
+        var e = document.createElement('span');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
+
     if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
     {
         var imageSrc = document.getElementById("image").src;
@@ -727,8 +734,7 @@ if (window.location.href.match("&id=")
         var imageSrcThumb = document.getElementById("image").src
                     .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
                     .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
-        var myTagsss = decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, ""))
-	               .replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
+        var myTagsss = htmlDecode(decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, "")));
     }
 
     if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/")
@@ -792,7 +798,6 @@ if (window.location.href.match("&id=")
     document.getElementsByName("submit")[0].style.width = "403px";
     document.getElementsByName("submit")[0].style.height = "100px";
     document.getElementsByName("submit")[0].style.fontSize = "20pt";
-    document.getElementsByName("submit")[0].setAttribute("id", "SubmitButton");
     
     if (document.getElementsByClassName("tag-type-character").length == 0
     && (window.location.href.match(/(rule34.xxx|xbooru.com)/))) {
@@ -905,13 +910,6 @@ if (window.location.href.match("&id=")
     
     if (myTagsss.match(/op:onload;op;/g))
     {
-        function htmlDecode(input)
-        {
-            var e = document.createElement('span');
-            e.innerHTML = input;
-            return e.childNodes[0].nodeValue;
-        }
-        
         function simulateClickSubmit(element)
         {
             var oEvent = document.createEvent('MouseEvents');
@@ -919,17 +917,25 @@ if (window.location.href.match("&id=")
             0, 0, 0, 0, 0, false, false, false, false, 0, element);
             element.dispatchEvent(oEvent);
         }
-        if (myTagsss.match(/op:onload;op;/g))
+        if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
         {
-            if (htmlDecode(document.getElementById("tags").innerHTML) !== document.getElementById("tags").value)
+            setTimeout(function()
             {
-                simulateClickSubmit(document.getElementById("SubmitButton"));
-            }
+            // Do NOT run the following line with no close ("close:0;close;" OR "close:no;close;")
+                simulateClickSubmit(document.getElementsByName("submit")[0]);
+            }, 2103);
+            setTimeout(function()
+            {
+                window.close();
+            }, 2900);
+        } else {
+// Do not run the following line with no close ("close:0;close;" OR "close:no;close;")
+            simulateClickSubmit(document.getElementsByName("submit")[0]);
         }
         if (window.location.href.match("gelbooru.com"))
         {
             setTimeout(function(){ window.close(); }, 13000);
-        } else if (window.location.href.match(/(xbooru.com|rule34.xxx|furry.booru.org)/))
+        } else if (window.location.href.match(/(rule34.xxx|furry.booru.org)/))
         {
             window.addEventListener("load", function() {
                 window.close();
@@ -938,7 +944,6 @@ if (window.location.href.match("&id=")
     } else {
         document.getElementById("tags").value = document.getElementById("tags").value + " ";
     }
-
 }
 if (window.location.href.match("page=post&s=list&tags=all") && window.location.href.match("gelbooru.com"))
 {
