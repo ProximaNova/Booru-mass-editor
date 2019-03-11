@@ -29,7 +29,8 @@
 // Individual image pages: //
 // *********************** //
 if (window.location.href.match("&id=") &&
-!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/))) {
+!(window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|danbooru.donmai.us|furry.booru.org|tbib.org)/)))
+{
 // Part 1:
 var ID = window.location.href.replace(/^.*&id=/g, "").replace(/#$/g, "");
 var IDnext = Number(ID) + 1;
@@ -731,12 +732,23 @@ if (window.location.href.match("&id=")
 
     if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
     {
-        // Unused, plan on being used later:
-        // var imageSrc = document.getElementById("image").src;
-        // var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
-        // var imageSrcThumb = document.getElementById("image").src
-        //            .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
-        //            .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
+        // Plan on being used later:
+        if (document.getElementById("gelcomVideoPlayer") == null)
+        {
+            var imageSrc = document.getElementById("image").src;
+        }
+        else
+        {
+            var imageSrc = document.getElementsByTagName("source")[0].src;
+        }
+        var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+        var imageSrcThumb = imageSrc
+            .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
+            .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg").replace(/\.webm/g, ".jpg");
+        console.log(imageSrc);
+        console.log(imageSrcOneDir);
+        console.log(imageSrcThumb);
+      
         var myTagsss = htmlDecode(decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, "")));
     }
 
