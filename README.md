@@ -68,7 +68,7 @@ For newer versions of Gelbooru:
 * Regular expression replacements and removals at `&id=` pages
 * Test and maybe fix at rule34.xxx, Gelbooru.com, etc.
 * Fix immediate closer of 1st page opened (but not all subsequent pages in such a way) if op:onload;op; at xbooru.com.
-* Get BME to work with WebMs.
+* Get BME to work with WebMs in rule34.xxx (it works with WebMs in xbooru.com).
 
 ## Trends and information
 
