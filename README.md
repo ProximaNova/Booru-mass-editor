@@ -1,6 +1,6 @@
-# Booru mass editor
+# Booru Mass Editor
 
-Use the Booru mass editor (BME) to quickly edit individual images at websites running Gelbooru software. BME also imporves the interface at `index.php?page=post&s=view&id=#` and elsewhere.
+Use the Booru Mass Editor (BME) to quickly edit individual images at websites running Gelbooru software. BME also imporves the interface at `index.php?page=post&s=view&id=#` and elsewhere.
 
 ## Required additional software
 
@@ -67,6 +67,7 @@ For newer versions of Gelbooru:
 * Other stuff: this script is not finished
 * Regular expression replacements and removals at `&id=` pages
 * Test and maybe fix at rule34.xxx, Gelbooru.com, etc.
+* Fix immediate closer of 1st page opened (but not all subsequent pages in such a way) if op:onload;op; at xbooru.com.
 
 ## Trends and information
 
