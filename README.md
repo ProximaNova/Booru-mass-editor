@@ -37,7 +37,7 @@ BME will work on websites that run the following software:
 
 Add these tags at the ID page or at Account > Options > My Tags (no one or more of the same tag(s) should be in "My Tags", use `&#44;` for commas in "My Tags", and don't add too much text because the data cookie can only hold two paragraphs max):
 * To change the rating add: `r:s;r;` (changes the rating to `safe`)
-* To replace tags add: `re:bad_tag1_>_good_tag1|re:bt1_>_bt1|re:bt2_>_gt2;re;` or `re:bad_tag_>_good_tag;re;` (only replaces one tag)
+* To replace tags add: `re:bad_tag1_>_good_tag1|re:bt1_>_bt1|re:bt2_>_gt2;re;` (replaces multiple tags) or `re:bad_tag_>_good_tag;re;` (only replaces one tag)
 * To add tags add: `add:x|y|z;add;` (adds tags `x`, `y`, and `z`) or `add:x;add;` (only adds `x`)
 * To remove tags add: `re:x_>_|y_>_|z_>_;re;` (removes tags `x`, `y`, and `z`) or `re:x_>_;re;` (only removes `x`)
 * To add the "tagme" tag if an image has less than a certain amount of tags add: `tagmeif:lt#;endif;` where `#` is, examples: `tagmeif:lt5;endif;` and `tagmeif:lt10;endif;`
@@ -66,6 +66,7 @@ For newer versions of Gelbooru:
 * Get the form to display automatically instead of having to click "Edit" to unhide it - done, I think
 * Other stuff: this script is not finished
 * Regular expression replacements and removals at `&id=` pages
+* Test and maybe fix at rule34.xxx, Gelbooru.com, etc.
 
 ## Trends and information
 
