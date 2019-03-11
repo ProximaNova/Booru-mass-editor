@@ -1,14 +1,14 @@
 # Booru mass editor
 
-Use this script to quickly edit individual images at websites running Gelbooru software. It imporves the interface at `index.php?page=post&s=view&id=#`.
+Use the Booru mass editor (BME) to quickly edit individual images at websites running Gelbooru software. BME also imporves the interface at `index.php?page=post&s=view&id=#` and elsewhere.
 
 ## Required additional software
 
-To use this software you <i>must</i> have the following software:
+To use BME you <i>must</i> have the following software:
 * A web browser:
-  * <b>Firefox</b> - this software works best in Mozilla Firefox.
-  * <b>Chrome</b> (ew) - I haven't tested this software in Google Chrome in one or more years, so it probably will not work.
-  * This software probably will not work in the following: Opera, Microsoft Edge, and Internet Explorer.
+  * <b>Firefox</b> - BME works best in Mozilla Firefox.
+  * <b>Chrome</b> (ew) - I haven't tested BME in Google Chrome in one or more years, so it probably will not work.
+  * BME probably will not work in the following: Opera, Microsoft Edge, and Internet Explorer.
 * A userscript add-on:
   * <b>Greasemonkey</b> for Firefox: https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/
   * <b>Tampermonkey</b> for Chrome: https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
@@ -19,19 +19,19 @@ To use this software you <i>must</i> have the following software:
 
 Add these types of add-ons to your web broswer:
 * An add-on that only loads a tab when you select/view that tab
-  * I use <b>LoadTabOnSelect<b>: https://addons.mozilla.org/en-US/firefox/addon/loadtabonselect/
+  * I use <b>LoadTabOnSelect</b>: https://addons.mozilla.org/en-US/firefox/addon/loadtabonselect/
 * Optional, but very helpful: An add-on that opens multiple links after one click-and-drag
   * I use <b>Snap Links</b>: https://addons.mozilla.org/en-US/firefox/addon/snaplinksplus/
-  * If you can run PHP files use this type of link opening software in conjunction with a booru crawler that I wrote: [GetIDs.php](https://github.com/ProximaNova/Booru-mass-editor/blob/master/GetIDs.php) (IDK if GetIDs.php still works).
+  * If you can run PHP files use this type of link opening software in conjunction with a booru crawler that I wrote: [GetIDs.php](https://github.com/ProximaNova/Booru-mass-editor/blob/master/GetIDs.php) (I don't know if GetIDs.php still works).
 
 ## How to use this software
 
 ### Functionality
 
-This userscript will work on websites that run the following software:
-* It works the best on Gelbooru Beta 0.1.11: what most hostnames (*.example.com) on booru.org use.
-* It works on Gelbooru Beta 0.2 (more featuers planned to be added).
-* It works on Gelbooru Beta 0.2.0 or Gelbooru Beta 0.2.5 (more featuers planned to be added).
+BME will work on websites that run the following software:
+* Gelbooru Beta 0.1.11: what most hostnames on booru.org use; BME works best on this variant of Gelbooru. ("Hostname" referes to the &#42; in &#42;.example.com; it is also called a "subdomain".)
+* Gelbooru Beta 0.2 (more featuers planned to be added).
+* Gelbooru Beta 0.2.0 or Gelbooru Beta 0.2.5 (more featuers planned to be added).
 
 ### Editing upgrades
 
