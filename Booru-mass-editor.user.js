@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name          Booru Mass Editor
-// @description   Quickly edit images on older versions of Gelbooru
+// @name          Booru mass editor
+// @description   Quickly edit images at websites running Gelbooru software
 // @version       5
 // @author        usernam
 // @include       https://*.booru.org/index.php*
-// @include       http://safebooru.org/index.php*
+// @include       http*://safebooru.org/index.php*
 // @include       https://rule34.xxx/index.php*
 // @include       https://anime-pictures.net/*
 // @include       https://xbooru.com/index.php*
@@ -22,7 +22,7 @@
 // IDK if this does anything:
 // if (!(/expires=/.test(document.cookie)))
 // {
-//       document.cookie = "expires=Thu, 01 Jan 9999 00:00:00 UTC";
+//     document.cookie = "expires=Thu, 01 Jan 9999 00:00:00 UTC";
 // }
 
 // *********************** //
