@@ -19,8 +19,9 @@
 // @noframes
 // ==/UserScript==
 
+// IDK if this does anything:
 // if (!(/expires=/.test(document.cookie))) {
-       document.cookie = "expires=Thu, 01 Jan 2999 00:00:00 UTC";
+//       document.cookie = "expires=Thu, 01 Jan 9999 00:00:00 UTC";
 // }
 
 // *********************** //
@@ -729,11 +730,12 @@ if (window.location.href.match("&id=")
 
     if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
     {
-        var imageSrc = document.getElementById("image").src;
-        var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
-        var imageSrcThumb = document.getElementById("image").src
-                    .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
-                    .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
+        // Unused, plan on being used later:
+        // var imageSrc = document.getElementById("image").src;
+        // var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+        // var imageSrcThumb = document.getElementById("image").src
+        //            .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
+        //            .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg");
         var myTagsss = htmlDecode(decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, "")));
     }
 
@@ -919,17 +921,53 @@ if (window.location.href.match("&id=")
         }
         if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
         {
+            var timeSince19700101 = new Date();
+            //var time1Since19700101;
+            if (!(/timeSince19700101=/.test(document.cookie))) {
+                document.cookie = "timeSince19700101=" + timeSince19700101.getTime() + ";";
+            } else {
+                var timeSince1970Num = Number(document.cookie.replace(/.*; timeSince19700101=/g, "").replace(/;.*/g, ""));
+                if ((Number(timeSince19700101.getTime()) - timeSince1970Num) > 22001)
+                {
+                    document.cookie = "timeSince19700101=" + timeSince19700101.getTime() + ";";
+                    window.close();
+                }
+            }
+
+            setTimeout(function()
+            {
+                simulateClickSubmit(document.getElementsByName("submit")[0]);
+            }, 22000);
+            //var times1 = [];
+            //var staticTime1 = timeSince19700101.getTime();
+            //times1.push(staticTime1);
+            console.log(document.cookie);
+            /*setTimeout(function()
+            {
+                time1Since19700101 = new Date();
+                //document.cookie = "timeSince19700101=" + time1Since19700101.getTime() + ";";
+                var staticTime2 = time1Since19700101.getTime();
+                times1.push(staticTime2);
+            }, 2000);
+
+            var time2Since19700101 = new Date();
+            console.log(time2Since19700101.getTime());
+          
             setTimeout(function()
             {
             // Do NOT run the following line with no close ("close:0;close;" OR "close:no;close;")
-                simulateClickSubmit(document.getElementsByName("submit")[0]);
-            }, 2103);
-            setTimeout(function()
-            {
-                window.close();
-            }, 2900);
+                window.location.search += "&bme=done";
+              //15000
+                          setTimeout(function()
+                          {
+                             window.close();
+                          }, 2000);
+            }, 21000);
+
+          */
+            
         } else {
-// Do not run the following line with no close ("close:0;close;" OR "close:no;close;")
+            // Do not run the following line with no close ("close:0;close;" OR "close:no;close;")
             simulateClickSubmit(document.getElementsByName("submit")[0]);
         }
         if (window.location.href.match("gelbooru.com"))
