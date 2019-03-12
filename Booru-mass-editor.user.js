@@ -775,6 +775,10 @@ if (window.location.href.match("&id=")
         newlineChar4.setAttribute("style", "clear: both");
         var newlineChar5 = document.createElement("div");
         newlineChar5.setAttribute("style", "clear: both");
+        var newlineChar6 = document.createElement("div");
+        newlineChar6.setAttribute("style", "clear: both");
+        var newlineChar7 = document.createElement("div");
+        newlineChar7.setAttribute("style", "clear: both");
         var urlsOnThePageT = document.createElement("span");
         urlsOnThePageT.setAttribute("style", "float: left");
         urlsOnThePageT.appendChild(document.createTextNode("Full file:"));
@@ -820,7 +824,9 @@ if (window.location.href.match("&id=")
         urlsOnThePageiii.setAttribute("href", imageSrcThumb + "?" + theIdOfIt);
         urlsOnThePageiii.setAttribute("style", "float: left");
         urlsOnThePageiii.appendChild(document.createTextNode(imageSrcThumb + "?" + theIdOfIt));
-      
+        var urlsOnPageNum = document.createElement("span");
+        urlsOnPageNum.setAttribute("style", "float: left");
+        urlsOnPageNum.appendChild(document.createTextNode("Directory number: " + imageSrcOneDir));
         // Displaying said URLs
         var someURLs = document.getElementById("paginator");
         someURLs.appendChild(document.createElement("p"))
@@ -849,6 +855,11 @@ if (window.location.href.match("&id=")
         someURLs.appendChild(newlineChar5);
         someURLs.appendChild(urlsOnThePageTiii);
         someURLs.appendChild(urlsOnThePageiii);
+        someURLs.appendChild(document.createTextNode(""));
+        someURLs.appendChild(newlineChar6);
+        someURLs.appendChild(urlsOnPageNum);
+        someURLs.appendChild(document.createTextNode(""));
+        someURLs.appendChild(newlineChar7);
 
         var myTagsss = htmlDecode(decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, "")));
     }
@@ -860,8 +871,10 @@ if (window.location.href.match("&id=")
                              document.getElementById("tags").value.replace(/ /g, "+") +
                              "' style='color:#000099' onmouseover=\"this.style.color = '#000'\" onmouseout=\"this.style.color = " +
                              "'#000099'\">uniqueness</a>)</small>";
-        if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g)) {
-            if (document.getElementById("tags").value.match(/ /g).length > 4) {
+        if (document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g))
+        {
+            if (document.getElementById("tags").value.match(/ /g).length > 4)
+            {
                 var numberOfTags = "Tags <small>(" + document.getElementById("tags").value.match(/ /g).length +
                 tagUniqueLink;
             } else {
@@ -887,7 +900,8 @@ if (window.location.href.match("&id=")
         document.getElementById("source").value = "";
     }
     
-    if (window.location.href.match(/gelbooru\.com/)) {
+    if (window.location.href.match(/gelbooru\.com/))
+    {
         document.body.style.background = "white";
         document.getElementById("tag-list").innerHTML = document.getElementById("tag-list").innerHTML
             .replace(/<a href="index.php.*>Tag Merge<\/a>/g, "<a href='#' id='BgC'>Background check</a>");
