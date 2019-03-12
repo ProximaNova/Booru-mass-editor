@@ -696,9 +696,12 @@ document.getElementById("tag_list").appendChild(myTagsEdit1);
 var myTagsEdit2 = document.createElement("textarea");
 myTagsEdit2.setAttribute("id", "MyTagsEdit");
 myTagsEdit2.style.cssText = "max-width:19em;height:15em;position:relative;bottom:118px;";
-if (readCookie("tags").match(/\+/g)) {
+if (readCookie("tags").match(/\+/g))
+{
     myTagsEdit2.innerHTML = readCookie("tags").replace(/\+/g, " ");
-} else {
+}
+else
+{
     myTagsEdit2.innerHTML = readCookie("tags");
 }
 document.getElementById("tag_list").appendChild(myTagsEdit2);
@@ -723,6 +726,7 @@ document.getElementById("ButtonToChangeMyTags").addEventListener("click", functi
 if (window.location.href.match("&id=")
 && (window.location.href.match(/(realbooru.com|rule34.xxx|xbooru.com|gelbooru.com|furry.booru.org)/)))
 {
+    // HTML entities into the character
     function htmlDecode(input)
     {
         var e = document.createElement('span');
@@ -732,26 +736,124 @@ if (window.location.href.match("&id=")
 
     if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
     {
-        // Plan on being used later:
+        // Getting some URLs of the file
         if (document.getElementById("gelcomVideoPlayer") == null)
         {
-            var imageSrc = document.getElementById("image").src;
+            if (document.getElementById("resized_notice") == null)
+            {
+                var imageSrc = document.getElementById("image").src.replace(/\?\d+$/g, "");
+            }
+            else
+            {
+                // 6th ul > 3rd li > 1st a > href
+                var imageSrc = document.getElementsByTagName("ul")[5].childNodes[4].childNodes[0].href;
+                var imageSrcSample = document.getElementById("image").src.replace(/\?\d+$/g, "");
+            }
+            var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+            var imageSrcThumb = imageSrc
+            .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
+            .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg").replace(/\.webm/g, ".jpg");
         }
         else
         {
             var imageSrc = document.getElementsByTagName("source")[0].src;
+            var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
+            var imageSrcSample = imageSrc.replace(/\.webm/g, ".jpg");
+            // 8th ul > 4th li > 1st a > href
+            var imageSrcThumb = document.getElementsByTagName("ul")[7].childNodes[4].childNodes[0].href
+            .replace(/^http:\/\/iqdb.org\/\?url./, "");
         }
-        var imageSrcOneDir = imageSrc.substring(imageSrc.lastIndexOf("//") + 9, imageSrc.lastIndexOf("/"));
-        var imageSrcThumb = imageSrc
-            .replace(/img\.xbooru\.com\/\/images\/\d+\//g, "img.xbooru.com/thumbnails/" + imageSrcOneDir + "/thumbnail_")
-            .replace(/\.jpeg/g, ".jpg").replace(/\.png/g, ".jpg").replace(/\.gif/g, ".jpg").replace(/\.webm/g, ".jpg");
-        console.log(imageSrc);
-        console.log(imageSrcOneDir);
-        console.log(imageSrcThumb);
+        var theIdOfIt = window.location.href.replace(/^https:\/\/xbooru\.com\/index\.php\?page.post.s.view.id./g, "")
+            .replace(/\D/g, "");
+        var newlineChar = document.createElement("div");
+        newlineChar.setAttribute("style", "clear: both");
+        var newlineChar2 = document.createElement("div");
+        newlineChar2.setAttribute("style", "clear: both");
+        var newlineChar3 = document.createElement("div");
+        newlineChar3.setAttribute("style", "clear: both");
+        var newlineChar4 = document.createElement("div");
+        newlineChar4.setAttribute("style", "clear: both");
+        var newlineChar5 = document.createElement("div");
+        newlineChar5.setAttribute("style", "clear: both");
+        var urlsOnThePageT = document.createElement("span");
+        urlsOnThePageT.setAttribute("style", "float: left");
+        urlsOnThePageT.appendChild(document.createTextNode("Full file:"));
+        var urlsOnThePage = document.createElement("a");
+        urlsOnThePage.setAttribute("href", imageSrc);
+        urlsOnThePage.setAttribute("style", "float: left");
+        urlsOnThePage.appendChild(document.createTextNode(imageSrc));
+        var urlsOnThePageTi = document.createElement("span");
+        urlsOnThePageTi.setAttribute("style", "float: left");
+        urlsOnThePageTi.appendChild(document.createTextNode("Full file with ID ref:"));
+        var urlsOnThePagei = document.createElement("a");
+        urlsOnThePagei.setAttribute("href", imageSrc + "?" + theIdOfIt);
+        urlsOnThePagei.setAttribute("style", "float: left");
+        urlsOnThePagei.appendChild(document.createTextNode(imageSrc + "?" + theIdOfIt));
+        if (typeof imageSrcSample !== 'undefined')
+        {
+            var urlsOnThePageTA = document.createElement("span");
+            urlsOnThePageTA.setAttribute("style", "float: left");
+            urlsOnThePageTA.appendChild(document.createTextNode("Sample file:"));
+            var urlsOnThePageA = document.createElement("a");
+            urlsOnThePageA.setAttribute("href", imageSrcSample);
+            urlsOnThePageA.setAttribute("style", "float: left");
+            urlsOnThePageA.appendChild(document.createTextNode(imageSrcSample));
+            var urlsOnThePageTii = document.createElement("span");
+            urlsOnThePageTii.setAttribute("style", "float: left");
+            urlsOnThePageTii.appendChild(document.createTextNode("Sample file with ID ref:"));
+            var urlsOnThePageii = document.createElement("a");
+            urlsOnThePageii.setAttribute("href", imageSrcSample + "?" + theIdOfIt);
+            urlsOnThePageii.setAttribute("style", "float: left");
+            urlsOnThePageii.appendChild(document.createTextNode(imageSrcSample + "?" + theIdOfIt));
+        }
+        var urlsOnThePageT2 = document.createElement("span");
+        urlsOnThePageT2.setAttribute("style", "float: left");
+        urlsOnThePageT2.appendChild(document.createTextNode("Thumbnail:"));
+        var urlsOnThePage2 = document.createElement("a");
+        urlsOnThePage2.setAttribute("href", imageSrcThumb);
+        urlsOnThePage2.setAttribute("style", "float: left");
+        urlsOnThePage2.appendChild(document.createTextNode(imageSrcThumb));
+        var urlsOnThePageTiii = document.createElement("span");
+        urlsOnThePageTiii.setAttribute("style", "float: left");
+        urlsOnThePageTiii.appendChild(document.createTextNode("Thumbnail with ID ref:"));
+        var urlsOnThePageiii = document.createElement("a");
+        urlsOnThePageiii.setAttribute("href", imageSrcThumb + "?" + theIdOfIt);
+        urlsOnThePageiii.setAttribute("style", "float: left");
+        urlsOnThePageiii.appendChild(document.createTextNode(imageSrcThumb + "?" + theIdOfIt));
       
+        // Displaying said URLs
+        var someURLs = document.getElementById("paginator");
+        someURLs.appendChild(document.createElement("p"))
+        someURLs.appendChild(urlsOnThePageT);
+        someURLs.appendChild(urlsOnThePage);
+        someURLs.appendChild(document.createTextNode(""));
+        someURLs.appendChild(newlineChar);
+        someURLs.appendChild(urlsOnThePageTi)
+        someURLs.appendChild(urlsOnThePagei)
+        if (typeof imageSrcSample !== 'undefined')
+        {
+            someURLs.appendChild(document.createTextNode(""));
+            someURLs.appendChild(newlineChar2);
+            someURLs.appendChild(urlsOnThePageTA);
+            someURLs.appendChild(urlsOnThePageA);
+            someURLs.appendChild(document.createTextNode(""));
+            someURLs.appendChild(newlineChar3);
+            someURLs.appendChild(urlsOnThePageTii);
+            someURLs.appendChild(urlsOnThePageii);
+        }
+        someURLs.appendChild(document.createTextNode(""));
+        someURLs.appendChild(newlineChar4);
+        someURLs.appendChild(urlsOnThePageT2);
+        someURLs.appendChild(urlsOnThePage2);
+        someURLs.appendChild(document.createTextNode(""));
+        someURLs.appendChild(newlineChar5);
+        someURLs.appendChild(urlsOnThePageTiii);
+        someURLs.appendChild(urlsOnThePageiii);
+
         var myTagsss = htmlDecode(decodeURIComponent(document.cookie.replace(/.*; tags=/g, "").replace(/;.*/g, "")));
     }
 
+    // Rule34.xxx stuff
     if (document.getElementById("tags").value.match(" ") && document.getElementsByTagName("a")[0].href.value == "//rule34.xxx/")
     {
         var tagUniqueLink = " | <a href='index.php?page=post&s=list&tags=" +
