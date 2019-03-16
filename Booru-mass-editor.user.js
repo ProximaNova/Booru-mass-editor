@@ -971,17 +971,20 @@ if (window.location.href.match("&id=")
         }
     }
     
-    if (document.getElementById("tags").value.match(" ")) {
+    if (document.getElementById("tags").value.match(" "))
+    {
         if (myTagsss.match(/tagmeif:lt\d+;endif;/g) &&
         document.getElementById("tags").value.match(/(^tagme | tagme | tagme$)/g) &&
-        document.getElementById("tags").value.match(/ /g).length >= 10) {
+        document.getElementById("tags").value.match(/ /g).length >= 10)
+        {
             replaceTags("tagme", " ", "", "");
         }
     } else {
     //  11.2  Add it (based on ("#my-tags")):
         if (myTagsss.match(/tagmeif:lt\d+;endif;/g) &&
         document.getElementById("tags").value.match(/ /g).length <=
-        Number(myTagsss.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, ""))) {
+        Number(myTagsss.replace(/.*tagmeif:lt/g, "").replace(/;endif;.*/, "")))
+        {
             document.getElementById("tags").value = document.getElementById("tags").value + " tagme ";
         }
     }
@@ -1048,6 +1051,17 @@ if (window.location.href.match("&id=")
             0, 0, 0, 0, 0, false, false, false, false, 0, element);
             element.dispatchEvent(oEvent);
         }
+
+        // control+enter = submit
+        // <thanks to="https://developer.mozilla.org/en-US/docs/Web/Events/keydown">
+        document.getElementById("tags").addEventListener("keydown", event => {
+            if (event.keyCode === 13 && event.ctrlKey)
+            {
+                simulateClickSubmit(document.getElementsByName("submit")[0]);
+            }
+        });
+        // </thanks>
+
         if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
         {
             var timeSince19700101 = new Date();
