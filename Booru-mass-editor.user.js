@@ -647,14 +647,17 @@ function simulateClickSubmit(element)
     0, 0, 0, 0, 0, false, false, false, false, 0, element);
     element.dispatchEvent(oEvent);
 }
-if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g)) {
+if (document.getElementById("my-tags").textContent.match(/op:onload;op;/g))
+{
     var myTagsSubmitOnLoadInfo = "<li><span style='font-size:400%;position:relative;top:-15px;'>&#9758;</span> " +
                                   "<span style='position:relative;top:-30px;'>Submitting tag<br>" +
                                   "operation(s) on page load</li>";
-    if (htmlDecode(document.getElementById("tags").innerHTML) + " " !== document.getElementById("tags").value) {
+    if (htmlDecode(document.getElementById("tags").innerHTML) + " " !== document.getElementById("tags").value)
+    {
         simulateClickSubmit(document.getElementsByName("submit")[1]);
     }
-    if (document.getElementById("my-tags").textContent.match(/close:(1|yes);close;/g)) {
+    if (document.getElementById("my-tags").textContent.match(/close:(1|yes);close;/g))
+    {
         window.addEventListener("load", function() {
             window.close();
         });
@@ -1042,26 +1045,23 @@ if (window.location.href.match("&id=")
         }
     }
     
+    function simulateClickSubmit(element)
+    {
+        var oEvent = document.createEvent('MouseEvents');
+        oEvent.initMouseEvent("click", true, true, document.defaultView,
+        0, 0, 0, 0, 0, false, false, false, false, 0, element);
+        element.dispatchEvent(oEvent);
+    }
+
+    document.getElementById("tags").addEventListener("keydown", event => {
+        if (event.keyCode === 13 && event.ctrlKey)
+        {
+            simulateClickSubmit(document.getElementsByName("submit")[0]);
+        }
+    });
+  
     if (myTagsss.match(/op:onload;op;/g))
     {
-        function simulateClickSubmit(element)
-        {
-            var oEvent = document.createEvent('MouseEvents');
-            oEvent.initMouseEvent("click", true, true, document.defaultView,
-            0, 0, 0, 0, 0, false, false, false, false, 0, element);
-            element.dispatchEvent(oEvent);
-        }
-
-        // control+enter = submit
-        // <thanks to="https://developer.mozilla.org/en-US/docs/Web/Events/keydown">
-        document.getElementById("tags").addEventListener("keydown", event => {
-            if (event.keyCode === 13 && event.ctrlKey)
-            {
-                simulateClickSubmit(document.getElementsByName("submit")[0]);
-            }
-        });
-        // </thanks>
-
         if (window.location.href.match(/xbooru.com.index.php.page.post.s.view.id/))
         {
             var timeSince19700101 = new Date();
