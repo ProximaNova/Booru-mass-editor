@@ -370,12 +370,12 @@ if (document.getElementById("my-tags").textContent.match(/del:.*;del;/g)) {
 if (document.getElementById("title").value == "Booru mass uploader") {
     document.getElementById("title").value = "";
 }
-if (document.getElementById("source").value == "https://ibsearch.xxx" ||
+/* if (document.getElementById("source").value == "https://ibsearch.xxx" ||
 document.getElementById("source").value == "http://ibsearch.i-forge.net/mass-upload" ||
 document.getElementById("source").value == "http://i-forge.net/imageboards/mass-upload" ||
 document.getElementById("source").value == "Booru mass uploader") {
     document.getElementById("source").value = "";
-}
+} */
 
 //  10.0  Functions for adding and replacing tags:
 function addTags(tagToAdd) {
